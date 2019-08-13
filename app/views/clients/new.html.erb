@@ -1,0 +1,52 @@
+<div class='col-md-6 col-md-offset-3 panel panel-default signup card card-border-color card-border-color-primary' style="margin-top: 95px;">
+  <div class='panel-body'>
+    <h2 class="cr-acc-title">Create An Account</h2>
+
+    <%= simple_form_for @client, :remote => true do |f| %>
+      <%= f.fields_for :owner do |o| %>
+        <%= o.hidden_field :client_type_id, value: ClientType.type(ClientType::SCHOOL) %>
+        <div class="row">
+          <div class="col-md-12">
+            <%= o.input :email %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <%= o.input :first_name %>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <%= o.input :last_name %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <%= o.input :password %>
+          </div>
+          <div class="col-sm-6">
+            <%= o.input :password_confirmation %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <%= o.input :orgination_name, label: "Name of the School" %>
+          </div>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.input :subdomain do %>
+            <div class='input-group'>
+              <%= f.input_field :subdomain, class: 'form-control' %>
+              <span class='input-group-addon'>.thinkablelms.com</span>
+            </div>
+            <p class="sub-domain-validation"></p>
+          <% end %>
+        </div>
+      </div>
+    <p class="cli-sum-btn"><span class="loading-image hide"><%= image_tag 'loading.gif'%></span><%= f.button :submit, class: 'btn btn-space btn-primary btn-client' %></p>
+    <% end %>
+  </div>
+</div>
+

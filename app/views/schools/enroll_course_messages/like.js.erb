@@ -1,0 +1,9 @@
+$(".like-link_<%= @enroll_course_message.id %>").attr("title", "<%= @enroll_course_message.user_like_status(current_user) %>")
+$(".likes_count_<%= @enroll_course_message.id %>").text("<%= @enroll_course_message.course_chat_likes.count %>")
+<% if @enroll_course_message.user_like(current_user) %>
+  $(".fa-thumbs-up_<%= @enroll_course_message.id %>").addClass("thumb-up-color");
+  // $(".enroll_course_message-like-text-<%= @enroll_course_message.id %>").text("Unlike");
+<% else %>
+  // $(".enroll_course_message-like-text-<%= @enroll_course_message.id %>").text("Like");
+  $(".fa-thumbs-up_<%= @enroll_course_message.id %>").removeClass("thumb-up-color");
+<% end %>

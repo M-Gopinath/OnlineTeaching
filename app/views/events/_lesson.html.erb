@@ -1,0 +1,49 @@
+<div class="cus-boo-modal">
+  <div class="modal fade" id="lesson_event">
+    <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Lesson Details</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row event-row-details">
+            <div class="col-md-6">
+              <div class="cour-details-row">
+                <p><span class="course-title">Course Name </span></p>
+                <span><%= @lesson.course.name %></span>
+              </div>
+              <div class="cour-details-row">
+                <p><span class="course-title">Lesson Start Date</span></p>
+                <span><%= @lesson.start_date %></span>
+              </div>
+            </div> 
+
+            <div class="col-md-6">
+              <div class="cour-details-row">
+                <p><span class="course-title">Lesson Name </span></p>
+                <span><%= @lesson.name %></span>
+              </div>
+                
+              <div class="cour-details-row">
+                <p><span class="course-title"> Lesson End Date</span></p>
+                <span><%= @lesson.end_date %></span>
+              </div>
+            </div> 
+          </div>
+          <div class="row event-row-details">
+            <div class="col-md-12">
+              <div class="cour-details-row">
+                <p><span class="course-title">Lesson Description</span></p> 
+                <span> <%= @lesson.description %></span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-space btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,662 @@
+// Place all the styles related to the schools/students controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+  .top-100 {
+    margin-top: 100px;
+  }
+  .student-course-center  p {
+    margin: 0px;
+  }
+   
+  .cour-details-row {
+    border-bottom: 1px solid #fafafa;
+    padding: 15px 15px 15px 15px;
+    line-height: 25px;
+  }
+
+  .cour-details-row p {
+    margin: 0px;
+  }
+
+  .show-img-box img  {
+    width: 150px;
+    height: 150px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+  }
+
+  .cus-ul-li {
+    margin-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .cus-ul-li li{
+    text-align: center;
+    border: none;
+    border-radius: .25rem;
+    box-shadow: 0 0 0 1px rgba(20,20,31,.05), 0 1px 3px 0 rgba(20,20,31,.15);
+    margin-right: 10px;
+    width: 166px;
+    height: 55px;
+  }
+
+  .cus-ul-li > .last-ul-li {
+    margin-right: 0px !important;
+  }
+
+  .cus-ul-li li > a > span {
+    display: block;
+    color: #fff;
+    font-size: 15px;
+  }
+
+  .bg-purple {
+    background: #fa5c7c;
+  }
+
+  .bg-blue {
+    background: #356cb0;
+  }
+
+  .bg-green {
+    background: #5cb85c;
+  } 
+
+  .course-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  .font-weight {
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .show-img-box {
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .course-box-footer {
+    margin-top: 30px;
+  }
+ 
+  .top-80 {
+    margin-top: 75px;
+  } 
+
+  .top-30 {
+    margin-top: 20px;
+  }
+
+  .round-img {
+    background: #eee;
+    border-radius: 100%;
+    padding: 4px;
+  }
+
+  .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+    vertical-align: middle !important;
+  }
+
+  .status-box .btn {
+    border-bottom: 0px;
+  }
+  
+  .full-activity-show {
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .flickr_pagination ul > li > span, .flickr_pagination ul > li > a {
+    padding: 6px 12px !important;
+  }
+
+  .show-lesson-ac-table {
+    height: 215px;
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+  }
+
+  .no-data-found {
+    text-align: center;
+    padding-top: 8%;
+    font-size: 20px;
+  }
+
+    .cus-row-0 {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  .left-border{
+    background: #fff;
+    height: 92vh;
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 260px;
+    top: 60px;
+    border-right: 1px solid #ddd;
+  }
+
+  .padding-right-0 {
+    padding-right: 0px;
+  }
+
+  .padding-0 {
+    padding: 0px;
+  }
+  
+  .cus-panel-design {
+    height: auto; 
+  }
+
+  .st-show-img-box{
+    padding: 20px 20px;
+  }
+
+  .st-show-img-box img {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background: #f5f5f5;
+  }
+
+  .left-border .cour-details-row {
+    border-bottom: 1px solid #f5f5f5;
+    padding: 12px 0px 12px 0px;
+  }
+
+  .st-cus-3 {
+    width: 20%;
+  }
+
+  .st-cus-9 {
+    width: 80%;
+  }
+
+  .show-img-box-cust img {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .show-img-box-cust {
+    margin-top: 0px;
+  }
+  
+  .quesiton-answer{
+    padding: 10px;
+  }
+
+  .qu-title {
+    position: absolute;
+    padding-top: 0px;
+  }
+
+  .qu-ans-h3 {
+    margin: 0px;
+    border-bottom: 1px solid #f5f5f5;
+    padding: 5px 13px 35px 0px;
+    font-size: 16px;
+  }
+
+  .question-sub-answ {
+    border-bottom: 1px solid #eee;
+    padding: 20px 0px;
+    background: #fff;
+    padding-left: 15px;
+    padding-right: 15px;   
+  }
+
+  .question-sub-answ p {
+    margin: 0 0 7px;
+  }
+
+  .quesiton-answer-show .form-group {
+    margin-bottom: 0px;
+  }
+
+ .quesiton-answer-show  .answer_error {
+    height: 10px;
+    margin-bottom: 1;
+    margin-top: 0;
+    font-size: 12px;
+  }
+
+  .question-sub-answ input , .question-sub-answ select {
+    height: 40px;
+  }
+
+  .question-sub-answ .btn{
+    height: 30px !important;
+  }
+  
+  .radiobutton-container {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    text-transform: capitalize !important;
+    font-size: 13px !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .radiobutton-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .radiobutton-container .checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+  }
+
+  .question-sub-answ .radiobutton-container .checkmark  {
+    top: -2px !important;
+  }
+
+  .question-sub-answ .checkbox-container  .checkmark  { 
+    top: 4px !important;
+  }
+
+  .question-sub-answ .radiobutton-container, .question-sub-answ .checkbox-container {
+    margin-top: 17px;
+    margin-bottom: 5px;
+  }
+
+  .radiobutton-container .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .radiobutton-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .radiobutton-container .checkmark:after {
+    top: 4px;
+    left: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #346cb0;
+  }
+
+  .data-no-found {
+    text-align: center;
+    padding: 60px 0px 60px;
+    margin: 0px;
+  }
+
+  .question-sub-answ strong {
+    font-size: 15px;
+    margin-right: 8px;
+  }
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  text-transform: capitalize !important;
+  font-size: 13px !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.panel-group .panel {
+  border-radius: 0px;
+}
+
+.each-grade-details {
+  margin-bottom: 10px; 
+}
+
+.checkbox-container .checkmark {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.checkbox-container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 6px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid #346cb0;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+.lesson-data-found{
+  padding-top: 60px;
+  padding-bottom: 60px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 1px solid #eee;
+}
+
+.status-box .active {
+  background: #346cb0;
+  color: #fff;
+}
+
+.active-count {
+  float: right;
+  padding-right: 30px;
+  font-weight: bold;
+}
+
+.full-bg-color .col-sm-12 {
+  padding: 0px;
+}
+
+#update-less-act {
+  background: #fff;
+  padding: 0px;
+}
+
+.th-sc-img img {
+  height: 125px;
+  overflow: hidden;
+}
+
+.activity-name {
+  padding: 10px;
+  background: #fafafa;
+  font-size: 18px;
+}
+
+.cus-row-0 .panel {
+  margin-top: 0px !important;
+  border: 0px solid #ffff
+}
+
+.cus-row-0  .panel-heading {
+  border-bottom: 1px solid #fff;
+}
+
+.add-row {
+  background: #fbfcff;
+}
+
+.student-course-center .row {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.student-course-center .cour-details-row {
+  border-bottom: 1px solid #f5f5f5;
+  padding: 7px 15px 7px 15px;
+  line-height: 25px;
+}
+
+#accordion .panel-title .fa {
+  position: absolute;
+  right: 55px;
+  font-size: 18px;
+  line-height: 0px;
+  color: #595959;
+  transition: all 0.4s ease;
+  margin-top: -7px;
+  font-weight: 800;
+}
+
+.panel-title a {
+  display: -webkit-box;
+  font-size: 15px;
+}
+
+.full-bg-color .panel-group {
+  margin-bottom: 0px;
+}
+
+
+.tile{
+  width: 100%;
+  background:#fff;
+  border-radius:5px;
+  box-shadow:0px 2px 3px -1px rgba(151, 171, 187, 0.7);
+  float:left;
+  transform-style: preserve-3d;
+  border: 1px solid #eee;
+  margin-bottom: 40px;
+}
+
+.course-title-left{
+  display: block;
+  float: left;
+  width: 175px;
+}
+
+.course-date-left{
+  display: block;
+  float: right;
+}
+
+.course-instructor{
+  display: -webkit-inline-box;
+  margin: 7px 0px 0px 0px;
+}
+
+.fon-weight-600 {
+  font-weight: 500;
+}
+
+.header{
+  border-bottom: 1px solid #ebeff2;
+  padding: 10px 7px;
+  color: #59687f;
+  font-size: 1.03rem;
+  position: relative;
+  display: flow-root;
+}
+
+.grade-show .header{
+  border-bottom: 1px solid #ebeff2;
+  padding: 0px 5px;
+  color: #59687f;
+  font-size: 1.03rem;
+  position: relative;
+  display: flow-root;
+}
+
+.student-answer-title {
+  margin: 0;
+  padding: 10px;
+  background: #f5f5f5;
+  font-size: 1.15rem;
+}
+
+.each-grade-details .table > thead > tr > th {
+  padding: 7px 8px 7px 10px;
+  font-size: 1.15rem;
+  font-weight: 100;
+  border-bottom: 0px solid #ddd;
+}
+
+.each-grade-details .table > tbody > tr > td {
+  padding: 7px 8px 7px 10px;
+  font-size: 15px;
+  font-weight: 100;
+  border-bottom: 0px solid #ddd;
+  color: #777777;
+}
+
+.answer-text {
+  color: #777777;
+}
+
+.grade_activity {
+  background: whitesmoke;
+  padding-top: 0px;
+  padding-bottom: 15px;
+}
+
+.course-act-name {
+  background: #708090;
+  padding: 10px;
+  color: #fff;
+  border-radius: 3px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  font-size: 15px;
+}
+
+.each-grade-details {
+  margin-bottom: 20px;
+}
+
+.each-grade-details .panel-default {
+  border-radius: 0px;
+}
+
+#accordion .each-grade-details .panel-title .fa {
+  position: absolute;
+  right: 20px;
+  font-size: 18px;
+  line-height: 0px;
+  color: #595959;
+  transition: all 0.4s ease;
+  margin-top: 0px;
+  font-weight: 800;
+}
+
+.student-name {
+  float: right;
+  font-size: 1.05rem;
+  line-height: 18px;
+  color: #777777;
+}
+
+.dark-light-text {
+  color: #333;
+}
+
+.course-inner-img {
+  flex-direction: column;
+  position: relative;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.course-img  {
+  padding: 0px;
+  height: 150px;
+  justify-content: center;
+  position: relative;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.course-img img {
+  border-radius: 0px;
+  max-height: 150px;
+  max-width: 100%;
+  border-top-left-radius: 3px;
+  width: 100%;
+  border-top-right-radius: 3px;
+}
+
+.course-rating{
+  padding:0px 0px;
+  margin:0px 0px;
+  font-size:16px;
+  color:#5aadef;
+  font-weight:600;  
+  overflow:auto;
+}
+
+.course-rating .progress {
+  height: 5px;
+  margin-bottom: 0px;
+  border-radius: 0px;
+}
+
+.course-rating .progress-bar {
+  background: #337ab7;
+}
+
+.tile .footer {
+  position: relative;
+  margin: 0px 0px;
+  background: #f5f5f5;
+}
+
+.footer > ul > li > span {
+  display: block;
+  text-align: center;
+  line-height: 25px;
+}
+
+.footer > ul {
+  margin-left: 0px;
+  text-align: center;
+  padding: 11px 0px 10px 0px;
+}
+
+
+.row-row-right {
+  padding-right: 10px;
+}
+
+.quesiton-ans .fa-caret-down {
+  margin-left: 97%;
+  margin-top: -25px;
+  display: -webkit-box;
+  margin-bottom: 12px;
+}
+
+.accordion-toggle:hover {
+  color: #356cb0;
+}

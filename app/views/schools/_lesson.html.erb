@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="course-tabs">
+    <div class="container-fluid">
+      <div class="tab-content">
+        
+        <div id="course-overview" class="tab-pane fade">
+          <div class="curse-details">
+            <div id="setup-lesson-form-tabs">
+              <p class="text-center"><img src="/assets/loading.gif"></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="course-content" class="tab-pane active">
+          <div id="setup-lesson-form">
+            <%= render partial: "schools/new_lesson", locals: {lesson: lesson,course: course} %>
+          </div>          
+        </div>
+
+        <div id="gradebook" class="tab-pane fade">
+          <div id="setup-lesson-form-course"></div>
+        </div>
+
+        <div id="document" class="tab-pane fade">
+          <div id="setup-document-tabs"></div>
+        </div>
+
+        <div id="chat" class="tab-pane fade">
+          <div class="row">
+            <div class="col-md-9 setup-chat-tabs" id="setup-chat-tabs-0">
+              <p class="text-center"><img src="/assets/loading.gif"></p>
+            </div>
+            <div class="col-md-3 course-direct-chat">
+              <div class="direct-chat">
+                <div class="th-not-items">
+                  <div class=" th-cus-panel">
+                    <div id="user-widget" class="course-widget course_enrolled_direct_chat">
+                      <%= render partial: "schools/users_widget", locals: {admins: User.admin_for_course_enroll(course), teachers: User.teacher_for_course_enroll(course), students: User.student_for_course_enroll(course)} %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="students-enroll" class="tab-pane fade">
+          <div class="margin-96">
+            <%= render partial: "schools/courses/student_enroll_course", locals: {course: course} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function () {
+    var avgRat = $("#avg-rating").data("avg-rating")
+    $("#avg-rating").rateYo({
+      rating: avgRat,
+      ratedFill: "#FCCF1A",
+      starWidth: "20px",
+      spacing: "4px",
+      precision: 1,
+      readOnly: true
+    });
+  });
+</script>

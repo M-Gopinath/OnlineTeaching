@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  video: MyString
+  embedded_video: MyString
+  due_date: 2018-11-08
+  publish: false
+  required: false
+  lesson: one
+  activity_points: 1
+
+two:
+  name: MyString
+  video: MyString
+  embedded_video: MyString
+  due_date: 2018-11-08
+  publish: false
+  required: false
+  lesson: two
+  activity_points: 1

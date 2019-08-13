@@ -1,0 +1,30 @@
+$("#first-course").html("<%= j(render partial: 'schools/first_course', locals: {course: @course, teachers: @teachers}) %>");
+$("#first-lesson").html("<%= j(render partial: 'schools/lesson', locals: {lesson: Lesson.new, teachers: @teachers, lessons: @lessons, course: @course}) %>");
+$(".lesson-list").html("<%= j(render partial: 'schools/lessons/lesson_lists', locals: {lessons: @course.lessons, course: @course}) %>");
+$(".Alesson-list").html("<%= j(render partial: 'schools/lessons/activity_lesson_lists', locals: {lessons: @course.lessons, course: @course}) %>");
+$("#course_id").val("<%= @course.id %>");
+$(".lesson-course-id").val("<%= @course.id %>");
+$(".through-course-overview-btn").data("course","<%= @course.id %>");
+<% @course.course_users.each.with_index do |c,i| %>
+	$('#course_course_users_attributes_<%= i %>_id').val('<%= c.id %>');
+<%end%>
+<% if @course.course_images.last.present? && @course.course_images.last.image.present?%>
+   $('.course_image').attr('src',"<%= @course.course_images.last.image.url %>");
+   $("#course_course_images_attributes_0_image").data("image-present",true);
+<%end%>
+courseDatePicker();
+lessonDatePicker();
+<% if @course.start_date.present? %>
+  $('#lesson-start-datetimepicker').data('DateTimePicker').minDate(new Date("<%= @course.start_date %>"));
+<%end%>
+<% if @course.end_date.present? %>
+  $('#lesson-start-datetimepicker').data('DateTimePicker').maxDate(new Date("<%= @course.end_date %>"));
+  $('#lesson-end-datetimepicker').data('DateTimePicker').maxDate(new Date("<%= @course.start_date %>"));
+  $('#lesson-end-datetimepicker').data('DateTimePicker').maxDate(new Date("<%= @course.end_date %>"));
+<% end %>
+
+$(".gradebooks_and_documents_view").html("<%= j(render 'schools/courses/gradebooks_and_documents_view') %>")
+
+$('.course_rating_title').html("<%= j(render 'schools/course_rating_title') %>")
+
+$(".course_enrolled_direct_chat").html("<%= j(render partial: 'schools/users_widget', locals: {admins: User.admin_for_course_enroll(@course), teachers: User.teacher_for_course_enroll(@course), students: User.student_for_course_enroll(@course)}) %>");

@@ -1,0 +1,257 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="top-60 first-course">
+      <div class="col-sm-3 user-col-sm-3">
+        <% if user_signed_in? && current_user.admin_super_admin? %>
+          <p class="btn-cent-left"><button type="button" class="btn btn-space btn-primary new-user-modal" data-toggle="modal" data-target="#newUser">New User</button></p>
+        <% end %>
+        <div class="th-act-dac">
+          <ul class="nav md-pills  pills-secondary">
+            <li class="nav-item active">
+              <a class="nav-link" data-toggle="tab" href="#panel12" role="tab">
+                <div class="col-md-4-1">
+                  <div class="th-ad-ad-dac">
+                    <div class="panel th-cus-panel">
+                      <div class="panel-heading">
+                        <h3 class="panel-title text-center">
+                          ADMINS
+                        </h3>
+                      </div>
+                      <div class="panel-body text-center">
+                        <div class="th-ac-count sa-col"><span>Active</span><span class="admin-active-count"><%= @admins.active.count %></span></div>
+                        <div class="th-dc-count sa-col"><span>Deactive</span><span class="admin-deactive-count"><%= @admins.deactive.count %></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
+                <div class="col-md-4-1">
+                  <div class="th-ad-ad-dac">
+                    <div class="panel th-cus-panel">
+                      <div class="panel-heading">
+                        <h3 class="panel-title text-center">
+                          TEACHERS
+                        </h3>
+                      </div>
+                      <div class="panel-body text-center">
+                        <div class="th-ac-count sa-col"><span>Active</span><span class="teacher-active-count"><%= @teachers.active.count %></span></div>
+                        <div class="th-dc-count sa-col"><span>Deactive</span><span class="teacher-deactive-count"><%= @teachers.deactive.count %></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#panel14" role="tab">
+                <div class="col-md-4-1">
+                  <div class="th-ad-ad-dac">
+                    <div class="panel th-cus-panel">
+                      <div class="panel-heading">
+                        <h3 class="panel-title text-center">
+                          STUDENTS
+                        </h3>
+                      </div>
+                      <div class="panel-body text-center">
+                        <div class="th-ac-count sa-col"><span>Active</span><span class="student-active-count"><%= @students.active.count %></span></div>
+                        <div class="th-dc-count sa-col"><span>Deactive</span><span  class="student-deactive-count"><%= @students.deactive.count %></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-9 user-col-sm-9">
+        <div class="tab-content">
+          <%= form_tag import_users_path, remote: true, method: :post, class: "hidden" do %>
+            <%= file_field_tag :file, value: "", class: "import-file" %>
+            <%= submit_tag "Submit", class: "import-user-submit" %>
+          <% end %>
+          <div class="import-error-message"></div>
+          <div class="tab-pane fade in active" id="panel12" role="tabpanel">
+            <div class="col-sm-3">
+              <div class="user_search_box margin-bottom-15">
+                <%= form_tag(search_users_path, remote: true, method: :get) do %>
+                  <%= text_field_tag :user_name_email, "", class: "form-control search_user", placeholder: "Search with Name or Email" %>
+                  <%= hidden_field_tag :role, "Admin" %>
+                  <%= submit_tag "submit", class: "user-search-btn hidden" %>
+                <% end %>
+              </div>
+            </div>
+
+            <% if @admins.present?%>
+              <div class="col-sm-4">
+                <div class="flickr_pagination admin_pagintion margin-bottom-15">
+                   <%= render partial: "user_pagination", locals: {users: @admins, param: 'admin'} %>
+                </div>
+              </div>
+              <div class="col-sm-1 col-xs-3">
+                <div class="margin-bottom-15">
+                  <select class="form-control per-page-align" data-pager-action='pagesize' data-user-type="admin">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                  <i class="fa fa-caret-down"></i>
+                </div>
+              </div>
+            <% end %>
+            <div class="col-sm-4 col-xs-9">
+              <div class="impor-export-btn margin-bottom-15">
+                <% if user_signed_in? && current_user.admin_super_admin? %>
+                  <%= link_to "Import to xlsx", "javascript:;", class: "btn btn-default xlsx import-users" %>
+                  <%= link_to "Export to xlsx", export_users_path("admins", format: "xlsx" ), class: "btn btn-default xls"%>
+                <% end %>
+              </div>
+            </div>
+            <div id="admin_user_list">
+              <% if @admins.present?%>
+                 <%= render partial: "users_lists", locals: {users: @admins, type: "admin"} %>
+              <%else%>
+                <p class="no-record-found-text">No Record Found</p>
+              <%end%>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="panel13" role="tabpanel">
+            <div class="row-row-user">
+              <div class="col-sm-3">
+                <div class="user_search_box margin-bottom-15">
+                  <%= form_tag(search_users_path, remote: true, method: :get) do %>
+                    <%= text_field_tag :user_name_email, "", class: "form-control search_user", placeholder: "Serach with Name or Email" %>
+                    <%= hidden_field_tag :role, "Teacher" %>
+                    <%= submit_tag "submit", class: "user-search-btn hidden" %>
+                  <% end %>
+                </div>
+              </div>
+              <% if @teachers.present?%>
+                <div class="col-sm-4">
+                  <div class="flickr_pagination teacher_pagintion text-center margin-bottom-15">
+                    <%= render partial: "user_pagination", locals: {users: @teachers, param: 'teacher'} %>
+                  </div>
+                </div>
+                <div class="col-sm-1 col-xs-3">
+                  <div class="margin-bottom-15">
+                    <select class="form-control per-page-align" data-pager-action='pagesize' data-user-type="teacher">
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+                    <i class="fa fa-caret-down"></i>
+                  </div>
+                </div>
+              <% end %>
+              <div class="col-sm-4 col-xs-9">
+                <div class="impor-export-btn margin-bottom-15">
+                  <button class="btn btn-default xlsx">Import to xlsx</button>
+                  <%= link_to "Export to xlsx", export_users_path("teachers", format: "xlsx" ), class: "btn btn-default xls"%>
+                </div>
+              </div>
+            </div>
+
+            <div id="teacher_user_list">
+              <% if @teachers.present?%>
+                <%= render partial: "users_lists", locals: {users: @teachers, type: "teacher"} %>
+              <%else%>
+               <p class="no-record-found-text">No Record Found</p>
+              <%end%>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="panel14" role="tabpanel">
+            <div class="col-sm-3">
+              <div class="user_search_box margin-bottom-15">
+                <%= form_tag(search_users_path, remote: true, method: :get) do %>
+                  <%= text_field_tag :user_name_email, "", class: "form-control search_user", placeholder: "Serach with Name or Email" %>
+                  <%= hidden_field_tag :role, "Student" %>
+                  <%= submit_tag "submit", class: "user-search-btn hidden" %>
+                <% end %>
+              </div>
+            </div>
+            <% if @students.present?%>
+              <div class="col-sm-4">
+                <div class="flickr_pagination student_pagintion">
+                  <%= render partial: "user_pagination", locals: {users: @students, param: 'student'} %>
+                </div>
+              </div>
+              <div class="col-sm-1 col-xs-3">
+                <div class="margin-bottom-15">
+                  <select class="form-control per-page-align" data-pager-action='pagesize' data-user-type="student">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                  <i class="fa fa-caret-down"></i>
+                </div>
+              </div>
+            <% end %>
+            <div class="col-sm-4 col-xs-9">
+              <div class="impor-export-btn margin-bottom-15">
+                <button class="btn btn-default xlsx">Import to xlsx</button>
+                <%= link_to "Export to xlsx", export_users_path("students", format: "xlsx" ), class: "btn btn-default xls"%>
+              </div>
+            </div>
+            <div id="student_user_list">
+              <% if  @students.present?%>
+                <%= render partial: "users_lists", locals: {users: @students, type: "student"} %>
+              <%else%>
+              <p class="no-record-found-text">No Record Found</p>
+              <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="cus-boo-modal">
+  <div class="modal fade" id="newUser" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">New User Form</h4>
+        </div>
+        <%= form_for User.new, url: new_user_path, remote: true do |f| %>
+          <div class="modal-body">
+            <div class="new-user-error"></div>
+            <div class="form-group">
+              <label>Select Role</label>
+              <%= f.select :role_id, Role.where.not(:id => 1).map { |r| [r.name, r.id] }, {prompt: "Select Role"}, class: "form-control", required: true  %>
+              <i class="fa fa-caret-down"></i>
+            </div>
+            <div class="form-group">
+              <label>First Name</label>
+              <%= f.text_field :first_name, class: "form-control", required: true %>
+            </div>
+            <div class="form-group">
+              <label>Last Name </label>
+              <%= f.text_field :last_name, class: "form-control"%>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <%= f.text_field :email, class: "form-control", required: true%>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-space btn-danger" data-dismiss="modal">Close</button>
+              <span class="display-spin hide"><%= image_tag 'loading.gif'%></span>
+             <%= f.submit "Create", class: "btn btn-space btn-primary click-show-spin" %>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+

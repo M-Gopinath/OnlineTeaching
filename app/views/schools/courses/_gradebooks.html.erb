@@ -1,0 +1,30 @@
+<div class="top-15">
+  <div class="course-doc">
+    <% @course.lessons.each do |lesson| %>
+        <div class="lesson-name">
+          <h4><span>Lesson Name </span> - <span><%= lesson.name %></span></h4>
+        </div>
+      <% lesson.all_activities.each.with_index do |activity,index| %>
+        <% if activity.student_answers.present? %>
+          <div class="col-md-12">
+            <div class="col-xs-12 each-grade-details">
+              <div class="activity-name-point">
+                <span class="pull-left"><%= "#{activity.class.name.titleize} -  #{activity.name}" %></span>
+                <span class="pull-right"><%= "Total Points -  #{activity.activity_points}" %></span>
+              </div>
+            </div>
+            <% activity.student_answers.group_by{|u| u.user}.uniq.each do |user,answer| %>
+              <div class="col-xs-12 grade-header">
+                <div class="th-ad-user">
+                  <ul class="list-inline user-list-inline">
+                    <li class="long-width"><%= user.full_name %><span class="pull-right"><%= link_to "Grade", schools_course_correction_path(activity, activity.class.name, user), class: "btn btn-success", remote: true %></span></li>
+                  </ul>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    <%end%>
+  </div>
+</div>

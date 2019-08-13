@@ -1,0 +1,37 @@
+<div class="container cus-row-profile">
+  <div class="row">
+    <div class="col-md-12 top-10">
+      <p>Invoice: </p>
+      <p>Amount Due: <%= number_to_currency  @invoice.amount_due/100.0 %></p>
+      <p>Amount Remaining: <%= number_to_currency  @invoice.amount_remaining/100.0 %></p>
+      <p>Date: <%= Time.at(@invoice.date) %></p>
+      <table class="table">
+        <thead>
+          <th></th>
+          <th>Plan</th>
+          <th>Amount</th>
+          <th>Description</th>
+          <th>Period Start</th>
+          <th>Period End</th>
+        </thead>
+        <tbody>
+          <% @invoice.lines.data.each_with_index  do |line, index| %>
+            <tr>
+              <td><%= index %></td>
+              <td><%=line.plan.nickname %> (<%= number_to_currency line.plan.amount/100.0%>)</td>
+              <td><%=number_to_currency line.amount/100.0%></td>
+              <td><%=line.description%></td>
+              <td><%=Time.at(line.period.start)%></td>
+              <td><%=Time.at(line.period.end)%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p>Cost: <%= number_to_currency @cost/100.0 %></p>
+      <%= form_tag update_subscription_charges_path, method: :post do %>
+        <script class="stripe-button" data-amount="<%= @cost %>" data-description="<%= @plan.name %>" data-key="<%= Rails.application.secrets.stripe_publishable_key %>" src="https://checkout.stripe.com/checkout.js" data-name="Change Subscription" class="th-plan-sec-signup"></script>
+        <%= hidden_field_tag :plan_id, @plan.id %>
+      <% end %>
+    </div>
+  </div>
+</div>

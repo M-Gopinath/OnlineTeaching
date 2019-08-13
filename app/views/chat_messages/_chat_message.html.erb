@@ -1,0 +1,41 @@
+
+<div class="direct-chat-msg">
+  <div class="direct-chat-info clearfix">
+    <span class="direct-chat-name pull-left"><%= chat_message.user.full_name %></span>
+    <span class="direct-chat-timestamp pull-right"><%= chat_message.timestamp %> </span>
+  </div>
+  <div class="col-sm-1">
+    <%= image_tag("person.png", class: "direct-chat-img") %>
+  </div>
+  <div class="col-sm-11">
+    <div class="direct-chat-text">
+      <p><%= chat_message.body %></p>
+      
+      <div class="reply_form_<%= chat_message.id %> reply-comment-form">
+        <%= form_for ChatMessage.new, url: '#' do |f| %>
+        <%= f.hidden_field :parent_id, value: chat_message.id %>
+        <div class="input-group">
+          <%= f.text_field  :body, class: "form-control", placeholder: "Add message..."  %>
+          <div class="input-group-btn">
+            <%= f.button :button, class: "btn btn-success btn-post-data"  do %>
+            <i class="fa fa-plus"></i>
+            <% end %>
+          </div>
+        </div>
+        <% end %>
+      </div>  
+      <div>
+        <p class="text-right-t">
+          <a href="javascript:;" class="comments-reply-link btn btn-space btn-primary cha-room-btn" style="margin-top: 0px;" data-comment-id="<%= chat_message.id %>">Reply</a></p>
+        </p>
+      </div>
+      <div class="reply-messages">
+        <div class="reply_<%= chat_message.id %>">
+          <%= render chat_message.replies if chat_message.replies.any? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

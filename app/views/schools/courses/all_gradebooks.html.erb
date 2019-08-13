@@ -1,0 +1,16 @@
+<div class="top-60">
+  <div class="course-doc first-course">
+    <div class="col-md-6">
+      <p class="grade-book-title"><span>Grade Book</span></p>
+      <div id="non-grade-courses">
+        <%= render partial: "all_grade_courses", locals: {activities: @non_grade_activities.uniq} %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div id="grade-courses">
+        <%= render partial: "all_graded_courses", locals: {activities: @grade_activities.uniq} %>
+      </div>
+    </div>
+  </div>
+</div>
+

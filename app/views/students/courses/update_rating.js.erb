@@ -1,0 +1,8 @@
+$(".rating-notify").html("Thanks for your rating");
+<% @avg = @course.calculate_avg_rating(current_user) %>
+setTimeout(function(){ $("#courseRatings").modal("hide") }, 3000);
+$("#avg-rating").attr("data-avg-rating", "<%= @avg.round(1) %>")
+
+$("#avg-rating").rateYo("option", "rating", "<%= @avg.round(1) %>");
+$("#rateYo").rateYo("option", "rating", "0");
+$(".course-rating-point").val("");

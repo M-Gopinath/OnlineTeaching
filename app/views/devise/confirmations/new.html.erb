@@ -1,0 +1,27 @@
+<div class="be-login">
+  <div class="be-content">
+    <div class="main-content container-fluid">
+      <div class="splash-container splash-login-container splash-cofir-container">
+        <div class="card card-border-color card-border-color-primary">
+          <div class="card-header">
+            <%= image_tag 'logo-1.png', class: 'logo-img', alt: 'logo', width: '140px'%>
+          </div>
+          <div class="card-body">
+            <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+              <span class="splash-description">Please enter your user information.</span>
+              <span class="splash-title pb-4">Resend Confirmation Instructions</span>
+                <%= f.error_notification %>
+                <%= f.full_error :confirmation_token %>
+              <div class="form-group">
+                <%= f.text_field :email,required: true,autofocus: true,value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),input_html: { autocomplete: "email"}, class: 'form-control', placeholder: 'Username or Email'  %>
+              </div>
+              <div class="form-group">
+                <%= f.button :submit, "Resend Confirmation", class: "btn btn-block btn-primary btn-xl"  %>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

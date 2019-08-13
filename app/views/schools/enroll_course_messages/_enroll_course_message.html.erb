@@ -1,0 +1,105 @@
+
+<div class="col-md-12">
+  <div class="card-block">
+    <div class="row">
+      <div class="col-md-1">
+        <div class="avatar">
+          <%= image_tag enroll_course_message.try(:user).try(:avatar).present? ? enroll_course_message.try(:user).try(:avatar_url) : "/assets/person.png" %>
+        </div>
+      </div>
+      <div class="col-md-11">
+        <div class="card-text">
+          <p class="school-name-title">
+            <%= enroll_course_message.user.full_name %>
+          </p> 
+          <p>
+            <%= enroll_course_message.body %>
+          </p>
+        </div>
+        <div class="post-files">
+          <% enroll_course_message.course_chat_attachments.each do |pi| %>
+           <% if pi.image_url.present? %>
+              <div class="frame-files">
+                <iframe
+                  width="110px" height="110px;"
+                  frameborder="0" style="border:0"
+                  src="<%= pi.image_url %>" allowfullscreen>
+                </iframe>
+              </div>
+            <% elsif pi.video_url.present? %>
+              <div class="frame-files">
+                <iframe
+                  width="20%" height="80px;"
+                  frameborder="0" style="border:0"
+                  src="<%= pi.video_url %>" allowfullscreen>
+                </iframe>
+              </div>
+            <% elsif pi.audio_url.present? %>
+              <div class="frame-files">
+                <iframe
+                  width="20%" height="80px;"
+                  frameborder="0" style="border:0"
+                  src="<%= pi.audio_url %>" allowfullscreen>
+                </iframe>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <p class="timestamp"><%= enroll_course_message.timestamp %> says </p>
+        <div class="replay-and-like">
+          <%= link_to schools_enroll_course_messages_like_path(id: enroll_course_message.id), remote: true, class: "like-link_#{enroll_course_message.id} stat-item " do %>
+            <i class="fa fa-thumbs-up icon fa-thumbs-up_<%= enroll_course_message.id %> <%#= 'thumb-up-color' if enroll_course_message.user_like(current_user) %>"></i><span class="enroll_course_message-like-text-<%= enroll_course_message.id %>"> <%#= enroll_course_message.course_chat_likes.where("course_chat_likes.user_id = ?", current_user.id).any? %></span> <span class="likes_count_<%= enroll_course_message.id %>"><%= enroll_course_message.course_chat_likes.count %></span>
+          <% end %>
+          <a href="javascript:;" class="course-reply-link  replay-link-left" data-comment-id="<%= enroll_course_message.id %>">REPLY</a>
+        </div>
+      </div>
+    </div>
+    <div class="reply_course_form_<%= enroll_course_message.id %> reply-comment-form reply-post-form">
+      <% @enroll_course = EnrollCourseMessage.new %>
+      <% @enroll_course.course_chat_attachments.build %>
+      <%= form_for @enroll_course, url: '#' do |f| %>
+        <%= f.hidden_field :parent_id, value: enroll_course_message.id %>
+        <div class="form-group">
+          <%#= f.label :body %>
+          <!-- <small class="text-muted pull-right">From 2 to 1000 characters</small> -->
+          <%= f.text_area :body, class: 'form-control reply-post-box', placeholder: 'Type a message here', style: 'height: 45px' %>
+        </div>
+
+        <%= f.fields_for :course_chat_attachments do |p| %>
+          <%= p.file_field :image, class: "image-upload hide" %>
+          <%= p.file_field :video, class: "video-upload hide" %>
+          <%= p.file_field :audio, class: "audio-upload hide" %>
+         
+         <span class="att-lef-text image-upload-btn">
+              <img src="https://img.icons8.com/ios-glyphs/18/aaaaaa/image.png"><span>Image</span>
+            </span>
+           <span class="att-lef-text video-upload-btn">
+            <img src="https://img.icons8.com/ios/18/aaaaaa/video-call-filled.png"><span>Video</span> 
+          </span>
+           <span class="att-lef-text audio-upload-btn">
+            <img src="https://img.icons8.com/ios-glyphs/18/aaaaaa/speaker.png"><span>Audio</span>
+          </span>
+        <% end %>
+        <%= f.submit "Post", class: 'btn btn-space btn-primary th-btn-share post-message' %>
+      <% end %>
+    </div>
+    <div class="col-md-12" style="padding-left: 0px;">
+      <div class="image-preview"></div>
+      <div class="video-preview"></div>
+      <div class="audio-preview"></div>
+    </div>
+    <div class="reply-messages">
+      <div class="course_reply_<%= enroll_course_message.id %>">
+        <%= render enroll_course_message.replies if enroll_course_message.replies.any? %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $('iframe').load(function() {
+    $(this).contents().find('img').css({'width': '108px', 'height': '108px', 'border' : '1px solid #eee'});
+  })
+</script>
+

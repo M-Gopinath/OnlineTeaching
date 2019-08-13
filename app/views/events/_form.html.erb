@@ -1,0 +1,42 @@
+<%= simple_form_for @event do |f| %>
+  <div class="form-inputs">
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.input :title, required: true %>
+    <div class="row padding-left-right-5">
+      <div class="col-sm-6 margin-bottom-9">
+        <%= f.input :to_whom, as: :select, collection: User::WHOM_COLLECTION, prompt: false, selected: @event.to_whom %>
+        <i class="fa fa-caret-down"></i>
+      </div>
+      <div class="col-sm-6 margin-bottom-9">
+        <div class="event-course">
+          <%= f.input :course_id, as: :select, collection: collect_all_course, prompt: "Select Course", selected: @event.course_id, required: true %>
+          <i class="fa fa-caret-down"></i>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="checkbox-container-ac">
+        <%= f.input :is_public, input_html: { :checked => @event.is_public } %>
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    
+    <%= f.input :date_range, input_html: { class: "form-control input-sm date-range-picker" } %>
+    <%= f.input_field :from_date, as: :hidden, class: 'form-control input-sm start_hidden' %>
+    <%= f.input_field :to_date, as: :hidden, class: 'form-control input-sm end_hidden' %>
+    <%#= f.input :color, as: :select, collection: [['Black','black'], ['Green','green'], ['Red','red']], prompt: "Select Color" %>
+    <%= f.input :description, as: :text, input_html:{rows: '5'}  %>
+  </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-space btn-danger" data-dismiss="modal">Close</button>
+      <%= f.submit "Create Event", class: "btn btn-primary"%>
+      <%= link_to 'Delete', 
+                  event, 
+                  method: :delete, 
+                  class: 'btn btn-danger', 
+                  data: { confirm: 'Are you sure?' }, 
+                  remote: true unless @event.new_record? %>
+    </div>
+<% end %>
+
+

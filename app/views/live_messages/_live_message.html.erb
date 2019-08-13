@@ -1,0 +1,15 @@
+<li class="<%=  self_or_other(live_message) %>">
+  <div class="avatar">
+    <% if live_message.user.present? && live_message.user.avatar.present? %> 
+	    <%= image_tag  live_message.user.avatar.url %>
+	  <%else%>
+	    <%= image_tag "person.png"%>
+  <%end%>
+  </div>
+  <div class="chatboxmessagecontent">
+    <p><%= live_message.body %></p>
+    <time datetime="<%= live_message.created_at %>" title="<%= live_message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
+      <%= message_interlocutor(live_message).full_name %> • <%= live_message.created_at.strftime("%H:%M %p") %>
+    </time>
+  </div>
+</li>

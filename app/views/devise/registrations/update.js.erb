@@ -1,0 +1,14 @@
+<% if @update %>
+  window.location.replace('<%= edit_user_registration_path %>');
+<% else %>
+
+  <% if @user.errors.messages.size > 0 %>
+    <% @user.errors.each do |attr,err| %>
+        $('.error-span').html('<%= attr %> <%= err %> <br/>');  
+        $('#user_current_password').addClass("border-error");
+    <% end %>
+  <% end %> 
+
+<% end %>
+
+

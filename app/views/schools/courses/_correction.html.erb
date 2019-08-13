@@ -1,0 +1,44 @@
+<%= link_to "Back", "javascript:;", class: "btn btn-success grade-back-btn" %>
+<div class="top-15">
+  <div class="course-doc">
+    <div class="col-md-12">
+      <div class="col-xs-12 each-grade-details">
+        <div class="activity-name-point">
+          <span class="pull-left"><%= "#{activity.class.name.titleize} -  #{activity.name}" %></span>
+          <span class="pull-right"><%= "Total Points -  #{activity.activity_points}" %></span>
+        </div>
+        <div class="col-xs-12 grade-header grade-show">
+          <ul class="list-inline user-list-inline header">
+            <li class="long-width">Question</li>
+            <li class="long-width">Answer</li>
+            <li class="med-with">Actual Points</li>
+            <li class="short-with">Points</li>
+          </ul>
+        </div>
+        <% activity.activity_questions.each do |question| %>
+          <% point = activity.activity_points.to_f/activity.activity_questions.count.to_f %>
+          <% answer = user.student_answers.joins(:activity_question).where("activity_question_id = ?",question.id).last %>
+          <% if answer.present? %>
+            <div class="col-xs-12 grade-header grade-show">
+              <div class="th-ad-user">
+                <ul class="list-inline user-list-inline">
+                  <li class="long-width"><%= question.name %></li>
+                  <li class="long-width">
+                    <%= answer.present? ? "#{answer.name}" : "Not answered" %>
+                  </li>
+                  <li class="med-with"><%= point %></li>
+                  <li class="short-with
+                  "><%= answer.present? ? question.try(:activity_answers).where(is_correct: true).collect(&:name).include?(answer.name) ? point : 0 : "-" %></li>
+                </ul>
+              </div>
+            </div>
+            <% grade_activity = StudentGrade.find_by(activity_id: activity.id, user_id: user.id) %>
+            <div class="grade_activity">
+              <%= render partial: "schools/courses/grade_correction", locals: {grade_activity: grade_activity, student: user, activity: activity, answer_id: answer.try(:id)} %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

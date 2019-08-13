@@ -1,0 +1,111 @@
+<div class="col-md-12">
+  <div class="student-user-table table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>     
+          <th>Profile</th>     
+          <th>Email</th>     
+          <th>Role</th>     
+          <th>Last Login</th>     
+          <th>Confirmed</th>     
+          <th>Status</th>     
+          <th></th>     
+        </tr>
+      </thead>
+      <tbody>
+        <% collapse_index = 1 %>
+        <% users.each.with_index(1) do |user, index|%>
+          <% enrolled_courses = user.courses %>
+          <tr>
+            <td><%= user.full_name %></td>
+            <td><%= image_tag(user.avatar.present? ? user.avatar.url : "/assets/person.png", size: "25x25") %></td>
+            <td><%= user.email %></td>
+            <td><%= best_in_place user.role, :name, as: :select, url: update_role_path(user_id: user.id), :collection => authencity_types %></td>
+            <td><%= user.current_sign_in_at.strftime("%a %b %Y- %I:%M%p") if user.current_sign_in_at %></td>
+            <td><%= user_status(user) %></td>
+            <td><%= link_to user_active_status(user), active_deactive_users_path(user_id: user.id), class: "btn btn-space btn-secondary btn-xs", remote: true %></td>
+            <td  data-toggle="collapse" data-target=".<%= user.class.name%>-child-<%= index%>" data-index="<%= index %>" class="accordin-td xsm-short-with text-right"><i class="fa fa-plus"></i>
+             <div class="collapse <%= collapse_index > 5 ? "upclass_#{collapse_index}" : "downclass_#{collapse_index}" %> coll-pos-abs <%= user.class.name%>-child-<%= index %>">
+              <div class="col-md-12 per-bg-details">
+                <p><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button></p>
+                <div class="col-sm-6">
+                  <div class="row">
+                    <p class="user-title"><span>Personal Details</span></p>
+                    <div class="col-sm-6">
+                      <div class="cour-details-row">
+                        <p><span class="course-title">User FullName </span></p>
+                        <p><%= user.full_name.present? ? user.full_name : '-' %></p>
+                      </div>
+                      <div class="cour-details-row">
+                        <p><span class="course-title">Facebook url</span></p>
+                        <p><%= user.try(:facebook_url).present? ? user.try(:facebook_url) : '-' %></p>
+                      </div>
+                      <div class="cour-details-row">
+                        <p><span class="course-title">Twitter url</span></p>
+                        <p><%= user.try(:twitter_url).present? ? user.try(:twitter_url) : '-' %></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="cour-details-row">
+                        <p><span class="course-title">User Email </span></p>
+                        <p><%= user.try(:email).present? ? user.try(:email) : '-' %></p>
+                      </div>
+
+                      <div class="cour-details-row">
+                        <p><span class="course-title">Linkedin url</span></p>
+                        <p><%= user.try(:linkedin_url).present? ? user.try(:linkedin_url) : '-' %></p>
+                      </div>
+                      <div class="cour-details-row">
+                        <p><span class="course-title">Instagram url</span></p>
+                        <p><%= user.try(:instagram_url).present? ? user.try(:instagram_url) : '-' %></p>
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+                <div class="col-sm-1 mobile-hidden">
+                  <div class="line-hr"></div>
+                </div>
+                <div class="col-sm-5">
+                  <p class="ur-course-title"> <span>Course Details</span></p>
+                  <div class="course_details">
+                    <div class="det-left-ali">
+                      <% if user.courses.present? %>
+                        <ul class="list-inline">
+                          <% user.courses.each do |course| %>
+                            <li>
+                              <%= course.name %>
+                            </li>
+                          <% end %>
+                        </ul>
+                      <% else %>
+                        <h4> No Enrolled Courses </h4>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="user-border-bottom"></div>
+            <% collapse_index += 1 %>
+            <% collapse_index = 1 if collapse_index > 11 %>
+            </td>
+          </tr>
+        <%end%>
+       </tbody>
+    </table>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(document).on('click', '.accordin-td', function(){
+      $("i", this).toggleClass("fa-plus fa-minus");
+      $('.accordin-td').not(this).find("i").removeClass("fa-minus").addClass("fa-plus ");
+      $('.accordin-td').parents('.th-ad-user').find('.collapse').addClass("out");
+      $('.out').removeClass("in")
+    });
+  });
+</script>
+

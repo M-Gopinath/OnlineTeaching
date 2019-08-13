@@ -1,0 +1,7 @@
+$("#setup-lesson-form-tabs").html("<%= j(render partial: 'schools/course_overview', locals: {course: @course, teachers: @teachers}) %>")
+
+$('.lesson-create-title').addClass('hide');
+$('.lesson-update-title').addClass('hide');
+$('.course-overview-title').removeClass('hide');
+
+$('.course_rating_title').html("<%= j(render 'schools/course_rating_title') %>")

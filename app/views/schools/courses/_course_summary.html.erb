@@ -1,0 +1,393 @@
+ <div class="col-md-12 padding-0 top-8"> 
+  <div class="course-list">
+    <% if @courses.present? %>
+      <% @courses.each do |course| %>
+        <div class="col-md-3">
+          <div class="inst-course-list">
+            <div class="curse-quick-wrapper">
+              <div class="cours-link-a">
+                <%= link_to policy(course).own_course? ? schools_course_path(course) : "javascript:void(0)" do %>
+                  <div class="course-card-img">
+                    <div class="course-card-options">
+                      <%= image_tag course.course_images.last.present? && course.course_images.last.image.present? && course.course_images.last.image.url.present? ? course.course_images.last.image.url : "https://png.icons8.com/material-rounded/100/666666/picture.png" %>
+                    </div>
+                  </div>
+                <%end%>
+                <div class="course-card-details">
+                  <div class="both-name">
+                    <span class="course-card-name"><%= course.name.present? ? course.name.truncate(80): '-' %></span>
+                    <span class="course-instructor-name"><span class="course-admin"><%= image_tag(User.profile_photo, width: "20px") %></span><%=User.admin.first.full_name.to_s.titleize.truncate(40) %></span>
+                  </div>
+                  <span class="start-rating">
+                    <div class="all-rating-star pull-left">
+                      <span class="avg-rating" data-avg-rating="<%#= course.calculate_avg_rating(current_user) %>"></span>
+                      <span class="rating-point">10</span>
+                      <span class="student-count">(100)</span>
+                    </div>
+                  </span>
+                  <div class="pricing-card">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <ul class="list-inline ins-course-actions">
+                          <li>
+                            <% if policy(course).own_course? %>
+                              <%= link_to schools_course_path(course), class: 'tip remove-left-0' do %>
+                                <p class="rount-circule course-edit-icons"><span class="tip-text">Edit Course</span></p>
+                              <% end %>
+                            <% else %>
+                              <%= link_to "javascript:;", class: 'tip remove-left-0' do %>
+                                 <p class="rount-circule course-edit-icons"><span class="tip-text">Edit Course</span></p>
+                              <%end%>
+                            <% end %>
+                          </li>
+                          <li>
+                            <% if course.clone_count > 0 %>
+                              <%= link_to "javascript:;", class: "course-clone-already tip remove-left-0" do %>
+                                <p class="rount-circule copy-icons"><span class="width-75 tip-text">Clone Course</span></p>
+                              <% end %>
+                                <div class="already-cloned-msg"></div>
+                              <% else %>
+                              <%= link_to schools_courses_clone_course_path(id: course.id), class: 'tip remove-left-0' do %>
+                                <p class="rount-circule copy-icons"><span class="width-75 tip-text">Clone Course</span></p>
+                              <% end %>
+                            <% end %>
+                          </li>
+                          <li>
+                            <%= link_to students_course_path(course), target: "_blank3", class: 'tip remove-left-0' do %>
+                              <p class="rount-circule studen-view-icons"><span class="width-75 tip-text">Student View</span></p>
+                            <% end %>
+                          </li>
+                          <li>
+                            <%= link_to schools_course_path(course), method: :delete, data: {confirm: "Are you sure"}, class: 'tip remove-left-0' do %>
+                              <p class="rount-circule delete-icons"><span class="width-45 tip-text">Delete</span></p>
+                            <% end %>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="corse-entrolled-count">
+                          <span><%= image_tag 'https://img.icons8.com/ios-glyphs/20/878787/user-group-man-man.png'%></span> <span class="in-space-3 align-middle">-</span>
+                          <span class="fon-weight-600 align-middle"><%= course.enrolled_students.count %></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>   
+          </div>
+        </div>
+      <%end%>
+    <%else%>
+      <div class="record-not-found ma-to-8">
+        <p><img src="https://img.icons8.com/bubbles/120/000000/book.png"></p>
+        <p>You have no items in your Course List. Start adding ! 
+          <%= link_to schools_course_path(course_next_id), class: "btn btn-primary btn-course-creation" do  %>
+            <i class="fa fa-plus white-color-fa" aria-hidden="true"></i> Create Course
+          <%end%>
+        </p>
+      </div>
+    <%end%>
+  </div>
+</div>
+
+  <script type="text/javascript">
+    $(function () {
+      $(".avg-rating").rateYo({
+        ratedFill: "#FCCF1A",
+        starShape: 'rounded',
+        starWidth: "15px",
+        spacing: "2px",
+        precision: 1,
+        readOnly: true
+      });
+    });
+  </script>
+
+
+  <style type="text/css">
+    .inst-course-list {
+      box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
+      margin-bottom: 15px;
+      display: inline-block;
+      position: relative;
+      text-align: left;
+      vertical-align: top;
+      width: 100%;
+      height: 325px;
+      border-radius: 3px;
+   }
+
+   .cours-link-a {
+      background: #FFF;
+      color: #29203B;
+      height: 325px;
+      display: block;
+      font-size: small;
+      overflow: hidden;
+      position: relative;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+
+    .course-card-options {
+      flex-direction: column;
+      position: relative;
+      background-color: transparent;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      height: 150px;
+    }
+
+    .course-card-options img {
+      border-radius: 0px;
+      max-height: 150px;
+      max-width: 100%;
+      border-top-left-radius: 3px;
+      width: 100%;
+      height: 150px;
+      border-top-right-radius: 3px;
+    }
+
+    .course-card-name {
+      display: block !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2;
+      -moz-line-clamp: 2;
+      -ms-line-clamp: 2;
+      -o-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      -moz-box-orient: vertical;
+      -ms-box-orient: vertical;
+      -o-box-orient: vertical;
+      box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+      font-weight: 600;
+      font-size: 15px;
+      color: #29203B;
+      margin-bottom: 0px;
+      height: 53px;
+    }
+     
+
+    .course-instructor-name {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-height: 21px;
+      height: 21px;
+      font-size: 12px;
+      color: #686F7A;
+      margin-bottom: 0px;
+    }
+
+    .course-admin img {
+      border-radius: 20px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+
+    .start-rating {
+      display: flex;
+      padding-top: 5px;
+      margin-top: -2px;
+      background: none;
+      margin-bottom: 12px;
+    }
+
+    .all-rating-star {
+      line-height: 40px;
+      margin-left: 0px;
+    }
+
+    .all-rating-star span {
+      display: inline-block;
+    }
+
+    .rating-point {
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 600;
+      color: #505763;
+      margin-left: 6px;
+    }
+
+    .course-card-details {
+      display: block;
+      padding: 10px 10px 0 10px;
+    }
+
+    .student-count {
+      color: #878787;
+      font-size: 12px;
+      padding-left: 3px;
+    }
+
+    .ins-course-actions>li>.tip {
+      margin-left: 0px;
+    }
+
+    .ins-course-actions>li {
+      padding-left: 9px;
+      padding-right: 9px;
+    }
+
+    .corse-entrolled-count {
+      font-size: 13px;
+      font-weight: 500;
+      color: #878787;
+      margin-top: 3px;
+      float: right;
+      margin-right: 3px;
+    }
+
+    .remove-left-0 {
+      margin-left: 0px !important;
+    }
+
+    .tip {
+      position: relative;
+      display: inline-block;
+      color: inherit;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+
+    .rount-circule {
+      border-radius: 100%;
+      width: 25px;
+      height: 25px;
+      line-height: 28px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .tip .tip-text {
+      visibility: hidden;
+      border-radius: 4px;
+      z-index: 100;
+      font-size: 11px;
+      padding: 0px;
+      color: #ffffff;
+      background-color: #4E4E4E;
+      display: inline-block;
+      position: absolute;
+      z-index: 100;
+      text-transform: none;
+      left: 0;
+      top: -24px;
+      height: 20px;
+      line-height: 20px;
+      width: 65px;
+    }
+
+    .white-color-fa {
+      color: #fff;
+      margin-right: 5px;
+     }
+      
+    .course_search_box input {
+      height: 34px;
+      border-radius: 20px;
+    }
+
+    .tip span {
+      visibility: hidden;
+      width: 255px;
+      border-radius: 4px;
+      z-index: 100;
+      font-size: 1.02em;
+      padding: 7px;
+      color: #ffffff;
+      background-color: #4E4E4E;
+      display: inline-block;
+      position: absolute;
+      top: 100%;
+      z-index: 100;
+      text-transform: none;
+    }
+
+    .width-75 {
+      width: 75px !important;
+    }
+
+    .course-edit-icons {
+      background: #eee;
+      background-image: url("https://img.icons8.com/ios-glyphs/17/878787/pencil.png");
+      background-repeat: no-repeat;
+      background-position: center;  
+    }
+
+    .copy-icons{
+      background: #eee;
+      background-image: url("https://img.icons8.com/ios-glyphs/17/878787/copy.png");
+      background-repeat: no-repeat;
+      background-position: center;  
+    }
+
+    .studen-view-icons {
+      background: #eee;
+      background-image: url("https://img.icons8.com/ios/20/878787/visible-filled.png")  ;
+      background-repeat: no-repeat;
+      background-position: center;  
+    }
+
+    .delete-icons {
+      background: #eee;
+      background-image: url("https://img.icons8.com/metro/14/878787/trash.png");
+      background-repeat: no-repeat;
+      background-position: center; 
+    }
+
+    .delete-icons:hover {
+      background:#346cb0;
+      background-image: url("https://img.icons8.com/metro/14/ffffff/trash.png");
+      background-repeat: no-repeat;
+      background-position: center; 
+    }
+
+    .studen-view-icons:hover {
+      background:#346cb0;
+      background-image: url("https://img.icons8.com/ios/25/ffffff/visible-filled.png");
+      background-repeat: no-repeat;
+      background-position: center;  
+    }
+
+    .copy-icons:hover {
+      background:#346cb0;
+      background-image: url("https://img.icons8.com/ios-glyphs/18/ffffff/copy.png");
+      background-repeat: no-repeat;
+      background-position: center;  
+      z-index: 1024;
+    }
+
+    .course-edit-icons:hover {
+      background:#346cb0;
+      background-image: url("https://img.icons8.com/ios-glyphs/18/ffffff/pencil.png");
+      background-repeat: no-repeat;
+      background-position: center;  
+      z-index: 1024;
+    }
+
+    .record-not-found p {
+      font-size :15px;
+    }
+
+    .record-not-found {
+      text-align: center;
+      padding: 70px;
+      font-size: 18px;
+    }
+
+    .record-not-found span {
+      font-size: 19px !important;
+      color: #646f79;
+    }
+
+
+  </style>

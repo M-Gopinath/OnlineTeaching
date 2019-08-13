@@ -1,0 +1,111 @@
+<div class="row-row">
+  <%= simple_form_for document_activity, url: schools_lessons_create_document_path, html: {id: "school-setup-activity", class: "form-horizontal" }, multipart: true, remote: true, method: :post do |f| %>
+    <%= f.hidden_field :lesson_id, value: lessons.first.try(:id), class: "activity-lesson-id" %>
+    <div class="activities col-md-12 padding-12-0">
+      <div class="form-inputs hidden-inputs">
+        <div class="ac-par-he" id="animate-scroll-document">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <%= f.input :name, label: "Name", input_html: {class: "video-title-input"}%>
+                <div class="doc-name-validate error-color"></div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <%= f.input :due_date do %>
+                <div class="form-group">
+                  <div class='input-group date datetimepicker-video' id=''>
+                    <%= f.text_field :due_date, class: "form-control" %>
+                    <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                    </span>
+                  </div>
+                </div>
+                <div class="doc-date-validate error-color"></div>
+              <% end %>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <%= f.input :activity_points, label: "Activity Points" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <a href="javascript:void(0)" class="tip file-url-tip">
+                <img src="https://img.icons8.com/metro/15/1EC09F/info.png">
+                <span>Please enter Blogs / Articles Url related to your Document Activity</span>
+              </a> 
+              <%= f.input :file_url %>
+            </div>
+            <div class="col-md-4">
+              <a href="javascript:void(0)" class="tip file-upload-tip">
+                <img src="https://img.icons8.com/metro/15/1EC09F/info.png">
+                <span>You can upload upto 10Mb.</span>
+              </a> 
+              <%= f.input :document do %>
+                <div class='input-group'>
+                  <%= f.file_field :document, class: "form-control upload-file", "data-limit"=>"10" %>
+                  <% if !f.object.try(:document).blank?%>
+                    <span><strong>Uploaded Document:</strong><br/><%= File.basename(f.object.document.path) %></span>
+                  <%end%>
+                </div>
+                <p><small class="file-size-error"></small></p>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.label "Description" %>
+              <div class="form-inputs th-edit-form">
+                <%= f.text_area :description, :class => "tinymce", :rows => 10, :cols => 80 %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box-body">
+                <%= f.simple_fields_for :activity_questions do |question| %>
+                  <%= render 'activity_question_fields', :f => question %>
+                <% end %>
+                <%= link_to_add_association  f, :activity_questions, class: 'btn btn-default add-question-btn' do  %>
+                  <i class="fa fa-plus" aria-hidden="true"></i> Add Question
+                <%end%>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row margion-0">
+          <div class="col-md-6"></div>
+          <div class="col-md-4">
+            <div class="th-cus-ch-simple">
+              <div class="col-sm-6">
+                <%= f.label :required, class: 'checkbox-container-ac' do %>
+                  Required
+                  <%= f.check_box :required, checked_value: true, unchecked_value: false %> 
+                  <span class="checkmark"></span>
+                <% end %>
+              </div>
+              <div class="col-sm-6">
+                <%= f.label :publish, class: 'checkbox-container-ac' do %>
+                  <span>Publish</span>
+                  <%= f.check_box :publish,checked_value: true, unchecked_value: false %> 
+                  <span class="checkmark"></span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <p class="text-right post-bottom-btn">
+              <%= image_tag "/assets/loading.gif", class: "form_loaders hide" %>
+              <%= f.submit "CREATE ACTIVITY", class: "btn btn-space btn-primary  th-sub-btn submit-document-btn" %>
+            </p>
+          </div>
+        </div> 
+      </div>
+    </div> 
+  <% end %>
+</div>

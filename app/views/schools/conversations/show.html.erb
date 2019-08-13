@@ -1,0 +1,39 @@
+<div class="row top-50 ma-le-ri">
+  <div class="col-ms-12">
+    <div class="col-sm-3 compose">
+      <h2><%= link_to "Compose Mail", new_schools_conversation_path, class: 'btn btn-block btn-primary compose-mail'%></h2>
+      <nav class="nav-sidebar">
+        <%= render 'schools/mailbox/folders' %>
+      </nav>
+    </div>
+
+    <div class="col-sm-9">
+      <div class="inbox-right">
+        <div class="tr-un-trash">
+          <% if conversation.is_trashed?(current_user) %>
+            <%= link_to 'Untrash', untrash_schools_conversation_path(conversation), class: 'btn btn-info', method: :post %>
+          <% else %>
+            <%= link_to 'Move to trash', trash_schools_conversation_path(conversation), class: 'btn btn-danger', method: :post,
+                        data: {confirm: 'Are you sure?'} %>
+          <% end %>  
+        </div>
+        <div class="con-mes-body">
+          <%= render partial: 'schools/conversations/messages' %>
+        </div>
+
+        <p style="margin-top: 20px;"><button class="btn btn-space btn-primary  replay-message"> <i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button></p>
+        
+        <div class="replay-message-1">
+          <%= form_for :message, url: reply_schools_conversation_path(conversation) do |f| %>
+            <div class="form-group">
+              <%= f.text_area :body, placeholder: "Reply Message", rows: 4, class: "form-control" %>
+            </div>
+            <%= f.submit "Send", class: 'btn btn-space btn-primary pull-right' %>
+          <% end %>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>
+
+

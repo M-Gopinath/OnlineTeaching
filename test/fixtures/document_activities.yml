@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  document: MyString
+  file_url: MyString
+  due_date: 2018-11-08
+  publish: false
+  required: false
+  activity_points: 1
+  description: MyText
+  lesson: one
+
+two:
+  name: MyString
+  document: MyString
+  file_url: MyString
+  due_date: 2018-11-08
+  publish: false
+  required: false
+  activity_points: 1
+  description: MyText
+  lesson: two

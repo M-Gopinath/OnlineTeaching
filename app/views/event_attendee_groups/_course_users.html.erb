@@ -1,0 +1,33 @@
+<%= check_box_tag :select_deselect, true, true, "data-select": "all-course" %>
+<label>Select All/Deselect All</label>
+<div class="row">
+  <h4>Students</h4>
+  <% if students.present? %>
+    <% students.each do |student| %>
+      <div class="col-md-4">
+        <p>
+          <%= check_box_tag "user_id[]", student.id, true, class: "all-course-check" %>
+          <label><%= student.full_name %></label>
+        </p>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No Students Enrolled</p>
+  <% end %>
+</div>
+
+<div class="row">
+  <h4>Teachers</h4>
+  <% if teachers.present? %>
+    <% teachers.each do |teacher| %>
+      <div class="col-md-4">
+        <p>
+          <%= check_box_tag "user_id[]", teacher.id, true, class: "all-course-check" %>
+          <label><%= teacher.full_name %></label>
+        </p>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No Teachers Enrolled</p>
+  <% end %>
+</div>

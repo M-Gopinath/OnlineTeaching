@@ -1,0 +1,22 @@
+<% if notifications.count > 0 %>
+	<% notifications.sort_by{|t| t[:created_at]}.reverse.first(5).each do |announcement| %>
+		<% if announcement.class.name == "Announcement" %>
+		  <%= link_to schools_announcements_path, class: 'dropdown-item' do %>
+		    <div class="user-avatar">
+		      <%= image_tag announcement.user.present? && announcement.user.avatar.present? ? announcement.user.avatar_url : "/assets/person.png", width: "15px;" %>
+		    </div>
+		    <div class="dropdown-item-body">
+		    	<p class="subject"><%= announcement.user.email %></p>
+			    <p class="text text-truncate"><%= "#{announcement.message}" %></p>
+			    <% unless current_user.notification_activities.find_by(notification_id: announcement.id).present? %>
+			    	<!-- <span class="unread_announcement"></span> -->
+			    <%end%>
+			     <span class="date"><%= "#{distance_of_time_in_words(Time.now, announcement.updated_at)}" %></span>
+			  </div>
+		  <%end%>
+	  <%end%>
+	<%end%>
+<%else%>
+	<%= link_to "No new notifications!", "javascript:void(0);", class: "no-notifications dropdown-item"  %>
+<%end%>
+<%= link_to "View all", schools_announcements_path, class: "dropdown-footer" %>

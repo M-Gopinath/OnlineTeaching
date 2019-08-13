@@ -1,0 +1,19 @@
+<nav class="navbar navbar-default navbar-fixed-top cus-nav-header" id="nav-header">
+  <div class="navbar-header">
+    <a class="navbar-brand nav-img-wi" href="#"><%= image_tag SchoolSetupTooltip.school_logo %></a>
+    <div class="th-log-top log-a mobile-res">
+      <%=link_to  new_client_path, class: 'tag-a'  do  %>
+        <span class="fa fa-user-circle mr-1"></span> Sign Up 
+      <%end%>
+    </div>
+  </div>
+  <div id="navbar" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="th-log-top log-a desktop-res">
+        <%=link_to  new_client_path, class: 'tag-a'  do  %>
+        <span class="fa fa-user-circle mr-1"></span> Sign Up 
+        <%end%>
+      </li>
+    </ul>
+  </div>
+</nav>

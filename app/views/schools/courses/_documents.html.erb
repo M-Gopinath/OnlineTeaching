@@ -1,0 +1,201 @@
+<div class="course-doc">
+  <h4>Course's Documents</h4>
+  <div class="studeint-all">
+    <table class="table hide">
+      <thead>
+        <tr>
+          <th width="90%">URL</th>
+          <th>Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% course.course_images.each do |image| %>
+          <tr>
+            <td><%= link_to image.image_identifier, image.image.url, target: "_blank" %></td>
+            <td class="a-download"><%= link_to "Download", schools_courses_download_file_path(file: image.image.path) if image.image.path.present? %></td>
+          </tr>
+        <% end %>
+        <% course.course_attachments.each do |attachment| %>
+          <tr>
+            <td><%= link_to attachment.attachment_identifier, attachment.attachment.url, target: "_blank" %></td>
+            <td class="a-download"><%= link_to "Download", schools_courses_download_file_path(file: attachment.attachment.path) if attachment.attachment.path.present? %></td>
+          </tr>
+        <% end %>
+        <% course.course_videos.each do |video| %>
+          <tr>
+            <td><%= link_to video.video_identifier, video.video.url, target: "_blank" %></td>
+            <td class="a-download"><%= link_to "Download", schools_courses_download_file_path(file: video.video.path) if video.video.path.present? %></td>
+          </tr>
+        <% end %>
+        <% course.lessons.each do |lesson| %>
+          <% if lesson.video_activities.present? %>
+            <% lesson.video_activities.each do |va| %>
+              <% if va.video.path.present? %>
+                <tr>
+                  <td><%= link_to va.video_identifier, va.video.url, target: "_blank" %></td>
+                  <td class="a-download"><%= link_to "Download", schools_courses_download_file_path(file: va.video.path) %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if lesson.audio_activities.present? %>
+            <% lesson.audio_activities.each do |aa| %>
+              <% if aa.audio_file.path.present? %>
+                <tr>
+                  <td><%= link_to aa.audio_file_identifier, aa.audio_file.url, target: "_blank" %></td>
+                  <td class="a-download"><%= link_to "Download", schools_courses_download_file_path(file: aa.audio_file.path) %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if lesson.reading_activities.present? %>
+            <% lesson.reading_activities.each do |ra| %>
+              <% if ra.documents.path.present? %>
+                <tr>
+                  <td><%= link_to ra.documents_identifier, ra.documents.url, target: "_blank" %></td>
+                  <td class="a-download"><%= link_to "Download", schools_courses_download_file_path(file: ra.documents.path) %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if lesson.presentation_activities.present? %>
+            <% lesson.presentation_activities.each do |pa| %>
+              <% if pa.slide_file.path.present? %>
+                <tr>
+                  <td><%= link_to pa.slide_file_identifier, pa.slide_file.url, target: "_blank" %></td>
+                  <td class="a-download"><%= link_to "Download", schools_courses_download_file_path(file: pa.slide_file.path) %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="row">
+      <% course.course_images.each do |image| %>
+        <div class="col-md-3">
+          <div class="image-download-op">
+            <div class="image-inner-op">
+              <%= link_to  image.image.url, target: "_blank" do %>
+                <object  height="180" data="<%= image.image.url %>"></object>
+              <%end%>
+            </div>
+            <div class="att-footer">
+              <span class="attachment-name"><%= image.image_identifier%></span>
+              <span class="a-download">
+                <i class="fa fa-download"></i>
+                <%= link_to "Download", schools_courses_download_file_path(file: image.image.path) if image.image.path.present? %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% course.course_attachments.each do |attachment| %>
+        <div class="col-md-3">
+          <div class="image-download-op">
+            <div class="image-inner-op">
+              <%= link_to attachment.attachment.url, target: "_blank" do %>
+                <object  height="180" data="<%= attachment.attachment.url %>"></object>
+              <%end%>
+            </div>
+            <div class="att-footer">
+              <span class="attachment-name"><%= attachment.attachment_identifier %></span>
+              <span class="a-download"><i class="fa fa-download"></i><%= link_to "Download", schools_courses_download_file_path(file: attachment.attachment.path) if attachment.attachment.path.present? %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% course.course_videos.each do |video| %>
+        <div class="col-md-3">
+          <div class="image-download-op">
+           <div class="image-inner-op">
+              <object  height="180"  autoplay controls="false"  data="<%= video.video.url %>"></object>
+            </div>
+
+            <div class="att-footer">
+              <span class="attachment-name"><%= link_to video.video_identifier, video.video.url, target: "_blank" %></span>
+              <span class="a-download"><i class="fa fa-download"></i><%= link_to "Download", schools_courses_download_file_path(file: video.video.path) if video.video.path.present? %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% course.lessons.each do |lesson| %>
+        <% if lesson.video_activities.present? %>
+          <% lesson.video_activities.each do |va| %>
+            <% if va.video.path.present? %>
+              <div class="col-md-3">
+                <div class="image-download-op">
+                  <div class="image-inner-op">
+                    <object  height="180"  data="<%= video.video.url %>"></object>
+                  </div>
+                  <div class="att-footer">
+                    <span class="attachment-name"><%= link_to va.video_identifier, va.video.url, target: "_blank" %></span>
+                    <span class="a-download"><i class="fa fa-download"></i><%= link_to "Download", schools_courses_download_file_path(file: va.video.path) %></span>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if lesson.audio_activities.present? %>
+          <% lesson.audio_activities.each do |aa| %>
+            <% if aa.audio_file.path.present? %>
+              <div class="col-md-3">
+                <div class="image-download-op">
+                 <div class="image-inner-op">
+                    <%= link_to aa.audio_file.url , target: "_blank" do %>
+                      <object  height="180" data="<%= aa.audio_file.url %>"></object>
+                    <%end%>
+                  </div>
+                  <div class="att-footer">
+                    <span class="attachment-name"><%= aa.audio_file_identifier %></span>
+                    <span class="a-download"><i class="fa fa-download"></i><%= link_to "Download", schools_courses_download_file_path(file: aa.audio_file.path) %></span>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if lesson.reading_activities.present? %>
+          <% lesson.reading_activities.each do |ra| %>
+            <% if ra.documents.path.present? %>
+              <div class="col-md-3">
+                <div class="image-download-op">
+                   <div class="image-inner-op">
+                    <%= link_to ra.documents.url, target: "_blank" do %>
+                      <object  height="180" data="<%= ra.documents.url %>"></object>
+                    <%end%>
+                  </div>
+                  <div class="att-footer">
+                    <span class="attachment-name"><%= ra.documents_identifier %></span>
+                    <span class="a-download"><i class="fa fa-download"></i><%= link_to "Download", schools_courses_download_file_path(file: ra.documents.path) %></span>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if lesson.presentation_activities.present? %>
+          <% lesson.presentation_activities.each do |pa| %>
+            <% if pa.slide_file.path.present? %>
+              <div class="col-md-3">
+                <div class="image-download-op">
+                 <div class="image-inner-op">
+                    <%= link_to pa.slide_file.url, target: "_blank" do %>
+                      <object  height="180" data="<%= pa.slide_file.url %>"></object>
+                    <%end%>
+                  </div>
+                   <div class="image-inner-op">
+                    <span class="attachment-name"><%= pa.slide_file_identifier %></span>
+                    <span class="a-download"><i class="fa fa-download"></i><%= link_to "Download", schools_courses_download_file_path(file: pa.slide_file.path) %></span>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+

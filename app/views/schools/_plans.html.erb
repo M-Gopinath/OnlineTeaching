@@ -1,0 +1,27 @@
+<section class="pricing">
+  <div class="row mar-auto-95">
+    <% plans.each do |plan| %>
+      <div class="col-lg-4">
+        <div class="th-plan-sec plan-select-<%= plan.id %> <%= plan_selected(plan.id) %>">
+          <div class="card mb-5 mb-lg-0">
+            <div class="card-body pla-body-margin">
+              <h5 class="card-title text-muted text-uppercase text-center"><%= plan.name %></h5>
+              <h6 class="card-price text-center">$<%= plan.cost %><span class="period">/monthly</span></h6>
+              <hr>
+              <ul class="fa-ul">
+                <% plan.plan_benefits.each do |pb| %>
+                  <li><%= pb.name %></li>
+                <% end %>
+              </ul>
+              <%= form_tag charges_path, method: :post do %>
+                <script class="stripe-button" data-amount="<%= plan.cost.to_f * 100 %>" data-description="<%= plan.name %>" data-key="<%= Rails.application.secrets.stripe_publishable_key %>" src="https://checkout.stripe.com/checkout.js" data-name="choose" class="th-plan-sec-signup"></script>
+                <%= hidden_field_tag :plan_id, plan.id %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>  
+</section>
+

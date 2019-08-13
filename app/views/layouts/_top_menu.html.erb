@@ -1,0 +1,152 @@
+<% if user_signed_in? && current_user.admin_super_admin? %>
+  <div class="th-com-sub-header">
+    <ul class="list-inline">
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/18/ffffff/diploma-filled.png"></span>
+          <span>new courses</span>
+          <span class="number-count">10</span>
+        </a>
+      </li>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/20/ffffff/in-progress-filled.png"></span>
+          <span>inprogress courses</span>
+          <span class="number-count">20</span>
+        </a>
+      </li>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/20/ffffff/task-completed-filled.png"></span>
+          <span>completed courses</span>
+          <span class="number-count">25</span>
+        </a>
+      </li>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><span><img src="https://png.icons8.com/ios/18/ffffff/diploma-filled.png"></span></span>
+          <span> total course</span>
+          <span class="number-count">25</span>
+        </a>
+      </li>
+
+      <li class="thi-li-with">
+        <a class="current" href="javascript:void(0)">
+          <img src="/assets/long-veri-line.png" class="th-divider">
+        </a>
+      </li>
+
+
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/material-sharp/23/ffffff/personal-growth.png"></span>
+          <span>overall growth</span>
+          <span class="number-count"><%= @admins.count + @teachers.count + @students.count %></span>
+        </a>
+      </li>
+      <% if user_signed_in? && current_user.admin_super_admin? %>
+        <li>
+          <a class="current" href="javascript:void(0)">
+            <span><img src="https://png.icons8.com/ios/23/ffffff/businessman-filled.png"></span>
+            <span>admins</span>
+            <span class="number-count"><%= @admins.count%></span>
+          </a>
+        </li>
+      <% end %>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/23/ffffff/training-filled.png"></span>
+          <span>teachers</span>
+          <span class="number-count"><%= @teachers.count%></span>
+        </a>
+      </li>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/23/ffffff/students-filled.png"></span>
+          <span>students</span>
+          <span class="number-count"><%= @students.count%></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+<%elsif user_signed_in? && current_user.student?  %>
+  <div class="th-com-sub-header">
+    <ul class="list-inline">
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/18/ffffff/diploma-filled.png"></span>
+          <span>new courses</span>
+          <span class="number-count">10</span>
+        </a>
+      </li>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/20/ffffff/in-progress-filled.png"></span>
+          <span>inprogress courses</span>
+          <span class="number-count">20</span>
+        </a>
+      </li>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/20/ffffff/task-completed-filled.png"></span>
+          <span>completed courses</span>
+          <span class="number-count">25</span>
+        </a>
+      </li>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><span><img src="https://png.icons8.com/ios/18/ffffff/diploma-filled.png"></span></span>
+          <span> total course</span>
+          <span class="number-count">25</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+<%else user_signed_in? && current_user.teacher? %>
+  <div class="th-com-sub-header">
+    <ul class="list-inline">
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/18/ffffff/diploma-filled.png"></span>
+          <span>new courses</span>
+          <span class="number-count">10</span>
+        </a>
+      </li>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/20/ffffff/in-progress-filled.png"></span>
+          <span>inprogress courses</span>
+          <span class="number-count">20</span>
+        </a>
+      </li>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/20/ffffff/task-completed-filled.png"></span>
+          <span>completed courses</span>
+          <span class="number-count">25</span>
+        </a>
+      </li>
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><span><img src="https://png.icons8.com/ios/18/ffffff/diploma-filled.png"></span></span>
+          <span> total course</span>
+          <span class="number-count">25</span>
+        </a>
+      </li>
+
+      <li class="thi-li-with">
+        <a class="current" href="javascript:void(0)">
+          <img src="/assets/long-veri-line.png" class="th-divider">
+        </a>
+      </li>
+
+      <li>
+        <a class="current" href="javascript:void(0)">
+          <span><img src="https://png.icons8.com/ios/23/ffffff/students-filled.png"></span>
+          <span>students</span>
+          <span class="number-count"><%= @students.count%></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+<%end%>

@@ -1,0 +1,42 @@
+<div class="be-login">
+  <div class="be-content">
+    <div class="main-content container-fluid">
+      <div class="splash-container splash-login-container splash-resend-container">
+        <div class="card card-border-color card-border-color-primary">
+          <div class="card-header">
+            <%= image_tag 'logo-1.png', class: 'logo-img', alt: 'logo', width: '140px'%>
+          </div>
+          <div class="card-body">
+            <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+              <span class="splash-description">Please enter your user information.</span>
+              <span class="splash-title pb-4">Change Your Password</span>
+                <%= f.error_notification %>
+                <%= f.input :reset_password_token, as: :hidden %>
+                <%= f.full_error :reset_password_token %>
+              <div class="form-group">
+              <%= f.input :password,
+                label: "New password",
+                required: true,
+                autofocus: true,
+                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                input_html: { autocomplete: "new-password" } %>
+              </div>
+              <div class="form-group">
+               <%= f.input :password_confirmation, label: "Confirm your new password", required: true %>
+              </div>
+              <div class="form-group">
+                <%= f.button :submit, "Change my password", class: "btn btn-block btn-primary btn-xl"  %>
+              </div>
+            <%end%>
+          </div>
+        </div>
+        <div class="devise-shared-link">
+          <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+            <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

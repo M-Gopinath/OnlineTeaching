@@ -1,0 +1,97 @@
+<%= form_tag(schools_update_marketing_path, remote: true, method: :put, class: "form-horizontal") do %>  
+  <div class="container top-60">
+    <div class="row.">
+      <div class="col-md-12">
+        <div class="col-md-12 background-cover">
+          <div class="avatar-upload">
+            <div class="avatar-edit">
+              <input type='file' id="CoverImageUpload" accept=".png, .jpg, .jpeg" />
+              <label for="CoverImageUpload"></label>
+            </div>
+            <div class="avatar-preview th-ma-banner" style="width: 100%">
+              <div id="CoverimagePreview"  class="profile-cover" style="background-image: url(<%= @organization.try(:landing_page_image_url)%>)"></div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <div class="avatar-upload">
+              <div class="avatar-edit label-edit-ali">
+                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                <label for="imageUpload"></label>
+              </div>
+              <div class="avatar-preview th-update-banner">
+                <div id="imagePreview" style="background-image: url(<%= @organization.try(:logo_url)%>)"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p class="profile-update-btn"><button class="btn btn-space btn-primary th-ma-update">Update</button></p>
+          </div>
+        </div> 
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="th-ad-ma-f">
+              <div class="form-group">
+                <label class="control-label">school Namessssss</label>
+                <%= text_field_tag :school_name, @organization.try(:name), class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Description</label>
+                <label>Description 
+                  <a href="javascript:void(0)" class="tip tip-des-width"><img src="/assets/info.png">
+                  <span>Write a brief description of your school. This will be displayed on your marketing page as well as your school platform.</span>
+                  </a> 
+                </label>
+                 <small class="char-count-right"><span class="char-count-3">1000</span> characters</small>
+                  <%= text_area_tag :school_desc, @organization.try(:description), rows: 5, :data => { :'length' => '1000' }, class: "form-control char-textarea-3" %>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <%= hidden_field_tag :template_id, @client.client_template_id %>
+        <%  @all_templates.each do |temp| %>
+          <div class="col-xs-18 col-sm-6 col-md-3 ">
+            <div class="thumbnail marketing-temp temp-high-<%= temp.id%> <%= client_template_color(temp.id) %>" data-temp-id = "<%= temp.id %>">
+              <h3><%= temp.name %></h3>
+              <div class="th-thum-body">
+                <a href="javascript:void(0)" class="pop">
+                  <img src="/assets/book.jpg">
+                </a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div>
+  </div>
+<% end %>
+
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">              
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <img src="" class="imagepreview" style="width: 100%;" >
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.char-textarea-3').trigger("keyup");
+  });
+  $(function() {
+    $('.pop').on('click', function() {
+      $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+      $('#imagemodal').modal('show');   
+    });   
+  });
+</script>

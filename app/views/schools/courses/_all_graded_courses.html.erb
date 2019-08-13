@@ -1,0 +1,24 @@
+<div class="sexytabs top-17">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#all">All</a></li>
+    <li><a data-toggle="tab" href="#month">Month</a></li>
+    <li><a data-toggle="tab" href="#week">Week</a></li>
+    <li><a data-toggle="tab" href="#today">Today</a></li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div id="all" class="tab-pane fade in active">
+    <%= render partial: "schools/courses/graded_activities", locals: {activities: activities, type: "all"} %>
+  </div>
+  <div id="month" class="tab-pane fade">
+    <%= render partial: "schools/courses/graded_activities", locals: {activities: activities, type: "month"} %>
+  </div>
+  <div id="week" class="tab-pane fade">
+    <%= render partial: "schools/courses/graded_activities", locals: {activities: activities, type: "week"} %>
+  </div>
+  <div id="today" class="tab-pane fade">
+    <%= render partial: "schools/courses/graded_activities", locals: {activities: activities, type: "today"} %>
+  </div>
+</div>
+

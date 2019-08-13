@@ -1,0 +1,79 @@
+<div class="panel-body">
+  <% if @activity.present? %>
+  <div class= "box row">
+    <div class="col-md-3 " style="margin-top: 12px;">
+      <i class="ion-ios-film-outline" style="font-size:30px;"></i>
+    </div>
+    <div class="col-md-6">
+      <h3>Activity <%= @activity.name %></h3>
+    </div>
+    <div class="col-md-3">
+      <h3>
+        Due Date: <%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %>
+      </h3>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-8">
+      <% if @activity.video.present? %>
+      <div class="plyr box">
+        <%= video_tag(@activity.video) %>
+      </div>
+      <% elsif @activity.embedded_video.present? %>
+      <div class="plyr box">
+        <div data-video-id="<%= @activity.embedded_video%>" data-type="youtube"></div>
+      </div>
+      <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <%= render "/dashboard/notes_widget" %>
+    </div>
+  </div>
+  <div>
+    <% if @activity.activity_questions.present? %>
+      <h3>Question & Answer </h3>
+      <hr>
+      <% @activity.activity_questions.each do |aq| %>
+        <% answers = collect_student_answers(aq, current_user) %>
+        <p>
+          <strong>Question: </strong><%= aq.try(:name) %>
+        </p>
+        <% if answers.present? %>
+          <p>
+            <strong>Answer: </strong><%= answers.try(:name) %>
+          </p>
+        <% else %>
+          <%= simple_form_for [@activity, @answer], url: students_lessons_create_student_answers_path(type: @activity.class.name, type_id: @activity.id), html: {id: "new_student_answer_#{aq.try(:id)}", class: "new_student_answer"} do |f| %>
+            <%= f.input :activity_question_id, as: :hidden, input_html: { value: aq.id } %>
+            <% if aq.field_type == "select" %>
+              <%= f.input :name, as: :select, collection: aq.activity_answers.map {|a| [a.name, a.name]}, prompt: "Select", label: false, input_html: {class: "answer_input_#{aq.id}"} %>
+            <% elsif aq.field_type == "check" %>
+              <%= f.hidden_field :name, id: "check_question_answer_#{aq.id}", class: "answer_input_#{aq.id}" %>
+              <% aq.activity_answers.each do |ans| %>
+                <%= check_box_tag :check_name, ans.name, false, class: "check_question_answer check_question_answer_#{aq.id} answer_input_#{aq.id}", "data-question"=>aq.id %>
+                <%= f.label ans.name %>
+              <%end%>
+            <% elsif aq.field_type == "option" %>
+              <% aq.activity_answers.each do |ans| %>
+                <%= f.radio_button :name, ans.name, class: "answer_input_#{aq.id}" %>
+                <%= f.label ans.name %>
+              <%end%>
+            <% elsif aq.field_type == "text" %>
+              <%= f.input :name, label: false, placeholder: "answer", input_html: {class: "answer_input_#{aq.id}"} %>
+            <% end %>
+            <p class="answer_error error_<%= aq.id %>"></p>
+            <%= f.button :submit, "Submit", class: "answer_submit", "data-field_type"=>aq.field_type, "data-answer"=>aq.id %>
+          <% end %>
+        <% end %>
+        <hr>
+      <% end %>
+    <% else %>
+      <h3> No Questions </h3>
+    <% end %>
+  </div>
+  <div class="pull-right">
+    <%= link_to "Back to lessons", students_lesson_path(@course, course: @course.id), class: "btn btn-primary" %>
+  </div>
+</div>

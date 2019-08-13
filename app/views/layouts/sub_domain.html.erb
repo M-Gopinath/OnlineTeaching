@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ThinkableLms</title>
+    <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet">
+  </head>
+
+  <body class="page-header-fixed bg-1 current_domain"  data-domain="<%= Apartment::Tenant.current %>">
+    <div class="be-mega-menu <%= "be-wrapper " if  user_signed_in? %>">
+      <% if controller_name != "sessions" && controller_name != "registrations" && controller_name != "confirmations" %>
+        <%= render partial: 'layouts/subdomain_navbar' %>
+      <% end %>
+      <%= yield %>
+      <div id='remote_container'></div>
+    </div>
+  </body>
+</html>

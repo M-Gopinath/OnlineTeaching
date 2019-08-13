@@ -1,0 +1,21 @@
+<% @receipts.each do |receipt| %>
+  <% message = receipt.message %>
+  <div class="media view-details-mail">
+    <div class="media-left">
+      <a href="#">
+        <img class="media-object" src="http://placehold.it/64x64" alt="...">
+      </a>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <p class="mail-full-name"><%= message.sender.full_name %></p>
+        <span class="font-light"><%= message.subject %></span>
+        <span class="pull-right cr-mail-date"><%=  message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></span>
+      </h4>
+      <div class="message-body">
+        <%= message.body %>
+      </div>
+    </div>
+  </div>
+<% end %>
+

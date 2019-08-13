@@ -1,0 +1,26 @@
+setTimeout(function(){
+	form_loader();
+	$(".lesson-activities").html("<%= j(render partial: 'schools/activities', locals: {course: @course,lesson: @lesson, teachers: @teachers}) %>")
+	$(".lesson-list").html("<%= j(render partial: 'schools/lessons/lesson_lists', locals: {lessons: @lessons, course: @course}) %>")
+	$(".essay_activities").addClass("hide");
+	$(".activity-exist").data("exist-activity", "<%= Course.any_activity? %>")
+	$(".template-exists").data("template-exist", "<%= client_template_present %>")
+	$(".activities-view").addClass("hide");
+	$(".page_activities").removeClass("hide");
+	$('.new-activity').removeClass("menu-active");
+    $('.page-tab').addClass("menu-active");
+
+	var startDate = $(".th-vido-ac-area").data("start-date","<%= @lesson.start_date.present? ? @lesson.start_date : Time.now.strftime('%Y-%m-%d') %>");
+	var endDate = $(".th-vido-ac-area").data("end-date","<%= @lesson.end_date.present? ? @lesson.end_date : Time.now.strftime('%Y-%m-%d') %>");
+	$('.datetimepicker-video').datetimepicker({
+	  useCurrent: false,
+	  format: 'LL',
+	  minDate: moment(new Date("<%= @lesson.start_date.present? ? @lesson.start_date : Time.now.strftime('%Y-%m-%d') %>")).format("LL"),
+	  maxDate: moment(new Date("<%= @lesson.end_date.present? ? @lesson.end_date : Time.now.strftime('%Y-%m-%d') %>")).format("LL")
+	});
+	$(".essay_activities form input").val("");
+	$('.essay_activities form :checkbox').attr("checked",false);
+	$('.essay_activities form textarea').val("");
+	$(".essay_activities form :submit").val("CREATE ACTIVITY");
+	$('.activity-lesson-id').val("<%= @lesson.id %>");
+},800);

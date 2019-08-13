@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  image: MyString
+  enroll_course_message_id: 1
+  audio: MyString
+  video: MyString
+
+two:
+  image: MyString
+  enroll_course_message_id: 1
+  audio: MyString
+  video: MyString

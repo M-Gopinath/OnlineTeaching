@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-sm-10 course_rating_title">
+    <%= render "schools/course_rating_title" %>
+  </div>
+  <div class="col-sm-2 mobile-hide">
+    <div class="row">
+      <div class="step-footer btn-same-width <%= 'top-20' unless action_name == "show"%>">
+        <% if SchoolSetupTooltip.last.try(:launch) %>
+          <%= link_to "Back to Courses", schools_courses_path, class: "btn btn-space btn-secondary" %> <br>
+        <%end%>
+        <button data-direction="prev" class="btn btn-space btn-primary step-btn th-prev-btn">Previous</button> <br>
+        <% unless SchoolSetupTooltip.last.try(:launch) %>
+          <button data-direction="next" class="btn btn-space btn-primary step-btn th-next-btn">Next</button> <br>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

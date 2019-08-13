@@ -1,0 +1,22 @@
+console.log("<%=  @error %>");
+
+<% if @error.present?%>
+  $('.user-not-found').html('<span class="error-span"><%= @error %></span>');
+<%else%>
+  $(".error-span").remove();
+  $('.user-forgot-password').removeClass('border-error');
+  <% if current_user && current_user.subdomain.present? %>
+  	<% Apartment::Tenant.switch(current_user.subdomain) do %>
+  		<% if current_user && current_user.role.name == "Super Admin" || current_user.teacher? || current_user.student? %>
+  			<% sst = SchoolSetupTooltip.last %>
+  			<% if sst.launch.present? %>
+  				$(window.location.replace("<%= root_path %>"));
+  			<%else%>
+  				$(window.location.replace("/schools/setup"));
+  			<%end%>
+  		<%end%>
+  	<%end%>
+  <%end%>
+<%end%>
+
+

@@ -1,0 +1,34 @@
+<section class="pricing">
+  <div class="row">
+    <div class="col-md-12">
+      <% plans.each do |plan| %>
+        <% active_plan = plan.id==current_user.current_active_plan.try(:plan_id) %>
+        <div class="col-lg-4">
+           <div class="th-plan-sec plan-select-<%= plan.id %> <%= plan_selected(plan.id) %> <%= 'active_plan' if active_plan %>">
+            <div class="card mb-5 mb-lg-0">
+              <div class="card-body text-center">
+                <h5 class="card-title text-muted text-uppercase text-center"><%= plan.name %></h5>
+                <h6 class="card-price text-center">$<%= plan.cost %><span class="period">/monthly</span></h6>
+                <hr>
+                <ul class="fa-ul">
+                  <% plan.plan_benefits.each do |pb| %>
+                    <li><%= pb.name %></li>
+                  <% end %>
+                </ul>
+                <% if active_plan %>
+                  <button class="active-plan">Current Plan</button>
+                <% else %>
+                  <%= form_tag upcoming_invoice_charges_path, method: :post do %>
+                    <%= hidden_field_tag :plan_id, plan.id %>
+                    <%= submit_tag "Choose", class: 'choolse-plan' %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>  
+</section>
+

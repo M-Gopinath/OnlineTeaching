@@ -1,0 +1,42 @@
+<%= form_for lesson, url: schools_lesson_path(lesson), html: {id: "school-setup", class: "form-horizontal" }, multipart: true, remote: true do |f| %>
+  <div class="form-group">
+    <label>lesson title</label>
+    <div>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>what will students learn in this lesson</label>
+    <div> 
+      <%= f.text_area :description, class: "form-control th-pad-ri-0", rows: 4%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Lesson start date</label>
+        <div>
+          <div class="input-group date" id="lesson-start-datetimepicker">
+            <%= f.text_field :start_date,  class: "form-control setup-lesson" %>
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Lesson end date</label>
+        <div>
+          <div class="input-group date" id="lesson-end-datetimepicker">
+            <%= f.text_field :end_date, class: "form-control setup-lesson" %>
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <p class="text-right lesson-cr-btn"><button class="pull-left btn btn-space btn-primary th-sub-btn less-back-update" data-lesson="<%= lesson.try(:id) %>" type="button">CREATE ACTIVITY</button><%= image_tag "/assets/loading.gif", class: "form_loaders hide" %><button class="btn btn-space btn-primary th-sub-btn less-back-create" type="submit">UPDATE LESSON</button></p>
+  </div>
+<% end %>

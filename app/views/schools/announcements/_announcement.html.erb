@@ -1,0 +1,17 @@
+<li id= "announcement_<%=announcement.id%>">
+  <span class="text"><%= announcement.message %></span>
+  <span class="minutes-ago"><small><i class="fa fa-clock-o"></i> <%= distance_of_time_in_words(Time.now, announcement.updated_at) %> </small></span>
+  <span class="tools">
+  <% if policy(announcement).own_announcement? %>
+    <%= link_to raw("<i class=\"fa fa-pencil\"></i>"), "#modal_"+announcement.id.to_s, "data-toggle" => "modal", title: "Edit" %>
+
+    <%= link_to raw("<i class=\"fa fa-trash-o\"></i>"), schools_announcement_path({:id => announcement }), remote: true, method: :delete, data: { confirm: "Are you sure?" }, title: "Delete" %>
+
+    <%= link_to raw("<i class='fa fa-archive'></i>"), schools_archive_announcement_path(announcement), remote: true, data: { confirm: "Are you sure?" }, title: "Archive" %>
+  <% end %>
+  </span>
+
+  <%= render(:partial => '/schools/announcements/announcement_modal',:locals => { :announcement => announcement, remote: true }) %>
+</li>  
+
+

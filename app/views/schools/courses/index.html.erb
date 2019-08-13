@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row-row top-20">
+    <% if @courses.present? %>
+      <div class="row mar-auto-100">
+        <div class="col-sm-4">
+          <div class="th-cus-pagination course-creation-session">
+            <%= link_to schools_course_path(course_next_id), class: "btn btn-primary btn-course-creation" do  %>
+              <i class="fa fa-plus white-color-fa" aria-hidden="true"></i> Create Course
+            <%end%>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="course_search_box">
+            <%= form_tag schools_courses_path, method: :get, remote: true,id: "course_search_form" do %>
+              <input type="text" id="user_name_email" value="" class="form-control search_user course_search_input" placeholder="Search with Name or Title">
+            <%end%>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="th-cus-pagination float-right">
+            <div class="th-cus-pagination text-center course_summary_pagination">
+              <%= render "course_summary_pagination" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%end%>
+    <div class="row mar-auto-100">
+      <div class="th-course-image course_summary_container">
+        <%= render "course_summary" %>
+      </div>
+    </div>
+  </div>
+</div>
+

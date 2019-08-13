@@ -1,0 +1,32 @@
+<div class="container">
+
+
+<div class="row">
+  <div class="col-md-2">
+    <div class="box box-solid">
+      <div class="box-body">
+        <div class="btn-group calendar-colors">
+          <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
+          <p><span class="text-aqua"><i class="fa fa-square"></i></span><span class="events-name">Event</span></p>
+          <p><span class="text-green"><i class="fa fa-square"></i></span><span class="events-name">Course</span></p>
+          <p><span class="text-red"><i class="fa fa-square"></i></span><span class="events-name">Lesson</span></p>
+          <p><span class="text-purple"><i class="fa fa-square"></i></span><span class="events-name">Activities</span></p>
+        </div>
+        <!-- /btn-group -->
+      </div>
+    </div>
+    <% if current_user.admin? || current_user.is_super_admin? %>
+      <div class="text-center new-event">
+         <button type="button" class="btn btn-success new-event-btn">New Event</button>
+      </div>
+      <div class="text-center new-event-group">
+         <%= link_to "New Event Group", event_attendee_groups_path, class: "btn btn-success new-event-group-btn" %>
+      </div>
+    <% end %>
+  </div>
+  <!-- /.col -->
+  <div class="col-md-10">
+    <div class='calendar'></div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,76 @@
+<div class="container-fluid top-60">
+  <div class="col-sm-8 col-sm-offset-2">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="show-img-box">
+          <%= image_tag @course.course_images.last.present? && @course.course_images.last.image.present? && @course.course_images.last.image.url.present? ? @course.course_images.last.image.url : "https://png.icons8.com/material-rounded/100/666666/picture.png" %>
+        </div>
+      </div>
+
+      <div class="col-sm-9">
+        <div class="student-course-center">
+          <div class="cour-details-row">
+            <p class="course-title">Lesson Name :</p>
+            <p><%= @lesson.name%></p>
+          </div>
+          <div class="cour-details-row">
+            <p class="course-title">Lesson Descrption:</p>
+            <p><%= @lesson.description%></p>
+          </div>
+          <div class="cour-details-row">
+            <p class="course-title">Dates: </p>
+            <p><%= @lesson.start_date %>  -  <%= @lesson.end_date %></p>
+          </div>
+          <div class="cour-details-row">
+            <p class="course-title">Activity count:</p>
+            <p><%= get_lesson_activities_count(@lesson) %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="top-30">
+      <div class="row">
+        <div class="status-box pull-left top-30">
+          <button class="tablinks active btn btn-space btn-secondary" onclick="openActivity(event, 'all')">All</button>
+          <button class="tablinks btn btn-space btn-secondary" onclick="openActivity(event, 'completed')">Completed</button>
+          <button class="tablinks btn btn-space btn-secondary" onclick="openActivity(event, 'incompleted')">InCompleted</button>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 0px;">
+        <div id="all" class="activity tabcontent">
+          <div class="<%= 'show-lesson-ac-table' unless @activities.present? %>">
+            <% if @activities.present? %>
+              <%= render partial: "lesson_activities", locals: {activities: @activities} %>
+            <%else%>
+              <p class="no-data-found">No Data found</p>
+            <%end%>
+          </div>
+          <div class="itm-btn">
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="flickr_pagination">
+                  <%= will_paginate @activities , renderer: BootstrapPagination::Rails,  :container => false %>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="pull-right">
+                  <%= link_to "Back to courses", students_course_path(@course), class: "btn btn-space btn-secondary btn-back-course" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="completed" class="activity tabcontent">
+          <%#= render partial: "lesson_activities", locals: {activities: @completed} %>
+        </div>
+        <div id="incompleted" class="activity tabcontent">
+          <%#= render partial: "lesson_activities", locals: {activities: @incompleted} %>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+

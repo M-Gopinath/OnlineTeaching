@@ -1,0 +1,17 @@
+<% if @error.present? %>
+  $(".new-user-error").html("<%= @error %>");
+<% else %>
+  $("#newUser").modal("hide");
+  console.log("<%= @admins %>");
+  $("#admin_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @admins, type: 'admin'}) %>");
+  $("#teacher_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @teachers, type: 'teacher'}) %>");
+  $("#student_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @students, type: 'student'}) %>");
+  $('#new_user').find(':input').val("");
+  $('#new_user').find('select').val("");
+  $('#new_user').find(':submit').prop('value',"Submit");
+  $(".teacher-active-count").html("<%= @teachers.active.count %>")
+  $(".admin-active-count").html("<%= @admins.active.count %>")
+  $(".student-active-count").html("<%= @students.active.count %>")
+<% end %>
+
+$('.display-spin').addClass('hide')

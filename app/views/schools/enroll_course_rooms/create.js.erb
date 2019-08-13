@@ -1,0 +1,4 @@
+
+// $("#setup-lesson-form").html("<%= j(render partial: 'schools/enroll_course_rooms/show', locals: {messages: @messages, message: @message, conversation: @conversation})%>");
+$("#setup-chat-tabs-<%= params[:place_index] %>").html("<%= j(render partial: 'schools/enroll_course_rooms/show', locals: {messages: @messages, message: @message, conversation: @conversation})%>");
+$('.course-chat-activity').data("course-id","<%= @conversation.try(:id) %>")

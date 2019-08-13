@@ -1,0 +1,7 @@
+<% if params[:type] == "my" %>
+  $("#my_announcements").html("<%= j(render partial: 'announcement_lists', locals: {announcements: @my_announcements, type: 'my_announce'}) %>");
+  $(".my-announcements").html("<%= j(render partial: 'pagination', locals: {announcements: @my_announcements, param: 'my_announcement'}) %>");
+<% elsif params[:type] == "all" %>
+  $("#announcements").html("<%= j(render partial: 'announcement_lists', locals: {announcements: @announcements, type: 'announce'}) %>");
+  $(".all-announcements").html("<%= j(render partial: 'pagination', locals: {announcements: @announcements, param: 'announcement'}) %>");
+<% end %>

@@ -1,0 +1,14 @@
+<div class="course-img">
+  <div class="course-inner-img">
+    <% if @course.present? && @course.course_images.last.present? && @course.course_images.last.image.present?%>
+      <%= image_tag @course.course_images.last.image.url, class: 'course_image'%>
+    <%else%>
+    <img src="https://png.icons8.com/material-rounded/100/666666/picture.png" class="course_image">
+    <%end%>
+  </div>
+</div>
+<div class="course-name-footer">
+  <%if @course.present? && @course.name.present? %>
+    <%= @course.name.truncate(40) %>
+  <%end%>
+</div>

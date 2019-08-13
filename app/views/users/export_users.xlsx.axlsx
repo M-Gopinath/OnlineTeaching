@@ -1,0 +1,16 @@
+require 'axlsx'
+wb = xlsx_package.workbook
+title = wb.styles.add_style(:b=>true,
+                           :border=>Axlsx::STYLE_THIN_BORDER,
+                           :alignment=>{:horizontal => :left})
+left_align = wb.styles.add_style(:alignment=>{:horizontal => :left})
+
+
+wb.add_worksheet(name: "Sample data") do |sheet|
+  sheet.add_row ["First Name", "Last Name", "Email", "Role" ] , :style=>title
+
+  @users.each do |u|
+    sheet.add_row [u.first_name, u.last_name, u.email, u.role.try(:name)]
+  end
+
+end

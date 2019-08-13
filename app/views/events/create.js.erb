@@ -1,0 +1,18 @@
+$('.modal').modal('hide');
+
+
+$('.calendar').fullCalendar(
+  'renderEvent', 
+  $.parseJSON("<%=j render(@event, format: :json).html_safe %>"),
+  true
+);
+
+$('.calendar2').fullCalendar(
+  'renderEvent', 
+  $.parseJSON("<%=j render(@event, format: :json).html_safe %>"),
+  true
+);
+
+var event = "<%= @event.id %>"
+  
+App.event_activity.event_message(event)

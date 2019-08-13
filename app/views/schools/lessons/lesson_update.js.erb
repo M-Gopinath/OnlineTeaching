@@ -1,0 +1,14 @@
+setTimeout(function(){
+	<% if params[:id].present? %>
+	  $("#setup-lesson-form").html("<%= j(render partial: 'schools/lessons/lesson_edit', locals: {lesson: @lesson, teachers: @teachers, lessons: @lessons})%>");
+		$('.activity-lesson-id').val("<%= @lesson.id %>");
+		<%= render "schools/lessons/new_activities" %>
+		$('.th-vido-ac-area').data('start-date',"<%= @lesson.start_date.present? ? @lesson.start_date : @lessons.first.start_date %>");
+		$('.th-vido-ac-area').data('end-date',"<%= @lesson.end_date.present? ? @lesson.end_date : @lessons.first.end_date %>");
+		video_datepicker();
+	<% else %>
+	    $("#setup-lesson-form").html("<%= j(render partial: 'schools/new_lesson', locals: {lesson: Lesson.new,course: @course})%>");
+	<% end %>
+	lessonDatePicker();
+	form_loader();
+},800)

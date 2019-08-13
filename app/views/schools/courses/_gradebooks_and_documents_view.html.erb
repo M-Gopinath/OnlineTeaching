@@ -1,0 +1,17 @@
+<li>
+  <%= link_to @course.try(:id).present? ? schools_course_gradebooks_path(@course) : "javascript:void(0);", remote: true, class: "activity-gradebook-show" do %>
+    <img src="https://png.icons8.com/ios-glyphs/25/1EC09F/books.png">GRADEBOOK
+  <%end%>
+</li>
+<li>
+  <%= link_to @course.try(:id).present? ? schools_course_documents_path(@course) : "javascript:void(0);", remote: true, class: 'activity-documents-show' do %>
+    <img src="https://png.icons8.com/ios-glyphs/20/1EC09F/file.png">DOCUMENTS
+  <% end %>
+</li>
+<li>
+  <% if @course.try(:id).present?  %>
+    <%= link_to schools_enroll_course_rooms_path(course_id: @course.id), method: :post, remote: true, class: "activity-gradebook-show course-chat-activity", "data-course-id" => @course.try(:enroll_course_room).try(:id) do %>
+      <img src="https://png.icons8.com/ios-glyphs/20/1EC09F/topic.png">Chat
+    <% end %>
+  <% end %>
+</li>

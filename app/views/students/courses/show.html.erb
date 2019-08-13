@@ -1,0 +1,322 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="co-header-banner" style="padding: 10px 45px 5px 45px;">
+        <div class="col-sm-3">
+          <div class="th-sc-img th-sc-top">
+             <%= image_tag @course.course_images.last.present? && @course.course_images.last.image.present? && @course.course_images.last.image.url.present? ? @course.course_images.last.image.url : "https://png.icons8.com/material-rounded/100/666666/picture.png" %>
+          </div> 
+        </div>
+        <div class="col-sm-9">
+          <div class="course-details">
+            <p><%= @course.name %></p>
+            <p>
+              <span id="avg-rating" data-avg-rating="<%= @course.calculate_avg_rating(current_user) %>"></span>
+              <span class="rating-course-text">Course Rating</span>
+            </p>
+            <div class="row magin-left-7 cus-progress-bar">
+              <div class="col-sm-11">
+                Reset Progress
+                <div class="progress border">
+                  <div class="progress-bar bg-light" style="width:40%"></div>
+                </div>
+              </div>
+              <div class="col-sm-1 text-center">
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+                <div class="progress border">
+                  <div class="progress-bar bg-light" style="width:0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="course-tabs">
+     <div class="container-fluid">
+      <div class="row sexytabs">
+        <ul class="nav nav-tabs nav-pills course-tablist studetn-course-tablelist" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#course-overview"><span>Course Overview</span></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" data-toggle="pill" href="#course-content"><span>Course Content</span></a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#gradebook"><span>Gradebook</span></a>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "#document",class: 'activity-documents-show nav-link', 'data-url' => "#{ @course.try(:id).present? ? schools_course_documents_path(@course) : "nill"}", "data-toggle"=>"pill" do %> <span>Documents</span>
+          <% end %>
+
+          <li class="nav-item">         
+            <% if @course.try(:id).present?  %>
+              <%= link_to "#chat", class: "activity-chat-show course-chat-activity nav-link", "data-course-id" => @course.try(:enroll_course_room).try(:id), 'data-url' => "#{schools_enroll_course_rooms_path(course_id: @course.id,place_index: 0)}" , "data-toggle"=>"pill", "data-place_index"=>"0" do %> <span>Discussion</span>
+              <% end %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div id="course-overview" class="ma-auto-95 tab-pane fade">
+          <div class="col-xs-12 col-sm-12 " style="margin-left: 15px;">
+            <div class="col-md-3 course-over-4">
+              <div class="cours-over-row">
+                <span class="light-dark">Course Image</span>
+                <div class="course-image">
+                  <% if @course.course_images.present? && @course.course_images.first.image.present? %>
+                    <%= image_tag @course.course_images.first.try(:image_url), width: "100" %>
+                  <% else %>
+                    <%= image_tag 'https://png.icons8.com/material-rounded/100/666666/picture.png', class: 'course_image'%>
+                  <%end%>
+                </div>
+              </div>
+               <div class="cours-over-row">
+                <span class="light-dark">Course Attachment </span>
+                <div class="course-image">
+                  <% if @course.course_attachments.present? && @course.course_attachments.first.attachment.present? %>
+                    <%= image_tag @course.course_attachments.first.try(:attachment_url), width: "100" %>
+                  <% else %>
+                   <%= image_tag 'https://png.icons8.com/material-rounded/100/666666/picture.png', class: 'course_image'%>
+                  <%end%>
+                </div>
+              </div>
+               <div class="cours-over-row">
+                <span class="light-dark">Course Video</span>
+                <div class="course-image">
+                  <% if @course.course_videos.present? && @course.course_videos.first.video.present? %>
+                    <%= image_tag @course.course_videos.first.try(:video_url), width: "100" %>
+                  <% else %>
+                   <%= image_tag 'https://png.icons8.com/material-rounded/100/666666/picture.png', class: 'course_image'%>
+                  <%end%>
+                </div>
+              </div>
+           </div>
+
+            <div class=" col-md-9 border-left-side "> 
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="cours-over-row">
+                    <span class="light-dark">School Teacher</span>
+                    <span class="course-over-data">-<%#= teachers.first.try(:email) %></span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="cours-over-row">
+                    <span class="light-dark">Course title</span>
+                    <span class="course-over-data"><%= @course.try(:name) %></span>
+                  </div>
+
+                  <div class="cours-over-row">
+                    <span class="light-dark">Course start date</span>
+                    <span class="course-over-data"><%= @course.try(:start_date) %></span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="cours-over-row">
+                    <span class="light-dark">Subtitle</span>
+                    <span class="course-over-data"><%= @course.try(:name) %></span>
+                  </div>
+                  <div class="cours-over-row">
+                    <span class="light-dark">Course end date</span>
+                    <span class="course-over-data"><%= @course.try(:end_date) %></span>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="cours-over-row">
+                    <span class="light-dark">Course objectives</span>
+                    <span class="course-over-data"><%= @course.try(:objectives) %></span>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="cours-over-row">
+                    <span class="light-dark">Course Description</span>
+                    <span class="course-over-data"><%= @course.try(:description) %></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="course-content" class="tab-pane active">
+          <div class="row">
+            <div class="col-sm-4 col-sm-31">
+              <div class="les-scroll-less" style="margin-top: 0px;">
+                 <div class="lesson-list">
+                    <div class="th-tree-section">
+                      <% if @lessons.present? %>
+                        <div class="th-tree-section">
+                          <div class="collapse in" id="lessonTree">
+                            <ul id="sortable" class="ui-sortable">
+                              <% @lessons.each do |lesson| %>
+                                <li class="list lesson-edit-items ui-sortable-handle">
+                                  <div class="th-child-act">
+                                    <%= link_to "#activityTree#{lesson.id}", class: "btn th-add-less lesson-list-btn studnt-child-click", "data-toggle" => 'collapse', 'data-url' => "#{students_lesson_details_path(lesson_id: lesson.id)}", role: "button", 'aria-expanded' =>  "false", 'aria-controls'=> "activityTree" do %>
+                                      <span class="cour-name-and-fa">
+                                        <i class="fa fa-chevron-right" aria-hidden="true"></i> 
+                                        <i class="fa fa-chevron-down"></i> 
+                                        <span><%= lesson.name.humanize%></span>
+                                      </span> 
+                                      <span class="handle-dotted"><img src="https://img.icons8.com/windows/25/ffffff/menu-2.png"></span> 
+                                      <span class="active-count"><%= get_lesson_activities_count(lesson) %> / 10</span>
+                                    <%end%>
+                                  </div>
+                                  <div class="collapse in" id="activityTree<%= lesson.id %>">
+                                    <% lesson.all_activities.each do |a| %>
+                                      <div class="th-grand-child">
+                                        <%= link_to students_show_activity_path(lesson, a, type: a.class.name, course: lesson.course.id), class: "btn th-add-less activity-edit-process", remote: true do %>
+                                            <%= a.name.humanize %>
+                                        <%end%>
+                                      </div>
+                                    <% end %>
+                                  </div>
+                                </li>
+                              <% end %>
+                            </ul>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                 </div>
+              </div>
+            </div>
+            <div class="col-sm-9 col-sm-69">
+              <div id="update-less-act">
+                <% if @lessons.present? %>
+                    <% @lessons.first(1).each do |lesson| %>
+                      <div class="cour-details-row">
+                        <p class="course-title">Lesson Name : </p>
+                        <p><%= lesson.name.humanize%></p>
+                      </div>
+
+                      <div class="cour-details-row">
+                        <p class="course-title">Lesson Description : </p>
+                        <p><%= lesson.description.humanize%></p>
+                      </div>
+
+                      <div class="cour-details-row">
+                        <p class="course-title">Lesson Start Date : </p>
+                        <p> <%= lesson.start_date.strftime("%m/%d/%Y") %></p>
+                      </div>
+
+                      <div class="cour-details-row">
+                        <p class="course-title">Lesson End Date : </p>
+                        <p><%= lesson.end_date.strftime("%m/%d/%Y") %></p>
+                      </div>
+
+                      <ul class="nav nav-stacked cus-ul-li">
+                        <li class="bg-green">
+                          <a href="#"><span class="font-normal">Activities</span> <span class="font-weight"><%= get_lesson_activities_count(lesson) %></span></a>
+                        </li>
+                        <li class="bg-blue"><a href="#">
+                          <span class="font-normal">Completed</span>
+                          <span class="font-weight"><%= user_attened_activities(lesson) %></span></a>
+                        </li>
+                        <li class="last-ul-li bg-purple">
+                          <a href="#"><span class="font-normal">Late </span>
+                            <span class="font-weight"><%= get_lesson_activities_count(lesson) - user_attened_activities(lesson) %></span></a>
+                        </li>
+                      </ul>
+                    <%end%>
+                <%else%>
+                <div class="lesson-data-found">
+                  <p>Lesson data not found</p>
+                </div>
+                <%end%>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="gradebook" class="ma-auto-95 tab-pane fade">
+        
+        </div>
+
+        <div id="document" class="ma-auto-95 tab-pane fade">
+          <div id="setup-document-tabs"></div>
+        </div>
+
+        <div id="chat" class="tab-pane fade">
+          <div class="row-row">
+            <div class="col-md-9 setup-chat-tabs" id="setup-chat-tabs-0"><p class="text-center"><img src="/assets/loading.gif"></p></div>
+            <div class="col-md-3 course-direct-chat">
+              <div class=" direct-chat">
+                <div class="th-not-items">
+                  <div class="th-cus-panel">
+                    <div id="user-widget" class="course-widget course_enrolled_direct_chat">
+                      <%= render partial: "schools/users_widget", locals: {admins: User.admin_for_course_enroll(@course), teachers: User.teacher_for_course_enroll(@course), students: User.student_for_course_enroll(@course)} %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="courseRatings" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Course Rating / Rated By <%= @course.course_ratings.count %> Students</h4>
+      </div>
+      <div class="modal-body">
+        <div class="rating-notify"></div>
+        <div id="rateYo"></div>
+        <%= hidden_field_tag :rating, "", class: "course-rating-point" %>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success submit-rating-btn" data-course-id= "<%= @course.id %>">Submit</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function () {
+ 
+  var $rateYo = $("#rateYo").rateYo({
+    rating: 0.0,
+    ratedFill: "#FCCF1A",
+    starWidth: "20px",
+    spacing: "4px",
+    precision: 1,
+  });
+
+  $("#rateYo").click(function () {
+
+    var rating = $rateYo.rateYo("rating");
+    
+    $(".course-rating-point").val(rating);
+  });
+
+  var avgRat = $("#avg-rating").data("avg-rating")
+
+  $("#avg-rating").rateYo({
+    rating: avgRat,
+    ratedFill: "#FCCF1A",
+    starWidth: "20px",
+    spacing: "4px",
+    precision: 1,
+    readOnly: true
+  });
+ 
+});
+</script>
+
+

@@ -1,0 +1,51 @@
+<div class="course-show-item">
+  <%= render "schools/course_rating_title" %>
+</div>
+
+<div class="course-rating-section">
+  <span class="activity-exist" data-exist-activity="<%= Course.any_activity? %>"></span>
+  <p class="student-rating-section">
+    <span id="avg-rating" data-avg-rating="<%= @course.calculate_avg_rating(current_user) %>"></span>
+    <span class="rating-count-div">
+      
+    </span>
+    <span class="rating-point left-5"><%#= course.calculate_avg_rating(current_user) %> 100</span>
+    <span class="rating-course-text left-5">(<%= @course.course_ratings.count %>)</span>
+  </p>
+</div>
+
+<div class="ins-course-show-action">
+  <ul class="list-inline">
+    <li class="jq-click" target="1">
+      <%= link_to "#course-overview", "data-toggle"=>"pill",  class: " through-course-overview-btn nav-link", "data-course"=>@course.try(:id) do  %> 
+         <p class="student-view"><i class="fa fa-window-restore" aria-hidden="true"></i></p>
+      <%end%>
+    </li>
+
+    <li class="jq-click" target="2">
+      <%= link_to "#gradebook", class: "activity-gradebook-show nav-item", 'data-url' => "#{@course.try(:id).present? ? schools_course_gradebooks_path(@course) : "nill"}", "data-toggle"=>"pill" do %> <p class="view-fa"> <i class="fa fa-graduation-cap" aria-hidden="true"></i></p>
+        <%end%>
+    </li>
+
+    <li>
+      <%= link_to "#document",class: 'activity-documents-show nav-link', 'data-url' => "#{ @course.try(:id).present? ? schools_course_documents_path(@course) : "nill"}", "data-toggle"=>"pill" do %> 
+          <p class="copy-fa"><i class="fa fa-file"></i></p>
+        <% end %>
+    </li>
+    
+    <li class="jq-click" target="3">
+      <% if @course.try(:id).present?  %>
+        <%= link_to "#chat", class: "activity-chat-show course-chat-activity nav-link", "data-course-id" => @course.try(:enroll_course_room).try(:id), 'data-url' => "#{schools_enroll_course_rooms_path(course_id: @course.id,place_index: 0)}", "data-toggle"=>"pill", "data-place_index"=>"0" do %> 
+           <p class="message-fa"><i class="fa fa-comments-o" aria-hidden="true"></i></p>
+        <% end %>
+      <% end %>
+    </li>
+    <li class="jq-click" target="4">
+       <a class="nav-link" data-toggle="pill" href="#students-enroll"> <p class="view-fa"> <i class="fa fa-eye" aria-hidden="true"></i> </p></a>
+    </li>
+     <li class="nav-item active hide">
+        <a class="nav-link" data-toggle="pill" href="#course-content"><span>Course Content</span></a>
+      </li>
+  </ul>
+</div>
+

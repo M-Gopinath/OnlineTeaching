@@ -1,0 +1,60 @@
+<div class="cus-panel-design">
+  <div class="cus-panel-body">
+    <div class="quesiton-ans">
+      <% if @activity.activity_questions.present? %>
+        <% @activity.activity_questions.where(user: current_user) %>
+        <div class="quesiton-answer-show">
+          <% @activity.activity_questions.each.with_index(1) do |aq,index| %>
+            <% answers = collect_student_answers(aq, current_user) %>
+            <div class="question-sub-answ <%= index%2 == 1 ? 'add-row' : 'even-row' %>">
+              <p>
+                <strong>Question: </strong> <%= aq.try(:name) %>
+              </p>
+              <% if answers.present? %>
+                <p>
+                  <strong>Answer: </strong><%= answers.try(:name) %>
+                </p>
+              <% else %>
+                 <%= simple_form_for [@activity, @answer], url: students_lessons_create_student_answers_path(type: @activity.class.name, type_id: @activity.id), html: {id: "new_student_answer_#{aq.try(:id)}", class: "new_student_answer"} do |f| %>
+
+                  <%= f.input :activity_question_id, as: :hidden, input_html: { value: aq.id } %>
+
+                  <% if aq.field_type == "select" %>
+                    <%= f.input :name, as: :select, collection: aq.activity_answers.map {|a| [a.name, a.name]}, prompt: "Select", label: false, input_html: {class: "select-optionquestion answer_input_#{aq.id}", disabled: !current_user.student?} %>
+                    <i class="fa fa-caret-down"></i>
+                    
+                  <% elsif aq.field_type == "check" %>
+                    <%= f.hidden_field :name, id: "check_question_answer_#{aq.id}", class: "answer_input_#{aq.id}" %>
+                    <% aq.activity_answers.each do |ans| %>
+
+                      <label class="checkbox-container">
+                        <%= ans.name %>
+                        <%= check_box_tag :check_name, ans.name, false, class: "check_question_answer check_question_answer_#{aq.id} answer_input_#{aq.id}", "data-question"=>aq.id, disabled: !current_user.student? %>
+                        <span class="checkmark"></span>
+                      </label>
+                    <%end%>
+                  <% elsif aq.field_type == "option" %>
+                    <% aq.activity_answers.each do |ans| %>
+                      <label class="radiobutton-container">
+                        <%= ans.name %>
+                        <%= f.radio_button :name, ans.name, class: "answer_input_#{aq.id}", disabled: !current_user.student? %>
+                        <span class="checkmark"></span>
+                      </label>
+                    <%end%>
+                  <% elsif aq.field_type == "text" %>
+                  <%= f.input :name, label: false, placeholder: "answer", input_html: {class: "answer_input_#{aq.id}", disabled: !current_user.student?} %>
+                  <% end %>
+                  <p class="answer_error error_<%= aq.id %>"></p>
+                    <%= f.button :submit, "Submit", class: "answer_submit btn btn-space btn-primary" , "data-field_type"=>aq.field_type, "data-answer"=>aq.id, disabled: !current_user.student? %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <h3 class="data-no-found"> No Questions </h3>
+      <% end %>
+    </div>
+  </div>
+</div>
+

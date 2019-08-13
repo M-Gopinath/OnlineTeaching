@@ -1,0 +1,15 @@
+<% if @create_post.parent_id.present? %>
+  $(".reply-post-<%= @create_post.parent_id %>").append("<%= j(render partial: 'posts/post', locals: {post: @create_post}) %>");
+  $(".reply-post-form").hide();
+  $(".reply-post-box").val("");
+<% else %>
+  $(".top-post-box").val("");
+  $("#user-posts").prepend("<%= j(render partial: 'posts/post', locals: {post: @create_post}) %>");
+<% end %>
+
+// $(".user-overflow-scroll").animate({ scrollTop: $(".user-overflow-scroll")[0].scrollHeight}, 'slow');
+
+var post = "<%= @create_post.id %>";
+<% if @create_post.try(:id).present? %>
+	App.post_count.post_count(post);
+<%end%>

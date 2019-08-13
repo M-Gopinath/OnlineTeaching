@@ -1,0 +1,9 @@
+<% if @role == "Admin" %>
+  $("#admin_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @users, type: 'admin'}) %>");
+<% elsif @role == "Teacher" %>
+  $("#teacher_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @users, type: 'teacher'}) %>");
+<% elsif @role == "Student" %>
+  $("#student_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @users, type: 'student'}) %>");
+<% else %>
+  $("#all_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @users}) %>");
+<% end %>

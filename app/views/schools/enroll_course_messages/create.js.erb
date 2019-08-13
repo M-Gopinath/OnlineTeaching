@@ -1,0 +1,13 @@
+$('form').each(function() { this.reset() });
+$(".image-preview").html("")
+$(".audio-preview").html("")
+$(".video-preview").html("")
+var id = "<%= @conversation.id %>";
+message = "<%= j render( partial: @message ) %>"
+course_id = "<%= @message.course_id %>";
+App.course_chat.course_received_data(id, message, course_id);
+
+if (course_id != "" && course_id != undefined){
+	message_id = "<%= @message.id %>";
+	App.coruse_chat.coruse_chat_count(message_id);
+}

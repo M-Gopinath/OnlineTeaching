@@ -1,0 +1,12 @@
+<% if @client.errors.any?%>
+	<% @client.errors.each do |key,value| %>
+		<% if key.to_s == "subdomain" %>
+			$('.sub-domain-validation').html("<%= key %> <%= value %>");
+			$('#client_subdomain').addClass("border-error");
+		<%end%>
+	<%end%>
+<%else%>
+  $(window.location.assign("<%= new_user_session_url(subdomain: @client.subdomain) %>"));
+<%end%>
+
+

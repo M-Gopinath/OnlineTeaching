@@ -1,0 +1,637 @@
+<!-- <div class="container-fluid hide">
+  <div class="row">
+    <%#= render "layouts/top_menu" %>
+  </div>
+</div>
+<div class="be-content hide">
+  <div class="main-content container-fluid">
+    <div class="row">
+      <div class="col-md-3 dashboard_widget-3">
+        <div class="row">
+          <div class="card">
+            <div class="th-not-items">
+              <div class="panel th-cus-panel overflow-scroll">
+                <div class="panel-heading">
+                  <h3 class="panel-title">
+                    <span class="th-pa-text">
+                      <i class="fa fa-bullhorn"></i>
+                        Announcement
+                    </span> <span class="view-ann-das"><%= link_to "View All", schools_announcements_path %></span>
+                    <span class="pull-right clickable"><i class="fa fa-chevron-up"></i></span>
+                  </h3>
+                </div>
+                  <% if user_signed_in? && (current_user.admin_teacher?) %>
+                    <div id="th-cr-ann-tea">
+                      <%= form_for @announcement, remote: true, url: schools_announcements_path, method: :post do |f| %>
+                        <%= f.hidden_field :user_id, value: current_user.id %>
+                        <div class="box-footer">
+                          <div class="input-group">
+                            <%= f.text_field  :message, class: "form-control", id: "new_announcement" , placeholder: "Add announcement..."  %>
+                            <div class="input-group-btn">
+                              <%= f.button :button, class: "btn btn-primary ann-post-btn"  do %>
+                              <i class="fa fa-plus"></i>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                  
+                <div class="panel-body scroll-body-an">
+                  <ul class="todo-list ui-sortable" id="announcements">
+                    <% @announcements.each do |announcement| %>
+                    <%= render(:partial => '/schools/announcements/announcement',:locals => { :announcement => announcement }) %>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card">
+            <div class="th-not-items">
+              <div class="panel th-cus-panel">
+                <div class="panel-heading">
+                  <h3 class="panel-title">
+                    <span class="th-pa-text"><i class="fa fa-calendar" aria-hidden="true"></i>  Calendar</span>
+                    <span class="pull-right clickable"><i class="fa fa-chevron-up"></i></span>
+                  </h3>
+                </div>
+                <div class="panel-body top-17-px cal-botton-padd">
+                  <div class="calendar2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 dashboard_widget-6">
+        <div class="card">
+          <div class="th-post">
+            <div class="th-postbox com-cht-box" >
+              <div class="th-avatar col-sm-2">
+                <span class="th-user">
+                  <img data-role="user-avatar" src="/assets/avatar-1.png">
+                </span>
+              </div>
+              <div class="th-textarea-wrapper col-sm-10" style=" padding: 10px">
+                <%= form_for @post, url: schools_posts_path, remote: true, multipart: true do |f| %>
+                  <div class="formgroup">
+                    <%= f.hidden_field :parent_id, value: nil %>
+                    <%= f.text_area :description, class: "form-control top-post-box", placeholder: "What's on your mind?", rows: 2, cols: 2 %>
+                  </div>
+                  <%= f.fields_for :post_images, multiple: true do |p| %>
+                    <%= p.file_field :image, class: "image-upload hide" %>
+                    <%= p.file_field :video, class: "video-upload hide" %>
+                    <%= p.file_field :audio, class: "audio-upload hide" %>
+                    <span class="att-lef-text">Attach</span>
+                    <span class="att-lef-text image-upload-btn"><img src="https://png.icons8.com/metro/15/666666/file.png"></span>
+                    <span class="att-lef-text video-upload-btn"><img src="https://png.icons8.com/metro/15/666666/video-file.png"></span>
+                    <span class="att-lef-text audio-upload-btn"><img src="https://png.icons8.com/material-outlined/19/666666/google-maps.png"></span>
+                  <% end %>
+                  <span class="share-btn">
+                    <%= f.submit "Share", class: "btn btn-space btn-primary th-btn-share" %>
+                  </span>
+                <% end %>
+              </div>
+              <div class="col-md-12">
+                <div class="image-preview">
+                </div>
+                <div class="audio-preview">
+                </div>
+                <div class="video-preview">
+                </div>
+              </div>
+            </div>
+            <div class="user-overflow-scroll">
+              <div id="user-posts">
+                <%= render partial:  @posts %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 dashboard_widget-2">
+        <div class="row">
+          <div class="card">
+            <div class="th-not-items">
+              <div class="panel th-cus-panel">
+                <div class="panel-heading">
+                  <h3 class="panel-title">
+                    <span class="th-pa-text"><i class="fa fa-calendar" aria-hidden="true"></i> Events</span>
+                    <span class="pull-right clickable"><i class="fa fa-chevron-up"></i></span>
+                  </h3>
+                </div>
+                <div class="panel-body cal-botton-padd">
+                  <% if user_signed_in? && (current_user.admin_teacher?) %>
+                    <div class="text-center new-event">
+                       <button type="button" class="btn btn-space btn-primary new-event-btn">New Event</button>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card">
+            <div class="th-not-items">
+              <div class="panel th-cus-panel overflow-scroll">
+                <div class="panel-heading">
+                  <h3 class="panel-title">
+                    <span class="th-pa-text"><i class="fa fa-snapchat-square" aria-hidden="true"></i>  Direct Chat</span>
+                    <span class="pull-right clickable"><i class="fa fa-chevron-up"></i></span>
+                  </h3>
+                </div>
+                <div class="col-md-12">
+                  <div class="user-search user-widget-search">
+                    <%= text_field_tag :user_search, "", class: "form-control", placeholder: "Search User" %>
+                  </div>
+                </div>
+                <div id="user-widget">
+                  <%= render partial: "users_widget", locals: {admins: @admins, teachers: @teachers, students: @students} %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    App.init();
+    dragula([$("#column-1")[0], $("#column-2")[0]]);
+
+  });
+
+  $(function(){
+    $("#addClass").click(function () {
+      $('#qnimate').addClass('popup-box-on');
+    });
+      
+    $("#removeClass").click(function () {
+      $('#qnimate').removeClass('popup-box-on');
+    });
+  })
+  $(document).on('click', '.panel-heading span.icon_minim', function (e) {
+    var $this = $(this);
+    if (!$this.hasClass('panel-collapsed')) {
+      $this.parents('.panel').find('.panel-body').slideUp();
+      $this.addClass('panel-collapsed');
+      $this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
+    } else {
+      $this.parents('.panel').find('.panel-body').slideDown();
+      $this.removeClass('panel-collapsed');
+      $this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
+    }
+  });
+
+</script> -->
+
+
+<div class="container-fluid top-60">
+  <%if user_signed_in? && (current_user.admin_super_admin?) %>
+    <div class="admin-dashboard">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-blue">
+                <a href="/schools/courses" role="button" aria-expanded="false">
+                  <span class="goto-arrow">
+                    <img src="https://img.icons8.com/ios/20/346cb0/redo-filled.png" class="clik-circule-plus">
+                  </span>
+                </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/ios/65/ffffff/school-filled.png">
+                  <p>COURSES - <%= Course.count %></p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>INPROGRESS - </span><%= Course.in_progress_course %></li>
+                    <li><span>COMPLETE - </span><%= Course.completed_course %></li>
+                    <li><span>NEW - </span><%= Course.completed_course %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-gold">
+                <a href="/users" role="button" aria-expanded="false">
+                  <span class="goto-arrow">
+                    <img src="https://img.icons8.com/ios/20/ffd700/redo-filled.png" class="clik-circule-plus">
+                  </span>
+                </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/ios/65/ffffff/groups-filled.png">
+                  <p>USERS  - <%= User.count %></p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>ADMIN - </span> <%= @admins.count%></li>
+                    <li><span>TEACHERS - </span> <%= @teachers.count%></li>
+                    <li><span>STUDENTS - </span> <%= @students.count%></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-green">
+                <a href="/calendars" role="button" aria-expanded="false">
+                  <span class="goto-arrow">
+                    <img src="https://img.icons8.com/ios/20/1EC09F/redo-filled.png" class="clik-circule-plus">
+                  </span>
+                </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/material/65/ffffff/calendar.png">
+                  <p>EVENTS TODAY -  <%= Event.today_events.count %></p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>ONGOING - </span><%= Event.today_events.count %></li>
+                    <li><span>THIS WEEK - </span><%= Event.current_week_events.count %></li>
+                    <li><span>THIS MONTH - </span><%= Event.current_month_events.count %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-whitesmoke">
+               <a href="/schools/posts">
+                <span class="goto-arrow">
+                  <img src="https://img.icons8.com/ios/20/708090/redo-filled.png" class="clik-circule-plus">
+                </span>
+              </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/ios/65/ffffff/user-group-man-man-filled.png">
+                  <p>COMMUNITY CONVERSATION</p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>TODAY - </span><%= Post.today_posts.count %></li>
+                    <li><span>THIS WEEK - </span><%= Post.current_week_posts.count %></li>
+                    <li><span>THIS MONTH - </span><%= Post.current_month_posts.count %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 row-cust-dashboard">
+          <div class="row">
+            <div class="col-sm-6 ta-right-0">
+              <a class="nav-link" href="<%= schools_course_path(Course.maximum(:id)+1) %>" role="button" aria-expanded="false">
+                <div class="qu-right-box">
+                  <span class="qu-right-span"><img src="https://img.icons8.com/ios-glyphs/25/000000/multi-edit.png"></span>
+                  <span class="das-text-title">CREATE COURSE</span>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-6 nth-second-6">
+              <%= link_to schools_gradebooks_path do %>
+                <div class="qu-right-box">
+                  <span class="qu-right-span"><img src="https://img.icons8.com/ios-glyphs/25/000000/graduation-cap.png"></span>
+                  <span class="das-text-title">GRADE BOOK</span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-md-12">
+              <a href="/schools/marketings">
+                <div class="qu-right-box">
+                  <span class="qu-right-span"><img src="https://img.icons8.com/ios-glyphs/25/000000/graduation-cap.png"></span>
+                  <span class="das-text-title">MARKETING PAGE</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-md-12">
+              <div class="qu-right-box">
+                <a href="schools/announcements">
+                  <span class="qu-right-span"><img src="https://img.icons8.com/ios/25/000000/commercial-filled.png"></span>
+                  <span class="das-text-title"  data-toggle="modal" data-target="#add-new-ann">MAKE ANNOUNCEMENT</span>
+                </a>
+                <span class="pull-right view-ann-das "><%= link_to "View All", schools_announcements_path %></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="card direct-chat">
+              <div class="th-not-items">
+                <div class="panel th-cus-panel overflow-scroll">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">
+                      <span class="th-pa-text"><i class="fa fa-snapchat-square" aria-hidden="true"></i>  Direct Chat</span>
+                      <span class="pull-right clickable"><i class="fa fa-chevron-up"></i></span>
+                    </h3>
+                  </div>
+                  <div class="col-md-12 bg-color-aliceblue">
+                    <div class="user-search user-widget-search">
+                      <%= text_field_tag :user_search, "", class: "form-control", placeholder: "Search User" %>
+                    </div>
+                  </div>
+                  <div id="user-widget">
+                    <%= render partial: "users_widget", locals: {admins: @admins, teachers: @teachers, students: @students} %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%elsif user_signed_in? && (current_user.admin_teacher?)  %> 
+    <div class="teacher-dashboard">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-blue">
+                <a href="/schools/courses" role="button" aria-expanded="false">
+                 <span class="goto-arrow">
+                    <img src="https://img.icons8.com/ios/20/346cb0/redo-filled.png" class="clik-circule-plus">
+                  </span>
+                </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/ios/65/ffffff/school-filled.png">
+                  <p>COURSES - <%= Course.count %></p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>INPROGRESS -  </span><%= Course.in_progress_course %></li>
+                    <li><span>COMPLETE -  </span><%= Course.completed_course %></li>
+                    <li><span>NEW -  </span><%= Course.completed_course %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-gold">
+                <a href="/users" role="button" aria-expanded="false">
+                  <span class="goto-arrow">
+                    <img src="https://img.icons8.com/ios/20/ffd700/redo-filled.png" class="clik-circule-plus">
+                  </span>
+                </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/ios/65/ffffff/groups-filled.png">
+                  <p>USERS -  <%= User.count %></p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>ADMIN - </span> <%= @admins.count%></li>
+                    <li><span>TEACHERS - </span> <%= @teachers.count%></li>
+                    <li><span>STUDENTS - </span> <%= @students.count%></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-green">
+                <a href="/calendars" role="button" aria-expanded="false">
+                  <span class="goto-arrow">
+                    <img src="https://img.icons8.com/ios/20/1EC09F/redo-filled.png" class="clik-circule-plus">
+                  </span>
+                </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/material/65/ffffff/calendar.png">
+                  <p>EVENTS TODAY - <%= Event.today_events.count %></p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>ONGOING -  </span><%= Event.today_events.count %></li>
+                    <li><span>THIS WEEK -  </span><%= Event.current_week_events.count %></li>
+                    <li><span>THIS MONTH -  </span><%= Event.current_month_events.count %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-whitesmoke">
+                <a href="/schools/posts">
+                 <span class="goto-arrow">
+                  <img src="https://img.icons8.com/ios/20/708090/redo-filled.png" class="clik-circule-plus">
+                </span>
+                </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/ios/65/ffffff/user-group-man-man-filled.png">
+                  <p>COMMUNITY CONVERSATION</p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>TODAY - </span><%= Post.today_posts.count %></li>
+                    <li><span>THIS WEEK - </span><%= Post.current_week_posts.count %></li>
+                    <li><span>THIS MONTH - </span><%= Post.current_month_posts.count %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 row-cust-dashboard">
+          <div class="row">
+            <div class="col-md-12">
+              <a class="nav-link" href="<%= schools_course_path(Course.maximum(:id)+1) %>" role="button" aria-expanded="false">
+                <div class="qu-right-box">
+                  <span class="qu-right-span"><img src="https://img.icons8.com/ios-glyphs/25/000000/multi-edit.png"></span>
+                  <span class="das-text-title">CREATE COURSE</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <%= link_to schools_gradebooks_path do %>
+                <div class="qu-right-box">
+                  <span class="qu-right-span"><img src="https://img.icons8.com/ios-glyphs/25/000000/graduation-cap.png"></span>
+                  <span class="das-text-title">GRADE BOOK</span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="qu-right-box">
+                <a href="schools/announcements">
+                  <span class="qu-right-span"><img src="https://img.icons8.com/ios/25/000000/commercial-filled.png"></span>
+                  <span class="das-text-title"  data-toggle="modal" data-target="#add-new-ann">MAKE ANNOUNCEMENT</span>
+                </a>
+                <span class="pull-right view-ann-das "><%= link_to "View All", schools_announcements_path %></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="card direct-chat">
+              <div class="th-not-items">
+                <div class="panel th-cus-panel overflow-scroll">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">
+                      <span class="th-pa-text"><i class="fa fa-snapchat-square" aria-hidden="true"></i>  Direct Chat</span>
+                      <span class="pull-right clickable"><i class="fa fa-chevron-up"></i></span>
+                    </h3>
+                  </div>
+                  <div class="col-md-12 bg-color-aliceblue">
+                    <div class="user-search user-widget-search">
+                      <%= text_field_tag :user_search, "", class: "form-control", placeholder: "Search User" %>
+                    </div>
+                  </div>
+                  <div id="user-widget">
+                    <%= render partial: "users_widget", locals: {admins: @admins, teachers: @teachers, students: @students} %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%else%>
+    <div class="student-dashboard">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <% current_user.enrolled_course_list.last(2).each do |course| %>
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-blue">
+                <a href="/students/courses/<%= course.id %>">
+                 <span class="goto-arrow">
+                  <img src="https://img.icons8.com/ios/20/708090/redo-filled.png" class="clik-circule-plus">
+                </span>
+                </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/ios/65/ffffff/school-filled.png">
+                  <p><%= course.name %></p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>LESSONS -  </span><%= course.lessons.count %></li>
+                    <li><span>ACTIVITY -  </span><%= course.activities %></li>
+                    <li><span>DOCUMENT -  </span><%= course.documents %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <%end%>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-green">
+                <a href="/calendars" role="button" aria-expanded="false">
+                  <span class="goto-arrow">
+                    <img src="https://img.icons8.com/ios/20/1EC09F/redo-filled.png" class="clik-circule-plus">
+                  </span>
+                </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/material/65/ffffff/calendar.png">
+                  <p>EVENTS TODAY - <%= Event.today_events.count %></p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>ONGOING -  </span><%= Event.today_events.count %></li>
+                    <li><span>THIS WEEK -  </span><%= Event.current_week_events.count %></li>
+                    <li><span>THIS MONTH -  </span><%= Event.current_month_events.count %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="qu-shor-box bg-color-whitesmoke">
+                <a href="/schools/posts">
+                 <span class="goto-arrow">
+                  <img src="https://img.icons8.com/ios/20/708090/redo-filled.png" class="clik-circule-plus">
+                </span>
+                </a>
+                <div class="qu-shor-inner-box">
+                  <img src="https://img.icons8.com/ios/65/ffffff/user-group-man-man-filled.png">
+                  <p>COMMUNITY CONVERSATION</p>
+                </div>
+                <div class="qu-shor-footer">
+                  <ul class="list-inline">
+                    <li><span>TODAY - </span><%= Post.today_posts.count %></li>
+                    <li><span>THIS WEEK - </span><%= Post.current_week_posts.count %></li>
+                    <li><span>THIS MONTH - </span><%= Post.current_month_posts.count %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4  row-cust-dashboard">
+          <div class="row">
+            <div class="col-md-12">
+              <a class="nav-link" href="/students/courses" role="button" aria-expanded="false">
+                <div class="qu-right-box">
+                  <span class="qu-right-span"><img src="https://img.icons8.com/ios-glyphs/25/000000/multi-edit.png"></span>
+                  <span class="das-text-title">COURSES</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="qu-right-box">
+                <span class="qu-right-span"><img src="https://img.icons8.com/ios-glyphs/25/000000/graduation-cap.png"></span>
+                <span class="das-text-title">GRADE BOOK</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="qu-right-box">
+                <a href="schools/announcements">
+                  <span class="qu-right-span"><img src="https://img.icons8.com/ios/25/000000/commercial-filled.png"></span>
+                  <span class="das-text-title"  data-toggle="modal" data-target="#add-new-ann">ANNOUNCEMENT</span>
+                </a>
+                <span class="pull-right view-ann-das "><%= link_to "View All", schools_announcements_path %></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="card direct-chat">
+              <div class="th-not-items">
+                <div class="panel th-cus-panel overflow-scroll">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">
+                      <span class="th-pa-text"><i class="fa fa-snapchat-square" aria-hidden="true"></i>  Direct Chat</span>
+                    </h3>
+                  </div>
+                  <div class="col-md-12 bg-color-aliceblue">
+                    <div class="user-search user-widget-search">
+                      <%= text_field_tag :user_search, "", class: "form-control", placeholder: "Search User" %>
+                    </div>
+                  </div>
+                  <div id="user-widget">
+                    <%= render partial: "users_widget", locals: {admins: @admins, teachers: @teachers, students: @students} %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>
+
+<%= render partial: "layouts/shared/new_announcement", locals: {remote: true} %>
+
+

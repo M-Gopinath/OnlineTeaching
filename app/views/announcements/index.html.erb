@@ -1,0 +1,75 @@
+<div class="container">
+	<div class="row">
+		<div class="th-ann-div">
+			<h4 class="ann-h4"><span>Announcements</span> <a href="#" class="ann-a btn btn-space btn-primary" data-toggle="modal" data-target="#add-new-ann">Add Announcement</a></h4>
+			<div class="an-details">
+				<table class="table table-striped">
+					<thead>
+					 	<tr>
+					 	 	<th width="18%">Title</th>
+					 	 	<th width="35%">Slug</th>
+					 	 	<th width="15%">Author</th>
+					 	 	<th width="20%">Published</th>
+					 	 	<th width="22%"> </th>
+					 	</tr>
+					</thead>
+					<tbody>
+						<tr>
+						 	<td><a href="#" class="row-title">New Year</a></td>
+						 	<td>Lorem ipsum dolor sit amet, consectetur adipisicing </td>
+						 	<td>itbeezone</td>
+						 	<td>Published  2 hours ago</td>
+						 	<td>
+						 		<a href="#" class="ann-sma-btn">Edit</a>
+						 		<a  href="#" class="ann-sma-btn">Trash</button>
+						 	</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="container text-center">
+			  <div class="row">
+			    <div class="th-ann-pagination">
+			      <ul class="pagination cus-ul">
+			        <li><a href="#">«</a></li>
+			        <li class="active"><a href="#">1</a></li>
+			        <li><a href="#">2</a></li>
+			        <li><a href="#">3</a></li>
+			        <li><a href="#">4</a></li>
+			        <li><a href="#">5</a></li>
+			        <li><a href="#">6</a></li>
+			        <li><a href="#">7</a></li>
+			        <li><a href="#">8</a></li>
+			        <li><a href="#">9</a></li>
+			        <li><a href="#">»</a></li>
+			      </ul>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="add-new-ann" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Announcement</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+        	<label>Title</label>
+        	<input type="text"  class="form-control">
+        </div>
+        <div class="form-group">
+        	<label>Slug</label>
+        	<textarea class="form-control" rows="5" class="tinymce"></textarea>
+        </div>
+        <div class="form-group">
+        	<button class="btn btn-space btn-primary ">Publish</button>
+        </div>
+    </div>
+  </div>          
+</div>

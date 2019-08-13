@@ -1,0 +1,10 @@
+<% if params[:student].present? %>
+  $("#student_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @students, type: 'student'}) %>");
+  $(".student_pagintion").html("<%= j(render partial: 'user_pagination', locals: {users: @students, param: 'student'}) %>");
+<% elsif params[:teacher].present? %>
+  $("#teacher_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @teachers, type: 'teacher'}) %>");
+  $(".teacher_pagintion").html("<%= j(render partial: 'user_pagination', locals: {users: @teachers, param: 'teacher'}) %>");
+<% elsif params[:admin].present? %>
+  $("#admin_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @admins, type: 'admin'}) %>");
+  $(".admin_pagintion").html("<%= j(render partial: 'user_pagination', locals: {users: @admins, param: 'admin'}) %>");
+<% end %>

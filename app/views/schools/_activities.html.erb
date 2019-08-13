@@ -1,0 +1,150 @@
+
+<div class="row">
+  <div class="course-tabs">
+     <div class="container-fluid">
+      <div class="row sexytabs margin-bottom-20">
+        <ul class="nav nav-tabs nav-pills course-tablist" role="tablist">
+          <li class="nav-item">
+            <%= link_to "#course-overview", "data-toggle"=>"pill",  class: " through-course-overview-btn nav-link", "data-course"=>course.try(:id) do  %> <span>Course Overview</span>
+            <%end%>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" data-toggle="pill" href="#course-content-act"><span>Course Content</span></a>
+          </li>
+          <li class="nav-item">
+            <%= link_to "#gradebook", class: "activity-gradebook-show nav-item", 'data-url' => "#{@course.try(:id).present? ? schools_course_gradebooks_path(@course) : "nill"}", "data-toggle"=>"pill" do %> <span>Gradebook</span>
+            <%end%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "#document-act",class: 'activity-documents-show nav-link', 'data-url' => "#{ @course.try(:id).present? ? schools_course_documents_path(@course) : "nill"}", "data-toggle"=>"pill" do %> <span>Documents</span>
+          <% end %>
+          </li>
+          <li class="nav-item">
+            <% if @course.try(:id).present?  %>
+              <%= link_to "#chat-view", class: "activity-chat-show course-chat-activity nav-link", "data-course-id" => @course.try(:enroll_course_room).try(:id), 'data-url' => "#{schools_enroll_course_rooms_path(course_id: @course.id,place_index: 1)}" , "data-toggle"=>"pill", "data-place_index"=>"1" do %> <span>Discussion</span>
+              <% end %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div id="course-overview-act" class="ma-auto-95 tab-pane fade">
+          <div id="setup-lesson-form-tabs"></div>
+        </div>
+        <div id="course-content-act" class="tab-pane active ">
+          <div class="row">
+            <div class="col-sm-4 col-sm-31">
+              <p  class="mar-ad-pa-0">
+                <button class="btn btn-space btn-primary  activity-new-lesson lesson-list-btn less-back-create"  data-course="<%= course.try(:id) %>">
+                  <i class="fa fa-plus"></i> Add New Lesson
+                </button>
+              </p>
+              <div class="les-scroll">
+                <div class="Alesson-list">
+                  <%= render partial: "schools/lessons/activity_lesson_lists", locals: {lessons: @lessons, course: course} %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8 col-sm-69">
+              <div class="th-li-act">
+                <ul class="list-inline">
+                  <li class="new-activity video-tab menu-active">
+                    <p><img src="https://png.icons8.com/dotty/22/1EC09F/video-call.png"></p>
+                    <p>Video</p></li>
+                  <li class="new-activity quiz-tab">
+                    <p><img src="https://png.icons8.com/dotty/22/1EC09F/test-passed.png"></p>
+                    <p>Quiz</p></li>
+                  <li  class="new-activity reading-tab">
+                    <p><img src="https://png.icons8.com/material-outlined/22/1EC09F/view-file.png"></p>
+                    <p>Reading</p></li>
+                  <li  class="new-activity essay-tab">
+                    <p><img src="https://png.icons8.com/dotty/22/1EC09F/bookmark.png"></p>
+                    <p>Essay</p></li>
+                  <li  class="new-activity page-tab">
+                    <p><img src="https://png.icons8.com/dotty/22/1EC09F/document.png"></p>
+                    <p>Page</p></li>
+                  <li  class="new-activity writing-tab">
+                    <p><img src="https://png.icons8.com/ios/22/1EC09F/inscription.png"></p>
+                    <p>Writing</p></li>
+                  <li  class="new-activity document-tab">
+                    <p><img src="https://png.icons8.com/dotty/22/1EC09F/pdf.png"></p>
+                    <p>Document</p></li>
+                  <li  class="new-activity presentation-tab">
+                    <p><img src="https://png.icons8.com/ios/22/1EC09F/presentation.png"></p>
+                    <p>Presentation</p></li>
+                  <li  class="new-activity audio-tab">
+                    <p><img src="https://png.icons8.com/ios/22/1EC09F/speaker.png"></p>
+                    <p>Audio</p></li>
+                  <li  class="new-activity discussion-tab">
+                    <p><img src="https://png.icons8.com/dotty/22/1EC09F/collaboration.png"></p>
+                    <p>Discussion</p></li>
+                </ul>
+              </div>
+              <div class="th-vido-ac-area" data-start-date="<%= @lessons.first.try(:start_date) %>" data-end-date="<%= @lessons.first.try(:end_date) %>">
+                <div class="col-md-12">
+                  <div class="all-activities-error error-color"></div>
+                </div>
+                <div class="video_activities activities-view ">
+                  <%= render partial: "schools/lessons/video_activities", locals: {video_activity: @video_activity, lessons: @lessons} %>
+                </div>
+                <div class="quiz_activities activities-view hide">
+                  <%= render partial: "schools/lessons/quiz_activities", locals: {quiz_activity: @quiz_activity, lessons: @lessons} %>
+                </div>
+                <div class="reading_activities activities-view hide">
+                  <%= render partial: "schools/lessons/reading_activities", locals: {reading_activity: @reading_activity, lessons: @lessons} %>
+                </div>
+                <div class="essay_activities activities-view hide">
+                  <%= render partial: "schools/lessons/essay_activities", locals: {essay_activity: @essay_activity, lessons: @lessons} %>
+                </div>
+                <div class="page_activities activities-view hide">
+                  <%= render partial: "schools/lessons/page_activities", locals: {page_activity: @page_activity, lessons: @lessons} %>
+                </div>
+                <div class="writing_activities activities-view hide">
+                  <%= render partial: "schools/lessons/writing_activities", locals: {writing_activity: @writing_activity, lessons: @lessons} %>
+                </div>
+                <div class="document_activities activities-view hide">
+                  <%= render partial: "schools/lessons/document_activities", locals: {document_activity: @document_activity, lessons: @lessons} %>
+                </div>
+                <div class="presentation_activities activities-view hide">
+                  <%= render partial: "schools/lessons/presentation_activities", locals: {presentation_activity: @presentation_activity, lessons: @lessons} %>
+                </div>
+                <div class="audio_activities activities-view hide">
+                  <%= render partial: "schools/lessons/audio_activities", locals: {audio_activity: @audio_activity, lessons: @lessons} %>
+                </div>
+                <div class="discussion_activities activities-view hide">
+                  <%= render partial: "schools/lessons/discussion_activities", locals: {discussion_activity: @discussion_activity, lessons: @lessons} %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="gradebook-act" class="ma-auto-95 tab-pane fade">
+          <div id="setup-lesson-form-course"></div>
+        </div>
+        <div id="document-act" class="ma-auto-95 tab-pane fade">
+          <div id="setup-document-tabs"></div>
+        </div>
+
+        <div id="chat-view" class="tab-pane fade">
+          <div class="row">
+            <div class="col-md-9 setup-chat-tabs" id="setup-chat-tabs-1"><p class="text-center"><img src="/assets/loading.gif"></p></div>
+            <div class="col-md-3 course-direct-chat">
+              <div class="direct-chat">
+                <div class="th-not-items">
+                  <div class="th-cus-panel">
+                    <div id="user-widget" class="course-widget course_enrolled_direct_chat">
+                      <%= render partial: "schools/users_widget", locals: {admins: User.admin_for_course_enroll(course), teachers: User.teacher_for_course_enroll(course), students: User.student_for_course_enroll(course)} %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

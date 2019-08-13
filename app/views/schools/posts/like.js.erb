@@ -1,0 +1,9 @@
+$(".like-link_<%= @post.id %>").attr("title", "<%= @post.user_like_status(current_user) %>")
+$(".likes_count_<%= @post.id %>").text("<%= @post.post_likes.count %>")
+<% if @post.user_like(current_user) %>
+  $(".fa-thumbs-up_<%= @post.id %>").addClass("thumb-up-color");
+  $(".post-like-text-<%= @post.id %>").text("Unlike");
+<% else %>
+  $(".post-like-text-<%= @post.id %>").text("Like");
+  $(".fa-thumbs-up_<%= @post.id %>").removeClass("thumb-up-color");
+<% end %>

@@ -1,0 +1,62 @@
+<div class="cus-boo-modal">
+  <div class="modal fade" id="add-new-ann" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Announcement</h4>
+        </div>
+        <div class="modal-body">
+
+          <%= form_for Announcement.new, remote: remote, url: schools_announcements_path, method: :post do |f| %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <div class="box-footer">
+              <div class="form-group">   
+                <label>Title</label>       
+                <%= f.text_field  :title, class: "form-control"%>
+              </div>
+              <div class="form-group">  
+                <label>To Whom</label>        
+                <%= f.select  :to_whom, options_for_select(User::WHOM_COLLECTION),{},class: "form-control"  %>
+                <i class="fa fa-caret-down"></i>
+              </div>
+              <div class="form-group announcement-course">   
+                <label>Course</label>       
+                <%= f.select  :course_id, options_for_select(collect_all_course), {prompt: "Select Course"}, class: "form-control"  %>
+                <i class="fa fa-caret-down"></i>
+              </div>
+              <div class="check-ann-no">
+                <div class="col-md-3 col-xs-6 col-sm-6">
+                  <div class="form-group">
+                    <label class="checkbox-container-ac">
+                      Is Public?
+                      <%= f.check_box :is_public %>
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-xs-6 col-sm-4">
+                  <div class="form-group">
+                    <label class="checkbox-container-ac">
+                      High Important
+                      <%= f.check_box :important %>
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">          
+                <%= f.text_area  :message, class: "form-control", rows: '5'  %>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-space btn-danger" data-dismiss="modal">Close</button>
+              <%= f.submit "Create", class: "btn btn-primary"%>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

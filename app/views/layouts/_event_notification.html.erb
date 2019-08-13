@@ -1,0 +1,17 @@
+<% if notifications.count > 0 %>
+	<% notifications.sort_by{|t| t[:created_at]}.reverse.first(5).each do |event| %>
+	  <%= link_to notify_path(event.notification, event), class: 'dropdown-item' do %>
+	    <div class="user-avatar">
+	      <%= image_tag event.notification.notificable.user.present? && event.notification.notificable.user.avatar.present? ? event.notification.notificable.user.avatar_url : "/assets/person.png", width: "15px;" %>
+	    </div>
+	    <div class="dropdown-item-body">
+	    	<p class="subject"><%= event.notification.notificable.user.email %></p>
+		    <p class="text text-truncate"><%= "#{event.notification.title}" %></p>
+		     <span class="date"><%= "#{distance_of_time_in_words(Time.now, event.updated_at)}" %></span>
+		  </div>
+	  <%end%>
+	<%end%>
+<%else%>
+	<%= link_to "No new notifications!", "javascript:void(0);", class: "no-notifications dropdown-item"  %>
+<%end%>
+<%= link_to "View all", calendars_path, class: "dropdown-footer" %>

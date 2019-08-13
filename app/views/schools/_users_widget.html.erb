@@ -1,0 +1,91 @@
+<div class="col-md-12">
+  <div class="sexytabs">
+    <ul class="nav nav-tabs widget-cus-tabs">
+      <li class="active"><a data-toggle="tab" href="#teacher">Teacher</a></li>
+      <li><a data-toggle="tab" href="#students">Students</a></li>
+      <li><a data-toggle="tab" href="#admin">Admin</a></li>
+    </ul>
+  </div>
+</div>
+<div class="panel-body top-17-px">
+  <div class="tab-content th-tab-content">
+    <div id="teacher" class="tab-pane fade in active">
+      <% if teachers.present? %>
+        <table class="table direct-chat-table">
+          <tbody>
+            <% teachers.each_with_index do |user, index| %>
+            <tr>
+              <td width="10%"><%= user.avatar.present? ? image_tag(user.avatar.url, size: "40x40") : image_tag("/assets/person.png", size: "40x40") %></td>
+              <span>
+                <td width="80%" class="start-conversation chat-users-list" data-sid="<%= current_user.id %>" data-rip="<%= user.id %>" >
+                  <span><%= user.full_name.capitalize %></span>
+
+                </td>
+                <td width="10%" class="text-center">
+                  <span id="online_user_<%= user.id %>" class="user-icon">
+                    <i class="<%= online_status(user) %>"></i>
+                  </span>
+                </td>
+              </span>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <%else%>
+       <p class="no-record-found-p">No Record Found</p> 
+       <%end%>
+    </div>
+    <div id="students" class="tab-pane fade">
+      <% if students.present? %>
+        <table class="table direct-chat-table">
+          <tbody>
+            <% students.each_with_index do |user, index| %>
+            <tr>
+              <td width="10%"><%= user.avatar.present? ? image_tag(user.avatar.url, size: "40x40") : image_tag("/assets/person.png", size: "40x40") %></td>
+              <span>
+                <td width="80%" class="start-conversation chat-users-list" data-sid="<%= current_user.id %>" data-rip="<%= user.id %>" >
+                  <span><%= user.full_name.capitalize %></span>
+
+                </td>
+                <td width="10%" class="text-center">
+                  <span id="online_user_<%= user.id %>" class="user-icon">
+                    <i class="<%= online_status(user) %>"></i>
+                  </span>
+                </td>
+              </span>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <%else%>
+       <p class="no-record-found-p">No Record Found</p>
+      <%end%>
+    </div>
+    <div id="admin" class="tab-pane fade">
+      <% if  admins.present? %>
+        <table class="table direct-chat-table">
+          <tbody>
+            <% admins.each_with_index do |user, index| %>
+            <tr>
+              <td width="10%"><%= user.avatar.present? ? image_tag(user.avatar.url, size: "40x40") : image_tag("/assets/person.png", size: "40x40") %></td>
+              <span>
+                <td width="80%" class="start-conversation chat-users-list" data-sid="<%= current_user.id %>" data-rip="<%= user.id %>" >
+                  <span><%= user.full_name.capitalize %></span>
+
+                </td>
+                <td width="10%" class="text-center">
+                  <span id="online_user_<%= user.id %>" class="user-icon">
+                    <i class="<%= online_status(user) %>"></i>
+                  </span>
+                </td>
+              </span>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <%else%>
+       <p class="no-record-found-p">No Record Found</p>
+      <%end%>
+    </div>
+  </div>
+</div>

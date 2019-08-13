@@ -1,0 +1,60 @@
+<% if notifications.count > 0 %>
+	<% notify_index = 0 %>
+	<% notifications.sort_by{|t| t[:created_at]}.reverse.group_by{|g| g.try(:live_conversation)}.first(5).each do |conversation,chats| %>
+		<% if notify_index < 5 %>
+			<% if conversation.present? %>
+				<% if conversation.class.name == "LiveConversation" %>
+					<% chat = chats.first %>
+					<%= link_to "javascript:void(0);", class: 'dropdown-item start-conversation chat-users-list', "data-sid"=>chat.try(:live_conversation).try(:sender).try(:id), "data-rip"=>chat.try(:live_conversation).try(:recipient).try(:id)  do %>
+						<div class="user-avatar">
+					    <%= image_tag chat.live_conversation.present? && chat.live_conversation.sender.present? && chat.live_conversation.sender.avatar.present? ? chat.live_conversation.sender.avatar_url : "/assets/person.png", width: "15px;" %>
+						</div>
+						<div class="dropdown-item-body">
+							<p class="subject"><%= chat.try(:live_conversation).try(:sender).try(:email) %></p>
+					    <p class="text text-truncate"><%= "#{chat.body}" %></p>
+					    <span class="unread_direct_chat_inner_count"><%= chats.count %></span>
+					    <span class="date"><%= "#{distance_of_time_in_words(Time.now, chat.updated_at)}" %></span>
+				  	</div>
+				  <%end%>
+					<% notify_index += 1 %>
+				<%end%>
+			<%else%>
+				<% chats.each do |chat| %>
+					<%# chat = new_chats.first %>
+					<% if notify_index < 5 %>
+						<% if chat.present? && chat.try(:notification).try(:notificable).try(:class).try(:name) == "Post" %>
+							<%= link_to schools_posts_path, class: "dropdown-item" do %>
+								<div class="user-avatar">
+							    <%= image_tag chat.notification.notificable.user.present? && chat.notification.notificable.user.avatar.present? ? chat.notification.notificable.user.avatar_url : "/assets/person.png", width: "15px;" %>
+								</div>
+								<div class="dropdown-item-body">
+									<p class="subject"><%= chat.notification.notificable.try(:user).try(:email) %></p>
+							    <p class="text text-truncate"><%= "#{chat.notification.notificable.try(:description)}" %></p>
+							    <!-- <span class="unread_direct_chat_inner_count"><%#= chats.count %></span> -->
+							    <span class="date"><%= "#{distance_of_time_in_words(Time.now, chat.updated_at)}" %></span>
+						  	</div>
+						  <%end%>
+						<% elsif chat.present? && chat.try(:notification).try(:notificable).try(:class).try(:name) == "EnrollCourseMessage" %>
+							<%= link_to schools_course_path(chat.try(:notification).try(:notificable).try(:course_id),is_chat: true), class: "dropdown-item" do %>
+								<div class="user-avatar">
+							    <%= image_tag chat.try(:notification).try(:notificable).try(:user).present? && chat.notification.notificable.user.avatar.present? ? chat.notification.notificable.user.avatar_url : "/assets/person.png", width: "15px;" %>
+								</div>
+								<div class="dropdown-item-body">
+									<p class="subject"><%= chat.notification.notificable.try(:user).try(:email) %></p>
+							    <p class="text text-truncate"><%= "#{chat.notification.notificable.try(:body)}" %></p>
+							    <!-- <span class="unread_direct_chat_inner_count"><%#= chats.count %></span> -->
+							    <span class="date"><%= "#{distance_of_time_in_words(Time.now, chat.updated_at)}" %></span>
+						  	</div>
+						  <%end%>
+					  <%end%>
+		  			<% notify_index += 1 %>
+				  <%end%>
+			  <%end%>
+		  <%end%>
+	  <%end%>
+	<%end%>
+<%else%>
+	<%= link_to "No new notifications!", "javascript:void(0);", class: "dropdown-item no-notifications"  %>
+<%end%>
+<%= link_to "View all", schools_posts_path, class: "dropdown-footer" %>
+

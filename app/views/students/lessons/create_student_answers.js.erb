@@ -1,0 +1,8 @@
+<% if @answers.errors.present? %>
+	$(".answer_submit").attr("disabled",false);
+<%else%>
+  <% if  !@course.course_rating(current_user) && @percent >= 25 %>
+    $("#courseRatings").modal();
+  <% end %>
+  $("#update-less-act").html("<%= j(render 'students/lessons/show_activity') %>");
+<% end %>

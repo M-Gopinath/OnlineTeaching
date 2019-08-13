@@ -1,0 +1,78 @@
+<div class="panel-group" id="accordion">
+  <% activities.uniq.each.with_index do |activity,index| %>
+    <div class="course-act-name">
+      <div class="course-name">
+        <span class="font-weight-text">Course Name </span> - <span><%= activity.lesson.course.name %></span>
+      </div>
+      <div class="lesson-name">
+        <span class="font-weight-text">Lesson Name </span> - <span><%= activity.lesson.name %></span>
+      </div>
+    </div>
+
+    <% if activity.activity_questions.includes(:student_answers).present? %>
+      <div class="panel panel-default each-grade-details" style="margin-bottom: 10px;">
+        <div class="panel-heading accordion-heading">
+          <h4 class="panel-title panel-inside-table">
+            <a data-toggle="collapse" data-parent="#accordion" href="#activity-<%= activity.id %>-<%= index %>" class="accordion-toggle">
+              <table class="table">
+                <tbody>
+                  <tr>
+                     <td><%= "#{activity.class.name.titleize} -  #{activity.name} - (#{answer_counts(activity)})" %></td>
+                     <td><%= "Total Points -  #{activity.activity_points}" %></td>
+                     <td><span class="fa fa-angle-down"></span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </a>
+          </h4>
+        </div>
+        <div id="activity-<%= activity.id %>-<%= index %>" class="panel-collapse collapse">
+          <% activity.activity_questions.each do |question| %>
+            <% if question.student_answers.present? %>
+              <% ind = 0 %>
+              <% index = 0 %>
+              <% question.student_answers.each_with_index do |answer| %>
+                <% grade_activity = StudentGrade.find_by(activity_id: activity.id, activity_type: activity.class.name, user_id: answer.user.id, student_answer_id: answer.id) %>
+                <% if grade_activity.nil? %>
+                  <% if index == 0 %>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th width="82%">Question</th>
+                          <th>Actual Points</th>
+                        </tr>
+                      </thead>
+                      <% point = activity.activity_points.to_f/activity.activity_questions.count.to_f %>
+                      <tbody>
+                        <tr>
+                           <td><%= question.name %></td>
+                           <td><%= point %></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <h4 class="student-answer-title">Student Answers</h4>
+                  <% end %>
+                  <div class="grade-header grade-show">
+                    <div class="th-ad-user">
+                      <ul class="list-inline user-list-inline">
+                        <li class="answer-text"><%= answer.name %></li>
+                        <li class="pull-right"><span class="dark-light-text">Student Name </span>- <%= answer.user.full_name %></span></li>
+                      </ul>
+                      <div class="grade-header grade-show">
+                        <div class="grade_activity">
+                          <%= render partial: "schools/courses/grade_correction", locals: {grade_activity: grade_activity, student: answer.user, activity: activity, answer_id: answer.id} %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% index =+ 1 %>
+                  <% ind =+ 1 %>
+                  <% end %>
+                <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

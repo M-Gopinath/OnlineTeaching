@@ -1,0 +1,10 @@
+var modal = "#add-new-ann"
+var announcement = "#announcement_<%= @announcement.id %>"
+
+$(modal).modal("hide");
+$(".new_announcement").each(function(){this.reset()})
+
+
+$("#announcements").append("<%= j render(:partial => '/schools/announcements/announcement',:locals => { :announcement => @announcement }) %>");  
+
+App.notification_count.message_count("all")

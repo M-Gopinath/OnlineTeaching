@@ -1,0 +1,10 @@
+$(".teacher-active-count").html("<%= @teachers.active.count %>")
+$(".admin-active-count").html("<%= @admins.active.count %>")
+$(".student-active-count").html("<%= @students.active.count %>")
+$(".admin-deactive-count").html("<%= @admins.deactive.count %>")
+$(".teacher-deactive-count").html("<%= @teachers.deactive.count %>")
+$(".student-deactive-count").html("<%= @students.deactive.count %>")
+
+$("#admin_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @admins, type: 'admin'}) %>");
+$("#teacher_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @teachers, type: 'teacher'}) %>");
+$("#student_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @students, type: 'student'}) %>");

@@ -1,0 +1,639 @@
+<% if @type == "WritingActivity" %>
+  <div class="ovrall-video-activity">
+    <div class="container-fluid pa-left-right">
+      <div class="row cus-row-0 full-bg-color">
+        <div class="panel-group accordion" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading accordion-heading accordion-opened">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-toggle">
+                  Activity Details
+                  <span class="fa fa-angle-up"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="student-course-center">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="col-sm-6"> 
+                      <div class="cour-details-row">
+                        <p ><span class="course-title">Lesson Name</span> - <span><%= @activity.lesson.name %></span></p>
+                      </div>
+                      <div class="cour-details-row">
+                        <p><span class="course-title">Activity Points</span> - <span><%= @activity.activity_points %></span></p>
+                      </div> 
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="cour-details-row">
+                        <p><span class="course-title">Activity Name</span> - <span><%= @activity.name %></span></p>
+                      </div>
+                      <div class="cour-details-row">
+                        <p><span class="course-title">Due Date</span> - <span><%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %></span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity Question</span> - <span><%= @activity.question %></span><p>
+                </div>
+
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity description</span> </p>
+                  <p><span><%= @activity.description.html_safe%></span></p>
+                </div> 
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="accordion-toggle">
+                  Question & Answer
+                 <span class="fa fa-angle-down"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="col-sm-12">
+                <%= render "students/lessons/quiz_activities" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif @type == "VideoActivity" %>
+  <div class="ovrall-video-activity">
+    <div class="container-fluid pa-left-right">
+      <div class="row cus-row-0 full-bg-color">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Activity Details
+                <span class="fa fa-angle-up"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="student-course-center">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p ><span class="course-title">Lesson Name</span> - <span><%= @activity.lesson.name %></span></p>
+                    </div>
+
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Points</span> - <span><%= @activity.activity_points %></span></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Name</span> - <span><%= @activity.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Due Date</span> - <span><%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %></span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity Embedded Url</span> </p>
+                  <p><span><%= @activity.embedded_video%></span></p>
+                </div> 
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="accordion-toggle">
+   Question & Answer
+   <span class="fa fa-angle-down"></span>
+</a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="col-sm-12">
+                <%= render "students/lessons/quiz_activities" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif @type == "AudioActivity" %>
+  <div class="ovrall-video-activity">
+    <div class="container-fluid pa-left-right">
+      <div class="row cus-row-0 full-bg-color">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-toggle">
+                Activity Details
+                <span class="fa fa-angle-up"></span>
+              </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="student-course-center">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p ><span class="course-title">Lesson Name</span> - <span><%= @activity.lesson.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Points</span> - <span><%= @activity.activity_points %></span></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Name</span> - <span><%= @activity.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Due Date</span> - <span><%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %></span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity Embedded Audio</span> </p>
+                  <p><span><%= @activity.embedded_audio %></span></p>
+                </div> 
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="accordion-toggle">
+   Question & Answer
+   <span class="fa fa-angle-down"></span>
+</a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="col-sm-12">
+                <%= render "students/lessons/quiz_activities" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif @type == "PresentationActivity" %>
+  <div class="ovrall-video-activity">
+    <div class="container-fluid pa-left-right">
+      <div class="row cus-row-0 full-bg-color">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-toggle">
+                Activity Details
+                <span class="fa fa-angle-up"></span>
+              </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="student-course-center">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p ><span class="course-title">Lesson Name</span> - <span><%= @activity.lesson.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Points</span> - <span><%= @activity.activity_points %></span></p>
+                    </div>
+                    
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Name</span> - <span><%= @activity.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Due Date</span> - <span><%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %></span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity description</span> </p>
+                  <p><span><%= @activity.description.html_safe%></span></p>
+                </div> 
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="accordion-toggle">
+                 Question & Answer
+                 <span class="fa fa-angle-down"></span>
+              </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="col-sm-12">
+                <%= render "students/lessons/quiz_activities" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif @type == "ReadingActivity" %>
+  <div class="ovrall-video-activity">
+    <div class="container-fluid pa-left-right">
+      <div class="row cus-row-0 full-bg-color">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-toggle">
+                Activity Details
+                <span class="fa fa-angle-up"></span>
+              </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="student-course-center">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p ><span class="course-title">Lesson Name</span> - <span><%= @activity.lesson.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Points</span> - <span><%= @activity.activity_points %></span></p>
+                    </div>
+                    
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Name</span> - <span><%= @activity.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Due Date</span> - <span><%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %></span></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity Documents</span> </p>
+                  <p><span><%= @activity.documents_url %></span></p>
+                </div>
+
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity Assignment</span> </p>
+                  <p><span><%= @activity.assignment.html_safe %></span></p>
+                </div> 
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="accordion-toggle">
+                   Question & Answer
+                   <span class="fa fa-angle-down"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="col-sm-12">
+                <%= render "students/lessons/quiz_activities" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif @type == "DocumentActivity" %>
+  <div class="ovrall-video-activity">
+    <div class="container-fluid pa-left-right">
+      <div class="row cus-row-0 full-bg-color">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-toggle">
+                Activity Details
+                <span class="fa fa-angle-up"></span>
+              </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="student-course-center">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p ><span class="course-title">Lesson Name</span> - <span><%= @activity.lesson.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Points</span> - <span><%= @activity.activity_points %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity File Url</span> </p>
+                      <p><span><%= @activity.file_url %></span></p>
+                    </div> 
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Name</span> - <span><%= @activity.name %></span></p>
+                    </div>
+
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Due Date</span> - <span><%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Documents</span> </p>
+                      <p><span><%#= @activity.documents %></span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity description</span> </p>
+                  <p><span><%= @activity.description.html_safe %></span></p>
+                </div> 
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="accordion-toggle">
+                   Question & Answer
+                   <span class="fa fa-angle-down"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="col-sm-12">
+                <%= render "students/lessons/quiz_activities" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif @type == "QuizActivity" %>
+  <div class="ovrall-video-activity">
+    <div class="container-fluid pa-left-right">
+      <div class="row cus-row-0 full-bg-color">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-toggle">
+                Activity Details
+                <span class="fa fa-angle-up"></span>
+              </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="student-course-center">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p ><span class="course-title">Lesson Name</span> - <span><%= @activity.lesson.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Points</span> - <span><%= @activity.activity_points %></span></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Name</span> - <span><%= @activity.name %></span></p>
+                    </div>
+
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Due Date</span> - <span><%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %></span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="accordion-toggle">
+                   Question & Answer
+                   <span class="fa fa-angle-down"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="col-sm-12">
+                <%= render "students/lessons/quiz_activities" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif @type == "PageActivity" %>
+  <div class="ovrall-video-activity">
+    <div class="container-fluid pa-left-right">
+      <div class="row cus-row-0 full-bg-color">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-toggle">
+                Activity Details
+                <span class="fa fa-angle-up"></span>
+              </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="student-course-center">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p ><span class="course-title">Lesson Name</span> - <span><%= @activity.lesson.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Points</span> - <span><%= @activity.activity_points %></span></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Name</span> - <span><%= @activity.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Due Date</span> - <span><%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %></span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity description</span> </p>
+                  <p><span><%= @activity.description.html_safe%></span></p>
+                </div> 
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="accordion-toggle">
+                 Question & Answer
+                 <span class="fa fa-angle-down"></span>
+               </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="col-sm-12">
+                <%= render "students/lessons/quiz_activities" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif @type == "EssayActivity" %>
+  <div class="ovrall-video-activity">
+    <div class="container-fluid pa-left-right">
+      <div class="row cus-row-0 full-bg-color">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-toggle">
+                Activity Details
+                <span class="fa fa-angle-up"></span>
+              </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="student-course-center">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p ><span class="course-title">Lesson Name</span> - <span><%= @activity.lesson.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Points</span> - <span><%= @activity.activity_points %></span></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Name</span> - <span><%= @activity.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Due Date</span> - <span><%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %></span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity description</span> </p>
+                  <p><span><%= @activity.description.html_safe%></span></p>
+                </div> 
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="accordion-toggle">
+                   Question & Answer
+                   <span class="fa fa-angle-down"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="col-sm-12">
+                <%= render "students/lessons/quiz_activities" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif @type == "DiscussionActivity" %>
+  <div class="ovrall-video-activity">
+    <div class="container-fluid pa-left-right">
+      <div class="row cus-row-0 full-bg-color">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-toggle">
+                Activity Details
+                <span class="fa fa-angle-up"></span>
+              </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="student-course-center">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p ><span class="course-title">Lesson Name</span> - <span><%= @activity.lesson.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Points</span> - <span><%= @activity.activity_points %></span></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Activity Name</span> - <span><%= @activity.name %></span></p>
+                    </div>
+                    <div class="cour-details-row">
+                      <p><span class="course-title">Due Date</span> - <span><%= @activity.due_date.present? ? @activity.due_date.strftime("%m/%d/%Y") : "" %></span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cour-details-row">
+                  <p><span class="course-title">Activity description</span> </p>
+                  <p><span><%= @activity.description.html_safe%></span></p>
+                </div> 
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="accordion-toggle">
+                   Question & Answer
+                   <span class="fa fa-angle-down"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="col-sm-12">
+                <%= render "students/lessons/quiz_activities" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  $('.collapse').on('shown.bs.collapse', function(){
+    $(this).parent().find(".fa-angle-down").removeClass("fa-angle-down").addClass("fa-angle-up");
+    }).on('hidden.bs.collapse', function(){
+    $(this).parent().find(".fa-angle-up").removeClass("fa-angle-up").addClass("fa-angle-down");
+    });
+</script>
+
+

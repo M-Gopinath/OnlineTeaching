@@ -1,0 +1,52 @@
+<% if course.present? %>
+  <div class="th-tree-section">
+    <!-- <div class="th-parent-les">
+      <a class="btn" data-toggle="collapse" href="#lessonTree" role="button" aria-expanded="true" aria-controls="lessonTree">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> <i class="fa fa-minus-circle"></i> <%#= course.name.truncate(15) if course.name.present? %>
+      </a>
+    </div> -->
+    <div class="collapse in" id="lessonTree">
+      <ul id="sortable" class="ui-sortable"  data-update-url="<%= schools_lessons_position_update_path %>">
+        <% course.lessons.order("position").each do |lesson| %>
+          <li class="list lesson-edit-items ui-sortable-handle lesson_<%= lesson.id %>" id="lesson_<%= lesson.id %>">
+            <div class="th-child-act">
+              <a  class="btn th-add-less lesson-list-btn lesson_list_<%= lesson.id %>" data-id="<%= lesson.id %>" data-toggle="collapse" href="#activityTree<%= lesson.id %>" role="button" aria-expanded="false" aria-controls="activityTree"  data-start-date="<%= lesson.start_date %>" data-end-date="<%= lesson.end_date %>" data-course="<%= course.id %>"> 
+                <span class="cour-name-and-fa">
+                  <i class="fa fa-chevron-right" aria-hidden="true"></i> 
+                  <i class="fa fa-chevron-down"></i> 
+                  <span><%= lesson.name.truncate(32)  if lesson.name.present? %></span>
+                </span> 
+                <span class="handle-dotted"><img src="https://img.icons8.com/windows/25/ffffff/menu-2.png"></span> 
+              </a>
+            </div>
+            <div class="collapse in" id="activityTree<%= lesson.id %>">
+              <% lesson.all_activities.each do |activity| %>
+                <div class="th-grand-child">
+                  <a class="btn th-add-less activity-edit-process edit-activity-btn" data-lesson="<%= lesson.id %>" data-activity="<%= activity.class.name.downcase %>_<%= activity.id %>">
+                    <span class="right-5"><%= image_tag  activity_icon(activity)%></span>
+                    <span class="vetical-middle"><%= activity.name.truncate(43) if activity.name.present? %></span>
+                  </a>
+                </div>
+              <% end %>
+            </div>
+            <%= link_to  "javascript:;", class: "new-activity-btn " do %>
+              <div class="new-activity-left lesson-new-activity" data-lesson-id-name = "<%= lesson.id %>">
+                <i class="fa fa-plus white-color" aria-hidden="true"></i> New Activity
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+<script type="text/javascript">
+ jQuery(function() {
+  return $('#sortable').sortable({
+    axis: 'y',
+    update: function() {
+      return $.post($(this).data('update-url'), $(this).sortable('serialize'));
+    }
+  });
+});
+</script>

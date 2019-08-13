@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client: one
+  plan: one
+  subscription_start_date: 2018-11-10
+  subscription_end_date: 2018-11-10
+  discount_id: MyString
+  cost: 1.5
+
+two:
+  client: two
+  plan: two
+  subscription_start_date: 2018-11-10
+  subscription_end_date: 2018-11-10
+  discount_id: MyString
+  cost: 1.5

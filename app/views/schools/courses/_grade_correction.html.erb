@@ -1,0 +1,26 @@
+<% if grade_activity.present? %>
+  <div class="center-top-bottom"><span class="font-weight">Grade Activity - </span><span class="font-normal"><%= grade_activity.grade %></span></div>
+<%else%>
+  <div class="row">
+    <%= form_for StudentGrade.new, url: create_grade_schools_lessons_path, remote: true do |f| %>
+      <%= f.hidden_field :user_id, value: student.id %>
+      <%= f.hidden_field :student_answer_id, value: answer_id %>
+      <%= f.hidden_field :activity_id, value: activity.id %>
+      <%= f.hidden_field :activity_type, value: activity.class.name %>
+      <div class="top-15">
+        <div class="col-md-8 col-md-offset-2 ">
+          <div class="col-sm-4 text-right">
+            <%= f.label :grade, "Grade activity", class: 'grade-activity-label' %>
+          </div>
+          <div class="col-sm-4">
+            <%= f.number_field :grade, class: "form-control grade-height" %>
+          </div>
+          <div class="col-sm-4">
+            <button type="submit" class="btn btn-xs btn-primary" style="margin-top: 5px;">Submit</button>
+          </div>
+          
+        </div>
+      </div>
+    <% end %>                      
+  </div>
+<%end%>

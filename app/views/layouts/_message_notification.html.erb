@@ -1,0 +1,19 @@
+<% if notifications.count > 0 %>
+	<% notifications.sort_by{|t| t[:created_at]}.reverse.first(5).each do |announcement| %>
+		<%= link_to schools_conversation_path(announcement), class: 'dropdown-item' do %>
+		<div class="user-avatar">
+	    <%= image_tag announcement.messages.last.sender.avatar.present? ? announcement.messages.last.sender.avatar_url : "/assets/person.png", width: "15px;" %>
+	  </div>
+	  <div class="dropdown-item-body">
+	  	<p class="subject"><%= announcement.messages.last.sender.email %></p>
+		  <p class="text text-truncate"><%= "#{announcement.messages.last.body}" %></p>
+		  <!-- <span class="unread_announcement"></span> -->
+		  <span class="date"><%= "#{distance_of_time_in_words(Time.now, announcement.updated_at)}" %></span>
+    </div>		    
+	  <%end%>
+	<%end%>
+<%else%>
+	<%= link_to "No new notifications!", "javascript:void(0);", class: "no-notifications dropdown-item"  %>
+<%end%>
+<%= link_to "View all", schools_mailbox_inbox_path, class: "dropdown-footer" %>
+

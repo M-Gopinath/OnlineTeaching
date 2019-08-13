@@ -1,0 +1,22 @@
+<ul class="nav-stacked">
+  <li class="<%= active_page(:inbox) %> bo-top-2">
+    <%= link_to schools_mailbox_inbox_path do  %>
+      <i class="fa fa-inbox fa-lg"></i>
+      Inbox
+      <span class="label mail-count label-danger pull-right mail_count_<%= current_user.id %>"><%=unread_messages_count if unread_messages_count > 0 %></span>
+    <% end %>
+  </li>
+  <li class="<%= active_page(:sent) %>">
+    <%= link_to schools_mailbox_sent_path do %>
+      <i class="fa fa-paper-plane-o fa-lg"></i>
+      <span>Sent</span>
+    <% end %>
+  </li>
+
+  <li class="<%= active_page(:trash) %>">
+    <%= link_to schools_mailbox_trash_path do %>
+      <i class="fa fa-trash-o fa-lg"></i>
+      <span>Trash</span>
+    <% end %>
+  </li>
+</ul>

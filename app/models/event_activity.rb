@@ -1,0 +1,2 @@
+class EventActivity < ApplicationRecord
+end

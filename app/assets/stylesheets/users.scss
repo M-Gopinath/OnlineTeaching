@@ -1,0 +1,548 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+  /* Admin user css */
+  .th-ac-count{
+    width: 75px;
+    height: 45px;
+    background: #1EC09F;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+
+  .th-dc-count{
+    width: 75px;
+    height: 45px;
+    background: #fd397a;
+    border-radius: 3px;
+  }
+  .sa-col{
+    display: inline-block;
+  }
+
+  .th-ac-count span, .th-dc-count span {
+    text-align: center;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .th-ac-count span:first-child, 
+  .th-dc-count span:first-child  {
+    margin-top: 3px;
+  }
+
+  /* Customize table css */
+
+  .th-ad-user table {
+    border: 1px solid #eeeeee;
+    background: #fafafa;
+    width: 99%;
+    margin: auto;
+  }
+  .th-ad-user table > thead > tr  {
+    background: #f5f5f5;
+  }
+
+  .th-ad-user .table > thead > tr > th, 
+  .th-ad-user .table > thead > tr > td, 
+  .th-ad-user .table > tbody > tr > th, 
+  .th-ad-user .table > tbody > tr > td, 
+  .th-ad-user .table > tfoot > tr > th, 
+  .th-ad-user .table > tfoot > tr > td {
+    padding: 15px;
+  }
+
+
+  /* Customize checkbox button css */
+
+  .th-cus-container-check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+
+  .th-cus-container-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+
+  .th-cus-container-check .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+  }
+
+ .th-cus-container-check .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .th-cus-container-check input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .th-cus-container-check .checkmark:after {
+    left: 7px;
+    top: 4px;
+    width: 6px;
+    height: 10px;
+    border: solid #1EC09F;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  /* Customize Radion button css */
+
+
+  .th-cus-container-radio {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .th-cus-container-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .th-cus-container-radio .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 21px;
+    width: 21px;
+    background-color: transparent;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+  }
+
+  .th-cus-container-radio .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .th-cus-container-radio input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .th-cus-container-radio .checkmark:after {
+    top: 6px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #346cb0;
+  }
+
+ /* pagination css */
+
+  .th-cus-pagination .cus-ul > li:last-child > a, 
+  .th-cus-pagination .cus-ul > li:last-child > span {
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+  }
+
+   .th-cus-pagination .cus-ul > li > a, 
+   .th-cus-pagination .cus-ul > li > span {
+    padding: 7px 13px;
+    background: #fff;
+    color: #346cb0;
+   }
+
+   .th-cus-pagination .cus-ul > .active > a{
+    padding: 7px 13px;
+    background: #346cb0;
+    color: #fff;
+   }
+
+   .th-act-dac ul > li > a {
+     color: #47443C;
+   }
+
+   .th-act-dac ul > li > a:hover, .th-act-dac ul > li > a:focus, .th-act-dac ul > li > a:active, .th-act-dac ul > li > a:visited {
+     background: transparent;
+     color: #346cb0;
+   }
+
+   .active .th-cus-panel .panel-heading {
+     background: #e6e6e6 !important;
+    color: #356cb0 !important;
+   }
+
+   .data-is-not-yet{
+     margin: 0px;
+   }
+  
+  .user-list-inline li{
+    padding: 10px;
+  }
+  
+  .user-border-bottom{
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .user-list-inline.header{
+    background: #e7eaec70;
+    float: left;
+    margin-left: 0px;
+  }
+  .user-list-inline.body{
+    border: 1px solid #ddd;
+  }
+
+  .th-cus-panel {
+    border-top: 3px solid #346cb0;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+    margin-bottom: 15px !important;
+  }
+
+  .th-cus-panel .panel-title {
+    font-size: 14px;
+  }
+
+  .user_search_box{
+    width: 100%;
+    margin: auto;
+  }
+
+  .user-list-inline .med-with {
+    width: 15%;  
+  }
+
+  .user-list-inline .short-with {
+    width: 5%;  
+  }
+
+  .user-list-inline .long-width {
+    width: 20%;  
+  }
+
+  .user-list-inline  .xsm-short-with{
+    width: 5%;
+    cursor: pointer;
+  }
+
+  .xsm-short-with .fa-plus, .xsm-short-with .minus {
+    text-align: right;
+    cursor: pointer
+  }
+
+  .user-list-inline {
+    width: 100%;
+    margin-bottom: 0px;
+    margin-left: 0px; 
+  }
+
+  .header > li{
+    font-weight: 500;
+    font-size: 1.06rem;
+    padding-top: 9px;
+    padding-bottom: 6px;
+    color: #5a5a5a;
+  }
+
+  .personal_details h1, .course_details h1 {
+    margin-top: 15px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .course_details h4 {
+    font-size: 18px;
+    margin-top: 25%;
+    text-align: center;
+  }
+
+  .per-bg-details{
+    background: #fafafa;
+    border: 1px solid #eee;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    padding: 10px 10px 20px 10px;
+    z-index: 1;
+    text-align: left;
+  }
+
+  .user-title span, .ur-course-title span  {
+    border-bottom: 1px solid #eee;
+  }
+
+  .det-left-ali ul {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .det-left-ali ul > li {
+    padding: 0px;
+    list-style-type: none;
+    padding: 5px;
+    background: #eee;
+    border-radius: 3px;
+    margin-bottom: 7px;
+    color: #777777;
+  }
+
+  .per-bg-details  .cour-details-row {
+    border-bottom: 1px solid #eee;
+    padding: 6px 15px 2px 0px;
+    line-height: 28px;
+  }
+
+  .user-title {
+    padding-left: 10px;
+    font-size: 18px;
+  }
+
+  
+  .ur-course-title{
+    font-size: 18px;
+  }
+
+  .short-with a, .short-with .glyphicon-ok  {
+    color: #346cb0;
+  }
+
+ .user_search_box input {
+    height: 34px;
+ }
+
+ .user-col-sm-3 {
+    padding: 0px;
+    width: 16%
+  }
+  .user-col-sm-9 {
+    width: 84%;
+    padding: 0px;
+  }
+
+  .btn-cent-left {
+    padding: 0px 15px;
+    margin-bottom: 8px;
+  }
+
+  .flickr_pagination .pagination {
+    margin: 0px;
+  }
+
+  .flickr_pagination ul > li > span,  .flickr_pagination ul > li > a {
+    padding: 9px 12px;
+    border-radius: 0px; 
+  }
+
+
+.xlsx:before {
+  content: "";
+  background: blue url(https://www.jqueryscript.net/demo/Exporting-Html-Tables-To-CSV-XLS-XLSX-Text-TableExport/dist/img/xlsx.svg) no-repeat center;
+}
+
+.xls:before {
+  content: "";
+  background: purple url(https://www.jqueryscript.net/demo/Exporting-Html-Tables-To-CSV-XLS-XLSX-Text-TableExport/dist/img/xls.svg) no-repeat center;
+}
+
+.xlsx:before, .xls:before{
+  margin-right: 10px;
+  padding: 10px 15px 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.xlsx, .xls{
+  margin: 0px 0;
+  display: inline-block;
+  padding: 3px 5px !important;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400 !important;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid #eee !important;
+  border-radius: 4px;
+
+}
+
+.th-ad-user{
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.new-user-modal {
+  width: 100%;
+  height: 34px;
+}
+
+.coll-pos-abs{
+  position: absolute;
+  left: 10px;
+  right: 10px;
+}
+
+.xlsx:hover, .xls:hover{
+  background: #fafafa !important; 
+}
+
+.md-pills{
+  display: inherit !important;
+}
+
+.th-cus-panel .panel-body {
+  padding: 3px 10px 0px 10px;
+}
+
+/* 
+
+
+.upclass_6:before,
+.upclass_7:before,
+.upclass_8:before, 
+.upclass_9:before,
+.upclass_10:before {
+  content: "";
+  border-top: solid 13px #ddd;
+  border-left: solid 13px transparent;
+  border-right: solid 13px transparent;
+  position: absolute;
+  right: 26px;
+  z-index: 10;
+  content: '';
+  width: 0;
+  height: 0;
+  bottom: -13px;
+}
+
+
+.downclass_1:before,
+.downclass_2:before,
+.downclass_3:before, 
+.downclass_4:before,
+.downclass_5:before {
+  content: "";
+  border-bottom: 13px solid #ddd;
+  border-right: 13px solid transparent;
+  border-left: 13px solid transparent;
+  position: absolute;
+  top: -13px;
+  right: 26px;
+  z-index: 10;
+}
+
+*/
+
+
+.user-list-3{
+  width: 25%;
+}
+
+.user-list-5 {
+  width: 44%;
+}
+
+.user-list-4{
+  width: 31%
+}
+
+.per-page-align{
+  height: 33px !important;
+  margin-top: 1px;
+  width: 100%;
+  float: right;
+}
+
+.padding-ri-0 {
+  padding-right: 0px;
+}
+
+.pagination > li:first-child > a, .pagination > li:first-child > span {
+  border-bottom-left-radius: 2px !important;
+  border-top-left-radius: 2px !important;
+}
+
+
+.th-ad-ad-dac .th-cus-panel .panel-body {
+    padding: 30px 5px 30px 5px !important;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.active .th-cus-panel {
+  background: #e7eaec70;
+}
+
+.no-record-found-text {
+  padding-top: 25%;
+  text-align: center;
+  font-size: 25px;
+}
+
+.short-with img {
+  border-radius: 100%;
+  background: #eee;
+}
+
+.unread_announcement{
+  width: 10px;
+  height: 10px;
+  background: #1EC09F;
+  display: inline-block;
+  border-radius: 10px;
+  margin-top: 7px;
+  float: right;
+}
+
+.xg-med-with {
+  width: 22%;
+}
+
+.xs-med-with {
+  width: 10%;
+}
+
+.line-hr {
+  width: 1px;
+  height: 150px;
+  background: #ddd;
+  margin: auto;
+  margin-top: 45px
+}
+
+.user-list-inline .btn-secondary{
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}

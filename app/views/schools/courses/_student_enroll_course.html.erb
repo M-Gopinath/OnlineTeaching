@@ -1,0 +1,39 @@
+
+<div class="yet-already-enrolled">
+  <div id="yet-already-enrolled">
+    <div class="col-md-5">
+      <h3 class="enroll-course-title">Yet to Enroll </h3>
+      <ul class="list-inline enrolled-ul">
+        <% course.yet_enrolled_students.each do |t| %>
+          <li>
+            <label for="<%= t.id %>" class="checkbox-container-ac">
+              <%= t.full_name %>
+              <input type="checkbox" id="<%= t.id %>" name="student_ids[]" value="<%= t.id %>" class="sub-checkbox enroll_student" data-course-id="<%= course.id %>" />
+              <span class="checkmark"></span>
+            </label>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-success enroll-btn mt-120" data-course-id="<%= course.id %>">ENROLL</button>
+    </div>
+    <div class="col-md-1 text-right-align mobile-right-left">
+      <button class="btn btn-space btn-danger  enroll-cancel-btn mt-120" data-course-id="<%= course.id %>">CANCEL</button>
+    </div>
+    <div class="col-md-5">
+      <h3 class="enroll-course-title"> Already Enrolled </h3>
+      <ul class="list-inline  enrolled-ul">
+        <% course.enrolled_students.each do |t| %>
+          <li>
+            <label for="<%= t.id %>" class="checkbox-container-ac">
+              <%= t.full_name %>
+              <input type="checkbox" id="<%= t.id %>" name="student_ids[]" value="<%= t.id %>" class="sub-checkbox cancel_enroll_student" data-course-id="<%= course.id %>" />
+              <span class="checkmark"></span>
+            </label>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

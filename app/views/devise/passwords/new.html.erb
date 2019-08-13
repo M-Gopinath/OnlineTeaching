@@ -1,0 +1,26 @@
+ <div class="be-wrapper be-login">
+      <div class="be-content top-13">
+        <div class="main-content container-fluid">
+          <div class="splash-container forgot-password">
+            <div class="card card-border-color card-border-color-primary">
+              <div class="card-header">
+                <%= image_tag 'logo-1.png', class: 'logo-img', alt: 'logo', width: '140px'%>
+                <span class="splash-description">Forgot your password?</span>
+              </div>
+              <div class="card-body">
+                <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post,  class: 'forgot-password-form' }, :remote => true) do |f| %>
+                  <%= f.error_notification %>
+                  <p class="dont-wor-p">Don't worry, we'll send you an email to reset your password.</p>
+                  <div class="form-group pt-4">
+                    <%= f.text_field :email, class: "form-control user-forgot-password", autofocus: true, placeholder: 'Username or Email' %>
+                  </div>
+                  <div class="form-group pt-1">
+                    <input class="btn btn-block btn-primary btn-xl" type="submit" value="Reset Password">
+                  </div>
+                <%end%>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

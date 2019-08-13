@@ -1,0 +1,31 @@
+// Place all the styles related to the schools controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* .template-highlight{
+  border: 1px solid #346cb0;
+  background: #356cb0;
+  color: #fff;
+}
+*/
+.plan-selected{
+  border: 1px solid #346cb0;
+}
+.step-app > .step-footer > .step-btn.finish-btn{
+	margin-bottom: 0px;
+  float: right;
+}
+
+.file-size-error{
+  display: none;
+  color: red;
+  font-size: 12px;
+}
+.logo-note{
+  margin-top: -9px;
+}
+
+
+.modal-open{
+padding-right: 0px !important;
+}

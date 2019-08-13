@@ -1,0 +1,102 @@
+@-moz-document url-prefix() {
+  .th-cus-panel{
+    margin-bottom: 5px !important;
+  }
+
+  .user-list-inline li {
+    padding: 9px 10px 9px 10px;
+  }
+
+  .th-co-count .th-cou-panel {
+    margin-bottom: 8px !important;
+  }
+
+  .th-course-thum .th-course-body {
+    height: 168px;
+  }
+
+  .col-md-10 #calendar .fc-basic-view .fc-body .fc-row {
+    height: 69px !important;
+  }
+
+  /*
+  #calendar .fc-day-grid-container {
+    height: 415px !important;
+  }
+
+  */
+  
+  .com-cus-9 .inbox-right{
+    height: 525px;
+  }
+   
+  /* 
+  .th-edit-form .mce-edit-area {
+    max-height: 130px !important;
+    overflow: hidden;
+  }
+
+  */
+
+   #presentation_activity_description_ifr  {
+      height: 130px !important;
+   }
+
+  .form-inputs .ac-par-he {
+    height: 396px;
+    margin-bottom: 6px;
+  }
+
+  .video_activities, .quiz_activities, .reading_activities, .essay_activities, .page_activities, .writing_activities, .document_activities, .presentation_activities, .audio_activities, .discussion_activities {
+   height: 445px !important;
+  }
+
+  .align-items-center .form-group {
+    width: 100%;
+  }
+
+  .step-app-ul > .step-steps > li {
+    margin-bottom: 30px;
+  }
+
+  .qu-shor-inner-box {
+    text-align: center;
+    margin-top: 13% !important;
+    margin-bottom: 20% !important;
+  }
+
+  .qu-shor-box {
+    width: 100%;
+    height: 255px !important;
+    border: 1px solid #eee;
+    border-radius: 6px;
+  }
+
+  .row-cust-dashboard .row{
+    margin-top : 0px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .course-tablist > li > a {
+    padding: 12px 49px;
+  }
+
+  .row-cust-dashboard .row {
+   margin-bottom: 0px !important;
+  }
+
+  .direct-chat {
+    margin-top: 3px;
+  }
+
+  #user-widget .panel-body {
+    overflow-x: hidden;
+    max-height: 201px;
+    overflow-y: auto;
+    height: 201px;
+  }
+
+  .close span {
+    margin-top: -5px;
+  }
+}

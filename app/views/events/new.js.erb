@@ -1,0 +1,4 @@
+<% unless current_user.student? %>
+  $('#remote_container').html('<%= j render "new" %>');
+  $('#new_event').modal();
+<% end %>

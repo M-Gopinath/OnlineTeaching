@@ -1,0 +1,5 @@
+<% if @user.present? %>
+  $("#admin_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @admins, type: 'admin'}) %>");
+  $("#teacher_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @teachers, type: 'teacher'}) %>");
+  $("#student_user_list").html("<%= j(render partial: 'users_lists', locals: {users: @students, type: 'student'}) %>");
+<% end %>

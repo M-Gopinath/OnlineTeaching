@@ -1,0 +1,10 @@
+<% if resource.errors.present?%>
+  $('.user-forgot-password').after('<span class="error-span">Please provide a valid email</span>');
+  $('.user-forgot-password').addClass('border-error');
+<%else%>
+  $(".error-span").remove();
+  $('.user-forgot-password').removeClass('border-error');
+  $(window.location.replace("/users/sign_in"));
+<%end%>
+
+

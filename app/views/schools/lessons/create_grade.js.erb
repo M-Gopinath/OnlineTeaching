@@ -1,0 +1,4 @@
+$(".grade_activity").html("<%= j(render partial: 'schools/courses/grade_correction', locals: {grade_activity: @grade, student: @grade.user, activity: @activity}) %>")
+
+$("#non-grade-courses").html("<%= j(render partial: 'schools/courses/all_grade_courses', locals: {activities: @non_grade_activities.uniq}) %>")
+$("#grade-courses").html("<%= j(render partial: 'schools/courses/all_graded_courses', locals: {activities: @grade_activities.uniq}) %>")

@@ -1,0 +1,110 @@
+<div class="th-postbox">
+  <div class="th-avatar col-sm-2">
+    <span class="th-user">
+      <% if post.user && post.user.avatar_url.present? %>
+         <%= image_tag post.user.avatar_url %>
+      <% else %>
+        <img data-role="user-avatar" src="/assets/avatar-1.png" alt="Avatar">
+      <% end %>
+    </span>
+  </div>
+  <div class="th-text-wrapper col-sm-10">
+    <div class="parent-post">
+      <p class="school-name-title">
+        <% if  post.description.present? %>
+          <%= post.description %>
+        <%else%>
+          -
+        <%end%>
+       </p>
+      <p class="timestamp"><%= post.created_date %></p>
+
+      <div class="post-files">
+        <% post.post_images.each do |pi| %>
+         <% if pi.image_url.present? %>
+            <div class="frame-files">
+              <iframe
+                width="185px" height="96px;"
+                frameborder="0" style="border:0"
+                src="<%= pi.image_url %>" allowfullscreen>
+              </iframe>
+            </div>
+          <% elsif pi.video_url.present? %>
+            <div class="frame-files">
+              <iframe
+                width="20%" height="80px;"
+                frameborder="0" style="border:0"
+                src="<%= pi.video_url %>" allowfullscreen>
+              </iframe>
+            </div>
+          <% elsif pi.audio_url.present? %>
+            <div class="frame-files">
+              <iframe
+                width="20%" height="80px;"
+                frameborder="0" style="border:0"
+                src="<%= pi.audio_url %>" allowfullscreen>
+              </iframe>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+       <div class="th-sh-fo-items">
+        <%= link_to schools_post_like_path(post.id), remote: true, class: "like-link_#{post.id} stat-item" do %>
+          <i class="fa fa-thumbs-up icon fa-thumbs-up_<%= post.id %> <%= 'thumb-up-color' if post.user_like(current_user) %>"></i>
+          <span class=" post-like-text-<%= post.id %>"> <%= post.user_like_status(current_user)%></span>
+           <span class="likes_count_<%= post.id %>"><%= post.post_likes.count %></span>
+        <% end %>
+        <a href="javascript:;" class="reply-command-btn " data-post-id="<%= post.id %>">REPLY</a>
+      </div>
+    </div>
+    <div class="post-reply-form-<%= post.id %> reply-post-form">
+      <% @post = Post.new %>
+      <% @post.post_images.build %>
+      <%= form_for @post, url: schools_posts_path, remote: true do |f| %>
+        <div class="form-group" style="margin-bottom: 8px;">
+          <%= f.hidden_field :parent_id, value: post.id %>
+          <%= f.text_area :description, class: "form-control reply-post-box", placeholder: "Write something here....", rows: 2, cols: 2 %>
+        </div>
+        <%= f.submit "Post", class: "btn btn-space btn-primary th-btn-share"%>
+        <%= f.fields_for :post_images do |p| %>
+          <%= p.file_field :image, class: "image-upload hide" %>
+          <%= p.file_field :video, class: "video-upload hide" %>
+          <%= p.file_field :audio, class: "audio-upload hide" %>
+           <span class="att-lef-text image-upload-btn">
+            <img src="https://img.icons8.com/ios-glyphs/18/aaaaaa/image.png"> <span>Image</span>
+          </span>
+         <span class="att-lef-text video-upload-btn">
+          <img src="https://img.icons8.com/ios/18/aaaaaa/video-call-filled.png"> <span>Video</span></span>
+         <span class="att-lef-text audio-upload-btn">
+          <img src="https://img.icons8.com/ios-glyphs/18/aaaaaa/speaker.png"><span>Audio</span></span>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-12" style="padding-left: 0px;">
+      <div class="image-preview">
+      </div>
+      <div class="video-preview">
+      </div>
+      <div class="audio-preview">
+      </div>
+    </div>
+    <div class="th-postbox">
+      <div class="th-text-wrapper th-inner-text-wrapper">
+        <div class="reply-post-<%= post.id %>">
+            <%= render post.replies if post.replies.any? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $('iframe').load(function() {
+      $(this).contents().find('img').css({'width': '140px', 'height': '95px'});
+    })
+    // $(".user-overflow-scroll").animate({ scrollTop: $(".user-overflow-scroll")[0].scrollHeight}, 'slow');
+  });
+</script>
+

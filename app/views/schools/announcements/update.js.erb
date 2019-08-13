@@ -1,0 +1,8 @@
+var modal = "#modal_<%= @announcement.id %>"
+var announcement = "#announcement_<%= @announcement.id %>"
+
+$(".modal-backdrop").remove();
+$(modal).remove();
+$(announcement).remove();
+
+$("#announcements").append("<%= j render(:partial => '/schools/announcements/announcement',:locals => { :announcement => @announcement }) %>");  

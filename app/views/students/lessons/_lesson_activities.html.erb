@@ -1,0 +1,29 @@
+<table class="table full-activity-show">
+  <% activities.each do |a| %>
+    <tr>
+      <% if a.class.name == "WritingActivity" %>
+        <td width="5%"><img src="https://png.icons8.com/ios/25/1EC09F/inscription.png" class="round-img"></td>
+      <% elsif a.class.name == "VideoActivity" %>
+        <td width="5%"><img src="https://png.icons8.com/dotty/25/1EC09F/video-call.png" class="round-img"></td>
+      <% elsif a.class.name == "AudioActivity" %>
+        <td width="5%"><img src="https://png.icons8.com/ios/25/1EC09F/speaker.png" class="round-img"></td>
+      <% elsif a.class.name == "PresentationActivity" %>
+        <td width="5%"><img src="https://png.icons8.com/ios/25/1EC09F/presentation.png" class="round-img"></td>
+      <% elsif a.class.name == "ReadingActivity" %>
+        <td width="5%"><img src="https://png.icons8.com/material-outlined/25/1EC09F/view-file.png" class="round-img"></td>
+      <% elsif a.class.name == "QuizActivity" %>
+        <td width="5%"><img src="https://png.icons8.com/dotty/25/1EC09F/test-passed.png" class="round-img"></td>
+      <% elsif a.class.name == "DocumentActivity" %>
+        <td width="5%"><img src="https://png.icons8.com/dotty/25/1EC09F/pdf.png" class="round-img"></td>
+      <% else %>
+      <td width="5%">-</td>
+      <%end%>
+      <td width="30%"><%= a.name.humanize %></td>
+      <td width="25%"><%= (a.class.name).underscore.humanize %></td>
+      <td width="10%"><%= a.activity_points.present? ? a.activity_points : "--" %></td>
+      <td width="15%"><%= a.due_date.present? ? a.due_date.strftime("%m/%d/%Y") : "--" %></td>
+      <td width="10%"><%= link_to "View", students_show_activity_path(@lesson, a, type: a.class.name, course: @course.id), class: "btn btn-info pull-right" %></td>
+    </tr>
+  <% end %>
+</table>
+

@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="nested-fields answer-nestes-field">
+    <div class="box-header with-border">
+      <span class="question-title">Answer</h3>
+      <span class="question-tools">
+        <button type="button" class="btn btn-box-tool toggl-click-answer"><i class="fa fa-minus"></i>
+        <%= link_to_remove_association f do %>
+          <button type="button" class="btn btn-box-tool red-color-button"><i class="fa fa-times"></i></button>
+        <% end %>
+      </span>
+    </div>
+    <div class="toggle-answer">
+      <div class="box-body">
+        <div class="activities">
+          <div class="form-inputs answer-input">
+            <%= f.input :name %>
+            <%= f.label :is_correct, class: 'checkbox-container-ac top-15' do %>
+              Is Correct
+              <%= f.check_box :is_correct, checked_value: true, unchecked_value: false %> 
+              <span class="checkmark"></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#animate-scroll-video").animate({ scrollTop: $("#animate-scroll-video")[0].scrollHeight}, 'slow');
+  $("#animate-scroll-document").animate({ scrollTop: $("#animate-scroll-document")[0].scrollHeight}, 'slow');
+  $("#animate-scroll-quize").animate({ scrollTop: $("#animate-scroll-quize")[0].scrollHeight}, 'slow');
+  $("#animate-scroll-reading").animate({ scrollTop: $("#animate-scroll-reading")[0].scrollHeight}, 'slow');
+  $("#animate-scroll-essay").animate({ scrollTop: $("#animate-scroll-essay")[0].scrollHeight}, 'slow');
+  $("#animate-scroll-page").animate({ scrollTop: $("#animate-scroll-page")[0].scrollHeight}, 'slow');
+  $("#animate-scroll-writting").animate({ scrollTop: $("#animate-scroll-writting")[0].scrollHeight}, 'slow');
+  $("#animate-scroll-presentattion").animate({ scrollTop: $("#animate-scroll-presentattion")[0].scrollHeight}, 'slow');
+  $("#animate-scroll-audio").animate({ scrollTop: $("#animate-scroll-audio")[0].scrollHeight}, 'slow');
+  $("#animate-scroll-discussion").animate({ scrollTop: $("#animate-scroll-discussion")[0].scrollHeight}, 'slow');
+</script>

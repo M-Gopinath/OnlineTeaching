@@ -1,0 +1,130 @@
+setTimeout(function(){
+  form_loader();
+  $(".video_activities").addClass("hide");
+  $(".quiz_activities").addClass("hide");
+  $(".essay_activities").addClass("hide");
+  $(".reading_activities").addClass("hide");
+  $(".page_activities").addClass("hide");
+  $(".writing_activities").addClass("hide");
+  $(".document_activities").addClass("hide");
+  $(".presentation_activities").addClass("hide");
+  $(".audio_activities").addClass("hide");
+  $(".discussion_activities").addClass("hide");
+
+  <% if @type == "VideoActivity" %>
+    $(".video_activities").removeClass("hide");
+    $('.new-activity').removeClass("menu-active");
+    $('.video-tab').addClass("menu-active");
+    $(".video_activities").html("<%= j(render partial: 'schools/lessons/edit/video', locals: {lesson: @activity.lesson, activity: @activity}) %>");
+  <% elsif @type == "QuizActivity" %>
+    $(".quiz_activities").removeClass("hide");
+    $('.new-activity').removeClass("menu-active");
+    $('.quiz-tab').addClass("menu-active");
+    $(".quiz_activities").html("<%= j(render partial: 'schools/lessons/edit/quiz', locals: {lesson: @activity.lesson, activity: @activity}) %>");
+  <% elsif @type == "EssayActivity" %>
+    $(".essay_activities").removeClass("hide");
+    $('.new-activity').removeClass("menu-active");
+    $('.essay-tab').addClass("menu-active");
+    $(".essay_activities").html("<%= j(render partial: 'schools/lessons/edit/essay', locals: {lesson: @activity.lesson, activity: @activity}) %>");
+  <% elsif @type == "ReadingActivity" %>
+    $(".reading_activities").removeClass("hide");
+    $('.new-activity').removeClass("menu-active");
+    $('.reading-tab').addClass("menu-active");
+    $(".reading_activities").html("<%= j(render partial: 'schools/lessons/edit/reading', locals: {lesson: @activity.lesson, activity: @activity}) %>");
+  <% elsif @type == "PageActivity" %>
+    $(".page_activities").removeClass("hide");
+    $('.new-activity').removeClass("menu-active");
+    $('.page-tab').addClass("menu-active");
+    $(".page_activities").html("<%= j(render partial: 'schools/lessons/edit/page', locals: {lesson: @activity.lesson, activity: @activity}) %>");
+  <% elsif @type == "WritingActivity" %>
+    $(".writing_activities").removeClass("hide");
+    $('.new-activity').removeClass("menu-active");
+    $('.writing-tab').addClass("menu-active");
+    $(".writing_activities").html("<%= j(render partial: 'schools/lessons/edit/writing', locals: {lesson: @activity.lesson, activity: @activity}) %>");
+  <% elsif @type == "DocumentActivity" %>
+    $(".document_activities").removeClass("hide");
+    $('.new-activity').removeClass("menu-active");
+    $('.document-tab').addClass("menu-active");
+    $(".document_activities").html("<%= j(render partial: 'schools/lessons/edit/document', locals: {lesson: @activity.lesson, activity: @activity}) %>");
+  <% elsif @type == "PresentationActivity" %>
+    $(".presentation_activities").removeClass("hide");
+    $('.new-activity').removeClass("menu-active");
+    $('.presentation-tab').addClass("menu-active");
+    $(".presentation_activities").html("<%= j(render partial: 'schools/lessons/edit/presentation', locals: {lesson: @activity.lesson, activity: @activity}) %>");
+  <% elsif @type == "AudioActivity" %>
+    $(".audio_activities").removeClass("hide");
+    $('.new-activity').removeClass("menu-active");
+    $('.audio-tab').addClass("menu-active");
+    $(".audio_activities").html("<%= j(render partial: 'schools/lessons/edit/audio', locals: {lesson: @activity.lesson, activity: @activity}) %>");
+  <% elsif @type == "DiscussionActivity" %>
+    $(".discussion_activities").removeClass("hide");
+    $('.new-activity').removeClass("menu-active");
+    $('.discussion-tab').addClass("menu-active");
+    $(".discussion_activities").html("<%= j(render partial: 'schools/lessons/edit/discussion', locals: {lesson: @activity.lesson, activity: @activity}) %>");
+  <% end %>
+  var startDate = $(".th-vido-ac-area").data("start-date","<%= @activity.lesson.start_date.present? ? @activity.lesson.start_date : Time.now.strftime('%Y-%m-%d') %>");
+  var endDate = $(".th-vido-ac-area").data("end-date","<%= @activity.lesson.end_date.present? ? @activity.lesson.end_date : Time.now.strftime('%Y-%m-%d') %>");
+  $('.datetimepicker-video').datetimepicker({
+    useCurrent: false,
+    format: 'LL',
+    minDate: moment(new Date("<%= @activity.lesson.start_date.present? ? @activity.lesson.start_date : Time.now.strftime('%Y-%m-%d') %>")).format("LL"),
+    maxDate: moment(new Date("<%= @activity.lesson.end_date.present? ? @activity.lesson.end_date : Time.now.strftime('%Y-%m-%d') %>")).format("LL")
+  });
+  $(".activity-exist").data("exist-activity", "<%= Course.any_activity? %>");
+  $(".template-exists").data("template-exist", "<%= client_template_present %>");
+
+
+  <% if @type == "VideoActivity" %>
+    var select_date = "<%= @activity.due_date %>";
+    if (select_date){
+      $('#video_activity_due_date').val(moment(new Date(select_date)).format("LL"))
+    }
+  <% elsif @type == "QuizActivity" %>
+    var select_date = "<%= @activity.due_date %>";
+    if (select_date){
+      $('#quiz_activity_due_date').val(moment(new Date(select_date)).format("LL"))
+    }
+  <% elsif @type == "EssayActivity" %>
+    var select_date = "<%= @activity.due_date %>";
+    if (select_date){
+      $('#essay_activity_due_date').val(moment(new Date(select_date)).format("LL"))
+    }
+  <% elsif @type == "ReadingActivity" %>
+    var select_date = "<%= @activity.due_date %>";
+    if (select_date){
+      $('#reading_activity_due_date').val(moment(new Date(select_date)).format("LL"))
+    }
+  <% elsif @type == "PageActivity" %>
+    var select_date = "<%= @activity.due_date %>";
+    if (select_date){
+      $('#page_activity_due_date').val(moment(new Date(select_date)).format("LL"))
+    }
+  <% elsif @type == "WritingActivity" %>
+    var select_date = "<%= @activity.due_date %>";
+    if (select_date){
+      $('#writing_activity_due_date').val(moment(new Date(select_date)).format("LL"))
+    }
+  <% elsif @type == "DocumentActivity" %>
+    var select_date = "<%= @activity.due_date %>";
+    if (select_date){
+      $('#document_activity_due_date').val(moment(new Date(select_date)).format("LL"))
+    }
+  <% elsif @type == "PresentationActivity" %>
+    var select_date = "<%= @activity.due_date %>";
+    if (select_date){
+      $('#presentation_activity_due_date').val(moment(new Date(select_date)).format("LL"))
+    }
+  <% elsif @type == "AudioActivity" %>
+    var select_date = "<%= @activity.due_date %>";
+    if (select_date){
+      $('#audio_activity_due_date').val(moment(new Date(select_date)).format("LL"))
+    }
+  <% elsif @type == "DiscussionActivity" %>
+    var select_date = "<%= @activity.due_date %>";
+    if (select_date){
+      $('#discussion_activity_due_date').val(moment(new Date(select_date)).format("LL"))
+    }
+  <% end %>
+
+  $('.activity-lesson-id').val("<%= @activity.lesson.id %>");
+},800);

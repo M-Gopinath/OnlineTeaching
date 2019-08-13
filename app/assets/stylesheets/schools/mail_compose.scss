@@ -1,0 +1,289 @@
+
+.fileinput-button {
+  float: left;
+  margin-right: 4px;
+  overflow: hidden;
+  position: relative;
+  display: contents;
+}
+
+.fileinput-button input {
+  cursor: pointer;
+  direction: ltr;
+  font-size: 23px;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.em-cus-2{
+  width: 13%;
+}
+
+.em-cus-10{
+  width: 83%;
+}
+
+.em-cus-10 > ul {
+  margin-top: 7px;
+}
+
+.em-cus-10 > ul > li > .fa {
+  font-size: 20px;
+}
+
+.em-cus-10 > ul > li {
+  padding: 3px 4px 3px 4px;
+  cursor: pointer;
+}
+
+.em-cus-10 > ul > li:hover {
+  background: #eeeeee;
+  border-radius: 3px;
+}
+
+.fa-paperclip {
+  font-size: 22px;
+}
+
+.send-message {
+  padding: 5px 10px !important;
+}
+
+ a.compose-mail {
+  padding: 6px 10px;
+  margin-bottom: 20px;
+  font-size: 1.1538rem;
+}
+
+.com-cus-3 {
+  width: 22%;
+}
+
+.com-cus-9 {
+  width: 78%;
+}
+
+.nav-stacked > li + li{
+  margin-top: 0px !important;
+}
+
+.nav-stacked li {
+  list-style: none;
+  border-bottom: 1px solid #e7eaec;
+  display: block;
+}
+
+.nav-stacked a {
+  color: #666;
+  font-size: 13px;
+  padding: 8px 0;
+  display: block;
+  padding: 11px 10px 11px 10px;
+}
+
+.nav-stacked .active {
+  border-bottom: 2px solid #346cb0;
+}
+
+.nav-sidebar {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.compose h2 > a {
+  color: #fff;
+}
+
+.top-50 {
+  margin-top: 40px;
+}
+
+.nav-stacked > li > a > i {
+  margin-right: 14px;
+  width: 15px;
+}
+
+.inbox-right{
+  background-color: #fff;
+  padding: 1em;
+  border: 1px solid #fafafa;
+  border-radius: 0px;
+  -webkit-box-shadow: 0 0px 0px rgba(0,0,0,.05);
+  box-shadow: 0 0px 0px rgba(0,0,0,.05);
+  height: 545px;
+}
+
+.inbox-right .chosen-choices {
+  padding: 6px 12px 6px 12px;
+  border: 1px solid #e6e6e6;
+  box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075) !important;
+  border-radius: 3px;
+}
+
+.chosen-container-multi .chosen-choices {
+  background-image:none !important; 
+}
+
+.ma-le-ri {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+
+.box-header.with-border {
+  color: #444;
+  display: block;
+  position: relative;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.with-border h4 {
+  margin-bottom: 10px;
+}
+
+#conversations-form #conversation_subject {
+  height: 40px;
+}
+
+#conversations-form .chosen-container-multi .chosen-choices li.search-choice {
+  position: relative;
+  margin: 3px 5px 3px 0;
+  padding: 4px 20px 4px 5px;
+  border: 1px solid #eee;
+  max-width: 100%;
+  border-radius: 3px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  background-color: #ffffff;
+  background-image: none;
+  background-size: 100% 19px;
+  background-repeat: repeat-x;
+  background-clip: padding-box;
+  box-shadow: 0 0 0px #fff inset, 0 0px 0 rgba(0, 0, 0, 0.05);
+  color: #333;
+  line-height: 13px;
+  cursor: default;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.mail-count {
+  font-weight: 600;
+  padding: 3px 8px;
+  text-shadow: none;
+  border-radius: 0.25em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+
+.tabl-mail-dtails > tbody > tr > td {
+  padding: 12px !important;
+  line-height: 1.428571429;
+  vertical-align: middle;
+  border-top: 1px solid #ddd;
+  font-size: 13px;
+}
+
+.mai-subject{
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.mail-contact, .mail-date, .link-to-view {
+  font-weight: 600;
+}
+
+.view-details-mail img {
+  width: 45px;
+  height: 45px;
+  border-radius: 100px;
+}
+
+.view-details-mail {
+  border-bottom: 1px solid #eee !important;
+  padding-bottom: 20px;
+}
+
+.mail-full-name{
+  font-size: 1.10rem;
+  letter-spacing: .2px;
+  color: #202124;
+  line-height: 20px;
+  margin-bottom: 0px;
+  font-weight: 600;
+}
+
+.cr-mail-date{
+  font-size: 1rem;
+  letter-spacing: .2px;
+  color: #202124;
+  line-height: 20px;
+  margin-bottom: 0px;
+}
+
+.font-light{
+  font-size: 15px;
+}
+
+.message-body{
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.replay-message-1{
+  display: none;
+}
+
+.tr-un-trash{
+  margin-bottom: 13px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 17px;
+}
+
+.inbox-right .wysihtml5-toolbar {
+  position: absolute;
+  margin-top: 18%;
+  margin-left: 11px;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2);
+  padding: 5px;
+  background: #fff;
+  border-radius: 5px;
+  display: none ;
+}
+
+.inbox-right .wysihtml5-toolbar .btn {
+  background: #eee;
+}
+
+.inbox-right ul.wysihtml5-toolbar > li {
+  margin: 0 5px 0px 0;
+}
+
+.chosen-container, .wysihtml5-sandbox{
+  width: 100% !important;
+}
+
+
+.chosen-results{
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
+  border: 0px !important;
+
+}
+
+.chosen-container .chosen-results li {
+  padding: 10px 20px !important;
+}
+.chosen-container .chosen-results li:hover {
+  background: #eee !important;
+}
+
+.chosen-container .chosen-drop {
+  border: 0px !important;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.15) !important;
+}

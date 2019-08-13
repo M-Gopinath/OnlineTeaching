@@ -1,0 +1,105 @@
+<div class="container-fluid top-60">
+  <div class="margin-96">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="step-app-ul sexytabs">
+          <ul class="nav nav-tabs">
+            <% if only_for_admin_teacher %>
+              <li class="nav-item active">
+                <a class="nav-link active" data-toggle="tab" href="#my_announcments" aria-expanded="true">MY ANNOUNCEMENTS</a>
+              </li>
+            <% end %>
+            <li class="nav-item <%= 'active' unless only_for_admin_teacher %>">
+              <a class="nav-link" data-toggle="tab" href="#announcments">ANNOUNCEMENTS</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div id="my_announcments" class=" tab-pane active">
+        <div class="row">
+          <div class="col-md-3 margin-bottom-15 text-center-text">
+            <% if only_for_admin_teacher %>
+              <button type="button" class="btn btn-space btn-primary new-announce-btn" data-toggle="modal" data-target="#add-new-ann">New Announcements</button>
+            <% end %>
+          </div>
+          <div class="col-sm-8 col-xs-9 margin-bottom-15">
+            <div class="th-cus-pagination text-center my-announcements">
+              <%= render partial: "pagination", locals: {announcements: @my_announcements, param: 'my_announcement'} %>
+            </div>
+         </div>
+         <div class="col-sm-1 col-xs-3 margin-bottom-15 ">
+            <select class="form-control shor-with per-anno-page-align" data-pager-action='pagesize' data-anno-type="my">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <i class="fa fa-caret-down"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="student-user-table table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th width="30%">Message</th>
+                    <th width="30%">Created By</th>
+                    <th width="12%">Archived</th>
+                    <th width="18%">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="my_announcements">
+                  <%= render partial: "announcement_lists", locals: {announcements: @my_announcements, type: "my_announce"} %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="announcments" class=" tab-pane fade">
+        <div class="row">
+          <div class="col-md-3 margin-bottom-15">
+          </div>
+          <div class="col-sm-8 col-xs-9 margin-bottom-15">
+            <div class="th-cus-pagination text-center all-announcements">
+              <%= render partial: "pagination", locals: {announcements: @announcements, param: 'announcement'} %>
+            </div>
+         </div>
+         <div class="col-sm-1 col-xs-3 margin-bottom-15">
+            <select class="form-control shor-with per-anno-page-align" data-pager-action='pagesize' data-anno-type="all">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <i class="fa fa-caret-down"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="student-user-table table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th width="40%">Message</th>
+                    <th width="32%">Archived</th>
+                    <th width="32%"></th>
+                  </tr>
+                </thead>
+                <tbody id="announcements">
+                  <%= render partial: "announcement_lists", locals: {announcements: @announcements, type: "announce"} %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "layouts/shared/new_announcement", locals: {remote: false} %>

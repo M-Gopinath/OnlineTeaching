@@ -1,0 +1,146 @@
+<%= render partial: 'layouts/sub_header' %>
+
+<div class="container-flowt cus-row-profile">
+  <div class="row first-course">
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, :remote => true) do |f| %>
+    <div class="alert alert-danger" style="display:none;">
+      <div id='js-error-block'></div>
+    </div> 
+    <div class="col-md-2 imageUpload-label">
+      <%= f.input :profile_image do %>
+        <div class="form-group">
+          <div class="th-avatar-upload">
+            <div class="avatar-edit">
+              <%= f.file_field :avatar, id: "imageUpload", class: "hidden" %>
+              <label for="imageUpload" class="imageUpload"></label>
+            </div>
+            <div class="avatar-preview">
+              <% if resource.avatar.present? %>
+                <div id="imagePreview" style="background-image: url(<%= resource.avatar.url%>)" class="avatar-preview"></div>
+              <% else %>
+                <div id="imagePreview" class="avatar-preview" style="background-image: url(http://i.pravatar.cc/500?img=7);"></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="btn-row">
+        <button type="button" class="btn btn-space  btn-info btn-lg" data-toggle="modal" data-target="#myModal">Subscription</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-space btn-secondary">Settings</button>
+      </div>
+
+      <div class="btn-row">
+        <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-space btn-danger pull-right", type: 'button' %>
+      </div>
+    </div>
+      <div class="col-md-10">
+        <div class="col-sm-6 top-10 edit-profile-da">
+          <%= f.input :first_name do %>
+            <div class="form-group">
+              <%= f.text_field :first_name, class: 'form-control',placeholder: 'Name' %>
+            </div>
+          <% end %>
+
+          <%= f.input :last_name do %>
+            <div class="form-group">
+              <%= f.text_field :last_name, class: 'form-control',placeholder: 'Name' %>
+            </div>
+          <% end %>
+
+          <%= f.input :email do %>
+            <div class="form-group">
+              <label class="form-control read_only secure_email_label"><%= f.object.try(:email) %></label>
+            </div>
+          <% end %>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <%= f.input :password do %>
+            <% if @minimum_password_length %>
+              <small>(<%= @minimum_password_length %> characters minimum)</small>
+            <% end %>
+            <div class="form-group">
+              <%= f.password_field :password, class: 'form-control', autocomplete: "off" %>
+            </div>
+          <% end %>
+
+          <%= f.input :password_confirmation do %>
+            <div class="form-group">
+              <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "off" %>
+            </div>
+          <% end %>
+
+          <%= f.input :current_password do %>
+            <small class="ch-cur-pass">
+              <a href="javascript:void(0)" class="tip"><img src="/assets/info.png">
+                <span>we need your current password to confirm your changes</span>
+              </a> 
+            </small>
+            <div class="form-group">
+              <%= f.password_field :current_password, class: 'form-control ', autocomplete: "off" %>
+              <span class="error-span"></span>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-sm-6 top-10 edit-profile-da">
+          <%= f.input :facebook_url do %>
+            <div class="form-group">
+              <%= f.input_field :facebook_url, class: 'form-control', autocomplete: "off" %>
+            </div>
+          <% end %>
+          <%= f.input :linkedin_url do %>
+            <div class="form-group">
+              <%= f.input_field :linkedin_url, class: 'form-control', autocomplete: "off" %>
+            </div>
+          <% end %>
+          <%= f.input :twitter_url do %>
+            <div class="form-group">
+              <%= f.input_field :twitter_url, class: 'form-control', autocomplete: "off" %>
+            </div>
+          <% end %>
+          <%= f.input :instagram_url do %>
+            <div class="form-group">
+              <%= f.input_field :instagram_url, class: 'form-control', autocomplete: "off" %>
+            </div>
+          <% end %>
+          <%= f.input :bio do %>
+            <div class="form-group">
+              <%= f.text_area :bio, class: 'form-control  bi-data-texarea', autocomplete: "off" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-sm-6 col-xs-6 col-sm-6">
+          <%= link_to 'Back', root_path, class: "btn btn-space btn-secondary" %>
+        </div>
+        <div class="col-sm-6 col-xs-6 col-sm-6">
+          <button class="btn btn-space update-btn-thems pull-right btn-update-user" type="submit">Update</button>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</div>
+
+<div class="cus-boo-modal">
+  <div class="pricing-plain-modal">
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Subscription</h4>
+          </div>
+          <div class="modal-body">
+            <%= render partial: "plans", locals: {plans: Plan.active} %>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-space btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

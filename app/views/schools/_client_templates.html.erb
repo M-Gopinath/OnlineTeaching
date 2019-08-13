@@ -1,0 +1,71 @@
+
+
+
+<div class="template-exists" data-template-exist="<%= client_template_present %>"></div>
+<div class="tab-content">
+  <div class='template-validate template-validate-relative error-color'></div>
+  <div id="all" class="tab-pane fade in active">
+    <div class="row">
+      <%  @all_templates.each do |temp| %>
+        <div class="col-xs-18 col-sm-6 col-md-3">
+          <div class="thumbnail th-thum-sec temp-high-<%= temp.id%> <%= client_template_color(temp.id) %>" data-temp-id = "<%= temp.id %>">
+            <div class="client-template-option">
+              <div class="th-thum-body">
+                <a href="javascript:void(0)"class="popimage">
+                  <img src="/assets/book.jpg">
+                </a>
+              </div>
+              <div class="template-footer">
+                <span class="template-name"><%= temp.name %></span>
+                <span class="pop preview-name"><i class="fa fa-eye"></i> Preview</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div id="free" class="tab-pane fade">
+    <div class="row">
+      <% @free_templates.each do |free| %>
+        <div class="col-xs-18 col-sm-6 col-md-3">
+          <div class="thumbnail th-thum-sec temp-high-<%= free.id%> <%= client_template_color(free.id) %>" data-temp-id = "<%= free.id %>">
+            <div class="client-template-option">
+              <div class="th-thum-body">
+                <a href="javascript:void(0)" class="popimage">
+                  <img src="/assets/book.jpg">
+                </a>
+              </div>
+              <div class="template-footer">
+                <span class="template-name"><%= free.name %></span>
+                <span class="pop preview-name"><i class="fa fa-eye"></i> Preview</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div id="paid" class="tab-pane fade">
+    <div class="row">
+      <% @paid_templates.each do |paid| %>
+        <div class="col-xs-18 col-sm-6 col-md-3">
+          <div class="thumbnail th-thum-sec temp-high-<%= paid.id%> <%= client_template_color(paid.id) %>" data-temp-id = "<%= paid.id %>">
+            <div class="client-template-option">
+              <div class="th-thum-body">
+                <a href="javascript:void(0)" class="pop">
+                  <img src="/assets/book.jpg">
+                </a>
+              </div>
+              <div class="template-footer">
+                <span class="template-name"><%= paid.name %></span>
+                <span class="pop preview-name"><i class="fa fa-eye"></i> Preview</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

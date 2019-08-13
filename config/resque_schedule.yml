@@ -1,0 +1,6 @@
+announcement_job:
+  every:
+    - "30s"
+  class: "DummyJob"
+  queue: "dummy_log"
+  description: "This job for send email for users"

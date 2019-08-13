@@ -1,0 +1,5 @@
+var recipients = "<%= @recipients_ids.join(',') %>"
+App.chat_count.message_count(recipients)
+setTimeout(function(){
+	window.location.href = "/schools/mailbox/inbox"
+},3000)

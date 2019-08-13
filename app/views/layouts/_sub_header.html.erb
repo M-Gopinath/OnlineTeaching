@@ -1,0 +1,134 @@
+<nav class="navbar navbar-default navbar-fixed-top cus-nav-header">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <%= link_to root_path, class: 'navbar-brand nav-img-wi' do %>
+        <%= image_tag OrganizationInformation.school_logo %>
+        <span><%= OrganizationInformation.school_name %></span>
+      <%end%>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <% unless controller_name == "schools" && action_name == "index" %>
+        <ul class="nav navbar-nav navbar-center">
+          <li class="das-menus  <%="section-active" if controller_name == "schools" && action_name == "index" %>">
+            <a class="nav-link" href="/" role="button" aria-expanded="false">
+              <span aria-hidden="true" class="hightop-home icon"></span>
+              <span>Dashboard</span></a>
+          </li>
+          <% if user_signed_in? && (current_user.admin_super_admin?) %>
+            <li class="das-menus <%="section-active" if controller_name == "marketings" && action_name == "index" %>"">
+              <a class="nav-link" href="/schools/marketings" role="button" aria-expanded="false">
+                <span aria-hidden="true" class="hightop-feed icon"></span>
+                <span class="tex-menu">Marketing page</span>
+              </a>
+            </li>
+          <% end %>
+          <% if user_signed_in? && (current_user.admin_teacher?) %>
+            <li class="das-menus <%="section-active" if controller_name == "users" && action_name == "index" %>">
+              <a class="nav-link" href="/users" role="button" aria-expanded="false"><span aria-hidden="true" class="hightop-star icon"></span><span class="tex-menu">Users</span></a>
+            </li>
+          <% end %>
+          <% if user_signed_in? && (current_user.student?) %>
+            <li class="das-menus <%="section-active" if controller_name == "courses" && action_name == "index" %>"><a class="nav-link" href="/students/courses" role="button" aria-expanded="false"><span aria-hidden="true" class="hightop-forms icon"></span><span class="tex-menu">Courses</span></a>
+          <%else%>
+            <li class="das-menus <%="section-active" if controller_name == "courses" && action_name == "index" %>"><a class="nav-link" href="/schools/courses" role="button" aria-expanded="false"><span aria-hidden="true" class="hightop-forms icon"></span><span class="tex-menu">Courses</span></a>
+            </li>
+          <%end%>
+
+          <li class="das-menus <%="section-active" if controller_name == "announcements" && action_name == "index" %>"><a class="nav-link" href="/schools/announcements" role="button" aria-expanded="false"><span aria-hidden="true" class="hightop-tables icon"></span><span class="tex-menu">Announcements</span></a>
+            </li>
+
+          <li class="das-menus <%="section-active" if controller_name == "calendars" && action_name == "index" %>"><a class="nav-link" href="/calendars" role="button" aria-expanded="false"><span aria-hidden="true" class="hightop-gallery icon"></span><span class="tex-menu">Calendar</span></a>
+            </li>
+        </ul>
+      <% end %>
+      
+
+      <ul class="nav navbar-nav navbar-right">
+         <li class="nav-item dropdown na-item-3 mailbox-notification"> 
+         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false"> 
+          <!-- <a class="nav-link" href="/schools/mailbox/inbox" role="button" aria-expanded="false">   -->
+            <span><i class="fa fa-envelope-o"></i></span> 
+            <span class="mailboxes_user_<%= current_user.id %>">
+              <% unless unread_messages_count == 0 %>
+                <span class="th-badge__badge"><%=number_to_human(unread_messages_count, :format => '%n%u', :units => { :thousand => 'K' })%></span> 
+              <%end%>
+            </span>
+          </a>
+          <div class="dropdown-arrow"></div>
+          <div class="dropdown-menu message_notification message_notification_<%= current_user.id %>" role="menu">
+            <%= render partial: "layouts/message_notification", locals: {notifications: current_user.unread_mailboxes, current_user: current_user} %>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown na-item-3 comment-chat-menu">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="fa fa-comments-o" aria-hidden="true"></i>
+            <span class="direct_chart_<%= current_user.id %>">
+              <% chat_notifications = current_user.unread_direct_charts %>
+              <% unless chat_notifications.count == 0 %>
+                <span class="notification-badge__badge"><%= number_to_human(chat_notifications.count , :format => '%n%u', :units => { :thousand => 'K' })%></span>
+              <%end%>
+            </span>
+          </a>
+          <div class="dropdown-arrow"></div>
+          <div class="dropdown-menu direct_charts direct_charts_<%= current_user.id %>" role="menu">
+            <%= render partial: "layouts/direct_charts_notification", locals: {notifications: chat_notifications, current_user: current_user} %>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown na-item-3 event-notification">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <% event_notifications = current_user.unread_events %>
+            <span class="events_user_<%= current_user.id %>">
+              <% if event_notifications.count > 0 %>
+                <span class="notification-badge__badge"><%= number_to_human(event_notifications.count, :format => '%n%u', :units => { :thousand => 'K' }) %></span>
+              <%end%>
+            </span>
+          </a>
+          <div class="dropdown-arrow"></div>
+          <div class="dropdown-menu event_notification event_notification_<%= current_user.id %>" role="menu"> 
+            <%= render partial: "layouts/event_notification", locals: {notifications: event_notifications,current_user: current_user} %>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown na-item-3 announcements-menu">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="fa fa-bullhorn" aria-hidden="true"></i>
+            <% notifications = current_user.unread_announcements %>
+            <span class="notification_user_<%= current_user.id %>">
+              <% if notifications.count > 0 %>
+                <span class="notification-badge__badge"><%= number_to_human(notifications.count, :format => '%n%u', :units => { :thousand => 'K' }) %></span>
+              <%end%>
+            </span>
+          </a>
+          <div class="dropdown-arrow"></div>
+          <div class="dropdown-menu announcement_notification announcement_notification_<%= current_user.id %>" role="menu">
+            <%= render partial: "layouts/announcement_notification", locals: {notifications: current_user.unread_announcements, current_user: current_user} %>
+          </div>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="pages-booking.html#" data-toggle="dropdown" role="button" aria-expanded="false">
+            <%= current_user.avatar.url ? image_tag(current_user.avatar.url, size: "30x30") : image_tag("person.png", size: "30x30") %>
+          </a>
+          <div class="dropdown-menu profile-menu" role="menu">    
+            <%= link_to  edit_user_registration_path, class: 'dropdown-item' do %>
+              Edit Profile
+            <%end%>
+            <%= link_to  destroy_user_session_path, method: 'delete',  class: 'dropdown-item' do %>
+                <span>Log Out</span>
+            <%end%> 
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+

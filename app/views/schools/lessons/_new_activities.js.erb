@@ -1,0 +1,11 @@
+$('.video_activities').html("<%= j(render partial: 'schools/lessons/video_activities', locals: {video_activity: VideoActivity.new, lessons: @lessons}) %>");
+$('.quiz_activities').html("<%= j(render partial: 'schools/lessons/quiz_activities', locals: {quiz_activity: QuizActivity.new, lessons: @lessons}) %>");
+$('.reading_activities').html("<%= j(render partial: 'schools/lessons/reading_activities', locals: {reading_activity: ReadingActivity.new, lessons: @lessons}) %>");
+$('.essay_activities').html("<%= j(render partial: 'schools/lessons/essay_activities', locals: {essay_activity: EssayActivity.new, lessons: @lessons}) %>");
+$('.page_activities').html("<%= j(render partial: 'schools/lessons/page_activities', locals: {page_activity: PageActivity.new, lessons: @lessons}) %>");
+$('.writing_activities').html("<%= j(render partial: 'schools/lessons/writing_activities', locals: {writing_activity: WritingActivity.new, lessons: @lessons}) %>");
+$('.document_activities').html("<%= j(render partial: 'schools/lessons/document_activities', locals: {document_activity: DocumentActivity.new, lessons: @lessons}) %>");
+$('.presentation_activities').html("<%= j(render partial: 'schools/lessons/presentation_activities', locals: {presentation_activity: PresentationActivity.new, lessons: @lessons}) %>");
+$('.audio_activities').html("<%= j(render partial: 'schools/lessons/audio_activities', locals: {audio_activity: AudioActivity.new, lessons: @lessons}) %>");
+$('.discussion_activities').html("<%= j(render partial: 'schools/lessons/discussion_activities', locals: {discussion_activity: DiscussionActivity.new, lessons: @lessons}) %>");
+$('.activity-lesson-id').val("<%= @lesson.id %>");

@@ -1,0 +1,14 @@
+var id = "<%= @conversation.id %>";
+var chatbox = $("#chatbox_" + id + " .chatboxcontent");
+var sender_id = "<%= @message.user.id %>";
+var reciever_id = $('meta[name=user-id]').attr("content");
+var recipient_id = "<%= @conversation.recipient_id %>"
+var senderid = "<%= @message.user.id %>"
+var receiverid = "<%= @message.receiver.id %>"
+
+
+chatbox.append("<%= j render( partial: @message ) %>");
+message = "<%= j render( partial: @message ) %>"
+chatbox.scrollTop(chatbox[0].scrollHeight);
+App.live_chat.received_data(id, message, senderid, receiverid)
+App.direct_chat.direct_chat_count([senderid, receiverid])

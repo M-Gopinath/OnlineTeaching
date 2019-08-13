@@ -1,0 +1,25 @@
+<h1><%= @conversation.course.name %></h1>
+
+<div id="enroll-messages" data-chat-room-id="<%= @conversation.id %>">
+  <%= render @messages.where(parent_id: nil) %>
+</div>
+
+<%= form_for @message, url: schools_enroll_course_room_enroll_course_messages_path(@conversation), method: :post, remote: true do |f| %>
+  <%= f.hidden_field :parent_id, value: nil %>
+  <div class="form-group">
+    <%= f.label :body %>
+    <%= f.text_area :body, class: 'form-control' %>
+    <small class="text-muted">From 2 to 1000 characters</small>
+  </div>
+  <%= f.fields_for :course_chat_attachments, multiple: true do |p| %>
+    <%= p.file_field :image, class: "image-upload hide" %>
+    <%= p.file_field :video, class: "video-upload hide" %>
+    <%= p.file_field :audio, class: "audio-upload hide" %>
+    <span class="att-lef-text">Attach</span>
+    <span class="att-lef-text image-upload-btn"><img src="https://png.icons8.com/metro/15/666666/file.png"></span>
+    <span class="att-lef-text video-upload-btn"><img src="https://png.icons8.com/metro/15/666666/video-file.png"></span>
+    <span class="att-lef-text audio-upload-btn"><img src="https://png.icons8.com/material-outlined/19/666666/google-maps.png"></span>
+  <% end %>
+
+  <%= f.submit "Post", class: 'btn btn-primary btn-lg post-message' %>
+<% end %>

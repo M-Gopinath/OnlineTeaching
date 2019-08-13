@@ -1,0 +1,102 @@
+<div class="row-row">
+  <%= simple_form_for audio_activity, url: schools_lessons_create_audio_path, html: {id: "school-setup-activity", class: "form-horizontal" }, multipart: true, remote: true, method: :post do |f| %>
+    <%= f.hidden_field :lesson_id, value: lessons.first.try(:id), class: "activity-lesson-id" %>
+    <div class="activities col-md-12 padding-12-0">
+      <div class="form-inputs hidden-inputs">
+        <div class="ac-par-he" id="animate-scroll-audio">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <%= f.input :name, label: "Name", input_html: {class: "video-title-input"}%>
+                <div class="aud-name-validate error-color"></div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <%= f.input :due_date do %>
+                <div class="form-group">
+                  <div class='input-group date datetimepicker-video' id=''>
+                    <%= f.text_field :due_date, class: "form-control" %>
+                    <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                    </span>
+                  </div>
+                </div>
+                <div class="aud-date-validate error-color"></div>
+              <% end %>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <%= f.input :activity_points, label: "Activity Points" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= f.input :embedded_audio %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.input :audio_file do %>
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 100px; height: 100px;">
+                  </div>
+                  <div>
+                    <span class="btn btn-default btn-file hidden">
+                    <%= f.file_field :audio_file, class: "hidden upload-file", "data-limit"=>"10" %>
+                    <p><small>You can upload upto 10Mb.</small></p>
+                    <p><small class="file-size-error"></small></p>
+                    </span>   
+                    <p><small class="file-size-error"></small></p>     
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>         
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box-body">
+                <%= f.simple_fields_for :activity_questions do |question| %>
+                  <%= render 'activity_question_fields', :f => question %>
+                <% end %>
+                <%= link_to_add_association  f, :activity_questions, class: 'btn btn-default add-question-btn' do  %>
+                  <i class="fa fa-plus" aria-hidden="true"></i> Add Question
+                <%end%>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row margion-0">
+          <div class="col-md-6"></div>
+          <div class="col-md-4">
+            <div class="th-cus-ch-simple">
+              <div class="col-sm-6">
+                <%= f.label :required, class: 'checkbox-container-ac' do %>
+                  Required
+                  <%= f.check_box :required, checked_value: true, unchecked_value: false %> 
+                  <span class="checkmark"></span>
+                <% end %>
+              </div>
+              <div class="col-sm-6">
+                <%= f.label :publish, class: 'checkbox-container-ac' do %>
+                  <span>Publish</span>
+                  <%= f.check_box :publish,checked_value: true, unchecked_value: false %> 
+                  <span class="checkmark"></span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <p class="text-right post-bottom-btn">
+              <%= image_tag "/assets/loading.gif", class: "form_loaders hide" %>
+              <%= f.submit "CREATE ACTIVITY", class: "btn btn-space btn-primary  th-sub-btn submit-audio-btn" %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div> 
+  <% end %>
+</div>

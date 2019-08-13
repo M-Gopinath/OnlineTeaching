@@ -1,0 +1,7 @@
+<% if current_user.teacher? %>
+	$("#setup-lesson-form-course").html("<%= j(render partial: 'schools/courses/gradebooks', locals: {course: @course})%>");
+<%else%>
+	$("#setup-lesson-form-course").html("<%= j(render partial: 'schools/courses/admin_gradebooks', locals: {course: @course})%>");
+  $(".nav-item").removeClass("active")
+  $(".activity-gradebook-show").parent("li").addClass("active");
+<%end%>

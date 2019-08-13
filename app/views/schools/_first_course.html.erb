@@ -1,0 +1,198 @@
+<div class="row">
+  <div class="col-md-12-12">
+    <%= form_for course, url: schools_courses_path, html: {id: "school-setup", class: "form-horizontal" }, multipart: true, remote: true, method: :post do |f| %>
+      <%= f.hidden_field :id, value: f.object.try(:id) %>
+      <div class="col-md-6">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>School Teacher</label>
+            <%#= f.fields_for :course_users do |cu| %>
+              <% if current_user.is_super_admin? || current_user.admin? %>
+                <%#= cu.select :user_id, options_from_collection_for_select(teachers, :id, :first_name),{prompt: "Select Teacher"}, class: "form-control setup-course", multiple: true %>
+                <%#= cu.collection_check_boxes :user_id, teachers, :id, :first_name %>
+                <div class="multiselect">
+                  <div id="selected-teachers">
+                  </div>
+                  <div class="selectBox" onclick="showCheckboxes()">
+                    <select>
+                      <option>Select Teacher</option>
+                    </select>
+                    <div class="overSelect"></div>
+                  </div>
+                  <div id="checkboxes" >
+                    <label for="all" class="checkbox-container-ac">All
+                      <input type="checkbox" id="all" class="select-all_teachers" />
+                       <span class="checkmark"></span>
+                    </label>
+                    <% teachers.each do |t| %>
+                      <% if course.check_enrolled(t.id) %>
+                        <label for="<%= t.id %>" class="checkbox-container-ac">
+                          <input type="checkbox" id="<%= t.id %>" name="user_ids[]" value="<%= t.id %>" class="sub-checkbox teacher-checkbox" data-teacher-name="<%= t.full_name %>" checked /><%= t.full_name %>
+                          <span class="checkmark"></span>
+                        </label>
+                      <% else %>
+                        <label for="<%= t.id %>" class="checkbox-container-ac">
+                          <input type="checkbox" id="<%= t.id %>" name="user_ids[]" value="<%= t.id %>" class="sub-checkbox teacher-checkbox" data-teacher-name="<%= t.full_name %>" /><%= t.full_name %>
+                          <span class="checkmark"></span>
+                        </label>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              <% else %>
+                <%= select_tag :user_id, options_from_collection_for_select(teachers, :id, :first_name),{prompt: "Select Teacher",class: "form-control setup-course read_only"} %>
+              <%end%>
+
+              <%#= cu.hidden_field :id, value: cu.object.try(:id) %>
+              <div class="teacher-validate error-color"></div>
+            <%# end %>
+          </div>
+          <div class="form-group">
+            <label>Course title</label>
+            <%= f.text_field :name, class: "form-control setup-course" %>
+            <div class="cu-name-validate error-color"></div>
+          </div>
+          <div class="form-group">
+            <label>Subtitle</label>
+            <%= f.text_field :subtitle, class: "form-control setup-course" %>
+            <div class="cu-subtitle-validate error-color"></div>
+          </div>
+          <div class="form-group">
+            <label>Course Description</label>
+            <small class="char-count-right"><span class="char-count">1000</span> characters</small>
+            <div class="text-area-div"> 
+              <%= f.text_area :description, class: "form-control setup-course char-textarea-description", rows: 5, "data-length" => 1000 %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <div class="row-row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Course start date</label>
+              <div class="input-group date" id="datetimepicker11">
+                <%= f.text_field :start_date,value: f.object.try(:start_date), class: "form-control setup-course" %>
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </div>
+              <div class="cu-start-validate error-color"></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Course end date</label>
+              <div class="input-group date" id="datetimepicker22">
+                <%= f.text_field :end_date,value: f.object.try(:end_date), class: "form-control setup-course" %>
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </div>
+              <div class="cu-end-validate error-color"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row-row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>course attachment  
+                <a href="javascript:void(0)" class="tip">
+                  <img src="/assets/info.png">
+                  <span>Max upto 10 MB. ( File Type : jpeg, jpg, png, pdf )</span>
+                </a>
+              </label>
+
+              <div class="fileupload fileupload-new" data-provides="fileupload">
+                <div class="input-group">
+                  <div class="form-control">
+                    <span class="fileupload-preview course_att-preview">
+                      <%= course.course_attachments.first.attachment_identifier.truncate(20) if course.course_attachments.present? && course.course_attachments.first.attachment_identifier.present? %>
+                    </span>
+                  </div>
+                  <div class="input-group-btn">
+                    <a class="btn btn-default fil-remove-course-at <%= 'hide' unless course.course_attachments.present? && course.course_attachments.first.attachment_identifier.present? %>" href="javascript:void(0)" data-confirm="Are you really sure you want to delete?" data-id="<%= course.id %>">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    <span class="btn btn-default btn-file">
+                      <span class="fileupload-neww">Select file</span>
+                      <%= f.fields_for :course_attachments do |ca| %>
+                        <%= ca.file_field :attachment , class: " upload-file setup-course", "data-limit"=>"10", "data-check" => "course-att-logo", onchange: "PdffileInput(this)", "data-image-present"=>course.course_attachments.first.present? && course.course_attachments.first.attachment_identifier.present?%>
+                      <% end %>
+                    </span>
+                    <small class="file-size-error"></small>
+                  </div>
+                </div>
+                <div class="course-attach-error error-color"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>course image <a href="javascript:void(0)" class="tip tip-pos-left"><img src="/assets/info.png"><span>Max upto 10 MB. ( File Type : jpeg, jpg, png )</span></a></label>
+              <div class="fileupload fileupload-new" data-provides="fileupload">
+                <div class="input-group">
+                  <div class="form-control">
+                    <span class="fileupload-preview course-img-preview"><%= course.course_images.first.image_identifier.truncate(20) if course.course_images.present? && course.course_images.first.image_identifier.present? %></span>
+                  </div>
+                  <div class="input-group-btn">
+                    <a class="btn btn-default fil-remove-course <%= 'hide' unless course.course_images.present? && course.course_images.first.image_identifier.present? %>" href="javascript:void(0)" data-confirm="Are you really sure you want to delete?" data-id="<%= course.id %>">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    <span class="btn btn-default btn-file">
+                      <span class="fileupload-neww">Select file</span>
+                      <%= f.fields_for :course_images do |ca| %>
+                        <%= ca.file_field :image, class: " upload-file setup-course check-image-size", "data-limit"=>"10", "data-check" => "course-image", "data-image-present"=>course.course_images.first.present? && course.course_images.first.image.present? %>
+                      <% end %>
+                    </span>
+                    <small class="file-size-error"></small>
+                  </div>
+                </div>
+                <div class="course-image-error error-color"></div>
+              </div>
+            </div>
+            <div class="cu-image-validate error-color"></div>
+          </div>
+        </div>
+        <div class="form-group" >
+          <div class="col-md-12">
+            <label>course video  <a href="javascript:void(0)" class="tip ad-tip-with"><img src="/assets/info.png"><span>Max upto 20 MB. ( File Type : avi, flv, mp4, mp3, mov, wmv )</span></a></label>
+            <div class="fileupload fileupload-new" data-provides="fileupload">
+              <div class="input-group">
+                <div class="form-control">
+                  <span class="fileupload-preview course-video-preview"><%= course.course_videos.first.video_identifier.truncate(20) if course.course_videos.present? && course.course_videos.first.video_identifier.present? %></span>
+                </div>
+                <div class="input-group-btn">
+                  <a class="btn btn-default file-remove-video <%= 'hide' unless course.course_videos.present? && course.course_videos.first.video_identifier.present? %>" href="javascript:void(0)" data-confirm="Are you really sure you want to delete?" data-id="<%= course.id %>">
+                   <i class="fa fa-trash" aria-hidden="true"></i></a>
+                  <span class="btn btn-default btn-file">
+                    <span class="fileupload-neww">Select file</span>
+                    <%= f.fields_for :course_videos do |ca| %>
+                      <%= ca.file_field :video, class: "upload-file video-file-upload", "data-limit"=>"20", onchange: "VideofileInput(this)", "data-image-present"=>course.course_videos.first.present? && course.course_videos.first.video.present? %>
+                    <% end %>
+                  </span>
+                  <small class="file-size-error"></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Course objectives</label>
+            <small class="char-count-right"><span class="object-char-count">1000</span> characters</small>
+            <%= f.text_area :objectives, class: "form-control setup-course char-textarea-object", rows: 5, "data-length" => 1000 %>
+          </div>
+        </div>
+      </div>
+      <%= f.submit "Submit", class: "course-submit hidden" %>
+    <% end %>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.char-textarea-description').trigger("keyup");
+    $('.char-textarea-object').trigger("keyup");
+  });
+</script>
+
+

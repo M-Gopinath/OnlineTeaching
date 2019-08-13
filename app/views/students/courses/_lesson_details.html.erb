@@ -1,0 +1,33 @@
+<% if @lesson.present? %>
+    <div class="cour-details-row">
+      <p class="course-title">Lesson Name : </p>
+      <p><%= @lesson.name.humanize%></p>
+    </div>
+    <div class="cour-details-row">
+      <p class="course-title">Lesson Start Date : </p>
+      <p> <%= @lesson.start_date.strftime("%m/%d/%Y") %></p>
+    </div>
+
+    <div class="cour-details-row">
+      <p class="course-title">Lesson End Date : </p>
+      <p><%= @lesson.end_date.strftime("%m/%d/%Y") %></p>
+    </div>
+
+    <ul class="nav nav-stacked cus-ul-li">
+      <li class="bg-green">
+        <a href="#"><span class="font-normal">Activities</span> <span class="font-weight"><%= get_lesson_activities_count(@lesson) %></span></a>
+      </li>
+      <li class="bg-blue"><a href="#">
+        <span class="font-normal">Completed</span>
+        <span class="font-weight"><%= user_attened_activities(@lesson) %></span></a>
+      </li>
+      <li class="last-ul-li bg-purple">
+        <a href="#"><span class="font-normal">Late </span>
+          <span class="font-weight"><%= get_lesson_activities_count(@lesson) - user_attened_activities(@lesson) %></span></a>
+      </li>
+    </ul>
+<%else%>
+  <div class="lesson-data-found">
+  <p>Lesson data not found</p>
+  </div>
+<%end%>

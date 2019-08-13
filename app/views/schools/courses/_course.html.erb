@@ -1,0 +1,140 @@
+<div class="container-fluid">
+  <div class="row">
+    <div id="demo1" class="row-row">
+      <div class="col-md-1-1">
+        <div class="step-app-ul hide">
+          <ul class="step-steps">
+            <li class="th-tab-step <%= 'filled' if Course.progress_bar_setup %>" data-step-type="course">
+              <a href="#tab2", class="tab2"></a>
+              <span>YOUR FIRST COURSE</span>
+            </li>
+            <li class="th-tab-step <%= 'filled' if Lesson.progress_bar_setup %>" data-step-type="lesson">
+              <a href="#tab3", class="tab3"></a>
+              <span>ADD LESSON</span>
+            </li>
+            <li class="th-tab-step <%= 'filled' if Lesson.activity_progress_bar_setup %>" data-step-type="activity">
+              <a href="#tab4", class="tab4"></a>
+              <span>ADD ACTIVITY</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-10-10">
+        <div class="step-app new-cours-cr">
+          <div class="step-content ">
+            <div class="step-tab-panel" id="tab2">
+              <div class="mar-auto-85 pa-top-bottom">
+                <span class="hide"><%= hidden_field_tag :description, @organization.description, id: "organization_information_description" %></span>
+                <span class="hide fileupload-preview landing-image-preview"><%= @organization.landing_page_image_identifier.truncate(20) if @organization.landing_page_image_identifier.present? %></span>
+                <span class="hide fileupload-preview logo-image-preview"><%= @organization.logo_identifier.truncate(20) if @organization.logo_identifier.present? %></span>
+                <div class="step-footer firs-cou-btn">
+                  <%= link_to "Back to Courses", schools_courses_path, class: "btn btn-space btn-secondary" %>
+                  <button data-direction="next" class="btn btn-space btn-primary  step-btn th-next-btn">Next</button>
+                </div>
+              </div>
+              <div id="first-course" class="mar-auto-85">
+                <%= render partial: "schools/first_course", locals: {course: @course, teachers: @teachers} %>
+              </div>
+            </div>
+            <div class="step-tab-panel" id="tab3">
+              <div class="container-fluid top-30">
+                <div class="row mar-auto-100">
+                  <div class="col-md-3 customiz-col-3">
+                    <div class="course-view left-panel-view">
+                      <div class="course-lesson-view">
+                        <%= render "schools/lesson_next_and_prev" %>
+                      </div>
+                      <p class="mar-ad-pa-0">
+                        <a class="nav-link" data-toggle="pill" href="#course-content">
+                          <button class="lesson-list-btn less-back-create" data-course="<%= @course.try(:id) %>">
+                            <i class="fa fa-plus white-color"></i> Add New Lesson
+                          </button>
+                        </a>
+                      </p>
+                      <div class="course-lesson-show">
+                        <div class="lesson-list scroll-me-lesson">
+                          <%= render partial: "schools/lessons/lesson_lists", locals: {lessons: @lessons, course: @course} %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-9 customiz-col-9">
+                    <div class="right-side-panel">
+                      <div class="row top-nex-title">
+                        <div class="col-md-8 co-tex-div">
+                          <div class="cr-new-hide  hide">Create New Lesson </div>
+                          <div id="div1" class="targetDiv  hide">Course Overview</div>
+                          <div id="div2" class="targetDiv  hide">Documents</div>
+                          <div id="div3" class="targetDiv  hide">Discussion</div>
+                          <div id="div4" class="targetDiv  hide">Subscription</div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="mobile-hide">
+                            <div class="step-footer btn-same-width <%= 'top-20' unless action_name == "show"%>">
+                              <% if SchoolSetupTooltip.last.try(:launch) %>
+                                <%= link_to "Back to Courses", schools_courses_path, class: "btn btn-space btn-secondary" %>
+                              <%end%>
+                              <button data-direction="prev" class="btn btn-space btn-primary step-btn th-prev-btn">Previous</button>
+                              <% unless SchoolSetupTooltip.last.try(:launch) %>
+                                <button data-direction="next" class="btn btn-space btn-primary step-btn th-next-btn">Next</button>
+                              <%end%>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="course-overview">
+                        <div id="first-lesson" class="cour-first-lesson">
+                          <%= render partial: "schools/lesson", locals: {lesson: @lesson, teachers: @teachers, lessons: @lessons, course: @course} %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="step-tab-panel" id="tab4">
+              <%= render "schools/activities_next_and_prev" %>
+              <div class="lesson-activities new-lesson-ac">
+                <%= render partial: "schools/activities", locals: {course: @course,lesson: @lesson, teachers: @teachers} %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#demo1').steps({
+    onFinish: function () {
+    }
+  });
+  $('#demo2').steps({
+    showFooterButtons: false
+  });
+
+  $(function() {
+    $('.pop').on('click', function() {
+      $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+      $('#imagemodal').modal('show');   
+    });   
+  });
+  // $(document).ready(function(){
+  //   $('.char-textarea').trigger("change");
+  //   <%# if !Course.progress_bar_setup %>
+  //     $(".tab2").click();
+  //   <%# elsif !Lesson.progress_bar_setup %>
+  //     $(".tab3").click();
+  //   <%# elsif !Lesson.activity_progress_bar_setup %>
+  //     $(".tab4").click();
+  //   <%# end %>
+  // });
+  $(window).on('pageshow',function(){
+    <% if params[:is_chat].present? %>
+      $('.tab3').click();
+      $('.course-chat-activity').click();
+    <%end%>
+  });
+</script>
+

@@ -1,0 +1,32 @@
+setTimeout(function(){
+	$("#first-lesson").html("<%= j(render partial: 'schools/lesson', locals: {lesson: @new_lesson, teachers: @teachers, lessons: @lessons, course: @lesson.course}) %>")
+	$(".lesson-course-id").val("<%= @lesson.course_id %>");
+	$(".lesson-list").html("<%= j(render partial: 'schools/lessons/lesson_lists', locals: {lessons: @lessons, course: @lesson.course}) %>");
+	$(".Alesson-list").html("<%= j(render partial: 'schools/lessons/activity_lesson_lists', locals: {lessons: @lessons, course: @lesson.course}) %>");
+	// <%= render "schools/lessons/new_activities" %>
+	form_loader();
+	lessonDatePicker();
+	// $('.datetimepicker-video').datetimepicker({
+	//   useCurrent: false,
+	//   format: 'LL'
+	// });
+	// if ("<%= @lesson.start_date.present? %>"){
+	//   $('.datetimepicker-video').each(function(){
+	//     $(this).data('DateTimePicker').minDate(new Date("<%= @lesson.start_date %>"));
+	//   });
+	//   // $('.datetimepicker33').data('DateTimePicker').minDate(e.date);
+	// }
+	// if("<%= @lesson.end_date.present? %>"){
+	//   $('.datetimepicker-video').each(function(){
+	//     $(this).data('DateTimePicker').maxDate(new Date("<%= @lesson.end_date %>"));
+	//   });
+	// }
+	$(".tab4").click();
+
+	$(".th-add-less").css("background-color", "#1EC09F");
+	// $("#lesson_"+"<%= @lesson.id %>").css("background-color", "#337ab7");
+	$('.th-vido-ac-area').data('start-date',"<%= @lesson.start_date.present? ? @lesson.start_date : @lessons.first.start_date %>");
+	$('.th-vido-ac-area').data('end-date',"<%= @lesson.end_date.present? ? @lesson.end_date : @lessons.first.end_date %>");
+	$('.activity-lesson-id').val("<%= @lesson.id %>");
+	video_datepicker()
+},800)

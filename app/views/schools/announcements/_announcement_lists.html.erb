@@ -1,0 +1,17 @@
+<% announcements.each do |a| %>
+  <tr id="announcement_<%=a.id%>">
+    <td> <%= a.try(:title)%></td>
+    <td> <%= a.user.full_name %></td>
+    <td><%= a.try(:archive) %></td>
+    <% if type == "my_announce" %>
+      <td class="text-right-align">
+        <% if policy(a).own_announcement? %>
+          <%= link_to 'Edit', "#modal_"+a.id.to_s, "data-toggle" => "modal", title: "Edit", class: 'ann-sma-btn'%>
+          <%= link_to 'Trash', schools_announcement_path({:id => a }), method: :delete, data: { confirm: "Are you sure?" }, title: "Delete", class: 'ann-sma-btn' %>
+          <%= link_to 'Archive', schools_archive_announcement_path(a), data: { confirm: "Are you sure?" }, title: "#{a.archive == true ? 'Unarchive': 'Archive'}", class: 'ann-sma-btn' %>
+        <% end %>
+        <%= render(:partial => '/schools/announcements/announcement_modal',:locals => { :announcement => a, remote: false }) %>
+      </td>
+    <% end %>
+  </tr>
+<%end%>

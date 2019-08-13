@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  short_name: MyString
+  duration: 1.5
+  cost: MyString
+  is_active: false
+
+two:
+  name: MyString
+  short_name: MyString
+  duration: 1.5
+  cost: MyString
+  is_active: false

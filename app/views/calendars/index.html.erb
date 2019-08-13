@@ -1,0 +1,33 @@
+<div class="container-fluid  top-40-cal">
+  <div class="row">
+    <div class="margin-96">
+    	<div class="col-md-2">
+    		<p class="text-center"><% unless current_user.student? %><button type="button" class="btn btn btn-block btn-primary btn-xl new-cal-btn new-event-btn">New Event</button><%end%></p>
+        <div class="event-color">
+          <ul class="list">
+            <li>
+              <span class="blue"><i class="fa fa-square"></i></span> 
+              <span>Event</span>
+            </li> 
+            <li>
+              <span class="green"><i class="fa fa-square"></i></span> 
+              <span>Course</span>
+            </li> 
+            <li>
+              <span class="red"><i class="fa fa-square"></i></span> 
+              <span>Lesson</span>
+            </li> 
+            <li>
+              <span class="purple"><i class="fa fa-square"></i></span> 
+              <span>Activites</span>
+            </li> 
+          </ul>
+        </div>
+    	</div>
+    	<div class="col-md-10">
+        <div class="event-calendar calendar"></div>
+    	</div>
+    </div>
+  </div>
+</div>
+

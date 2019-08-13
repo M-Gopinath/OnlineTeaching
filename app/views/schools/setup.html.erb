@@ -1,0 +1,359 @@
+<div id="demo1" class="school-setup-content"> 
+  <div class="row cus-ro-pa">
+    <div class="col-md-2-2 cus-col2 hide ">
+      <div class="step-app-ul">
+        <ul class="step-steps">
+          <li class="th-tab-step <%= 'filled' if OrganizationInformation.progress_bar_setup %>" data-step-type="organization">
+            <a href="#tab1", class="tab1"></a>
+            <span>School Information</span>
+          </li>
+          <li class="th-tab-step <%= 'filled' if Course.progress_bar_setup %>" data-step-type="course">
+            <a href="#tab2", class="tab2"></a>
+            <span>YOUR FIRST COURSE</span>
+          </li>
+          <li class="th-tab-step <%= 'filled' if Lesson.progress_bar_setup %>" data-step-type="lesson">
+            <a href="#tab3", class="tab3"></a>
+            <span>ADD LESSON</span>
+          </li>
+          <li class="th-tab-step <%= 'filled' if Lesson.activity_progress_bar_setup %>" data-step-type="activity">
+            <a href="#tab4", class="tab4"></a>
+            <span>ADD ACTIVITY</span>
+          </li>
+          <li class="th-tab-step <%= 'filled' if current_account.client_template_id.present? %>" data-step-type="template">
+            <a href="#tab5", class="tab5"></a>
+            <span>CHOOSE TEMPLATE</span>
+          </li>
+          <li class="th-tab-step" data-step-type="plan">
+            <a href="#tab6", class="tab6"></a>
+            <span>GET PLAN</span>
+          </li>
+          <li id="last-step" class="th-tab-step tab7" data-step-type="final">
+            <a href="#tab7"></a>
+            <span>LAUNCH</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9-9 cus-col9-9">
+      <div class="step-app">
+        <div class="step-content">
+          <div class="step-tab-panel" id="tab1">
+            <div class="th-sc-su-header">
+              <ul class="list-inline">
+                <li class="sl-name-left"><%= "SCHOOL OF " + current_account.orgination_name  %></li>
+                <li class="sl-information-center">SCHOOL INFORMATION</li>
+                <li class="sl-admin-setup">Admin School Setup</li>
+              </ul>
+            </div>
+            <div class="first-course-creation">
+              <div class=" col-md-8 col-md-offset-2">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="step-footer al-footer-only">
+                      <button data-direction="prev" class="btn btn-space btn-primary  step-btn th-prev-btn">Previous</button>
+                      <button data-direction="next" class="btn btn-space btn-primary  step-btn th-next-btn float-left-side">Next</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <%= form_for @organization, url: schools_organization_informations_path, html: {id: "school-setup", class: "form-horizontal" }, multipart: true, remote: true, method: :post do |f| %>
+                  <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>School name</label>
+                        <%= f.hidden_field :id, value: @organization.id %>
+                        <%= f.text_field :name, value: current_account.orgination_name, class: "form-control setup-school", readonly: true %>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Description 
+                          <a href="javascript:void(0)" class="tip tip-des-width"><img src="/assets/info.png">
+                          <span>Write a brief description of your school. This will be displayed on your marketing page as well as your school platform.</span>
+                          </a> 
+                        </label>
+                         <small class="char-count-right"><span class="char-count">1000</span> characters</small>
+                        <%= f.text_area :description, class: "form-control setup-school char-textarea", rows: 5, "data-length" => 1000 %>
+                        <div class="desc-validate error-color"></div>
+                      </div>
+                    </div>
+
+                    <div class="row-row">
+                      <div class="col-sm-6">  
+                        <div class="form-group">
+                          <label>Landing page image  
+                            <a href="javascript:void(0)" class="tip">
+                              <img src="/assets/info.png">
+                              <span>Max upto 10 MB. ( File Type : jpeg, jpg, png )</span>
+                            </a> 
+                          </label>
+                          <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="input-group fil-upload-group">
+                              <div class="form-control th-la-im">
+                                <span class="fileupload-preview landing-image-preview"><%= @organization.landing_page_image_identifier.truncate(20) if @organization.landing_page_image_identifier.present? %></span>
+                              </div>
+                              <div class="input-group-btn">
+                                <a class="btn btn-default fil-remove-file <%= 'hide' unless @organization.landing_page_image_identifier.present? %>" href="javascript:void(0)" data-confirm="Are you really sure you want to delete?" data-id="<%= @organization.id %>">
+                                 <i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <span class="btn btn-default btn-file"><span class="fileupload-neww">Select file</span>
+                                  <%= f.file_field :landing_page_image, class: "upload-file check-image-size", "data-limit"=>"10", "data-check" => "landing-image"%>
+                                </span>
+                                <p><small class="file-size-error"></small></p>
+                              </div>
+                            </div>
+                            <div class="landing-page-validate error-color"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Logo image <a href="javascript:void(0)" class="tip"><img src="/assets/info.png"><span>Max upto 10 MB. ( File Type : jpeg, jpg, png )</span></a></label>
+                          <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="input-group fil-upload-group">
+                              <div class="form-control th-log-im">
+                                <span class="fileupload-preview logo-image-preview"><%= @organization.logo_identifier.truncate(20) if @organization.logo_identifier.present? %></span>
+                              </div>
+                              <div class="input-group-btn">
+                                <a class="btn btn-default fil-remove-file-logo <%= 'hide' unless @organization.logo_identifier.present? %>" href="javascript:void(0)" data-confirm="Are you really sure you want to delete?" data-id="<%= @organization.id %>">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                                 </a> 
+                                <span class="btn btn-default btn-file"><span class="fileupload-neww">Select file</span>
+                                  <%= f.file_field :logo, class: "upload-file check-image-size", "data-limit"=>"10", "data-check" => "logo-image" %>
+                                </span>
+                                <p><small class="file-size-error"></small></p>
+                              </div>
+                            </div>
+                            <div class="logo-validate error-color"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <%= f.submit "Submit", class: "hidden school-submit" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="step-tab-panel" id="tab2">
+            <div class="th-sc-su-header">
+              <ul class="list-inline">
+                <li class="sl-name-left"><%= "SCHOOL OF " + current_account.orgination_name  %></li>
+                <li class="sl-information-center">YOUR FIRST COURSE CREATION</li>
+                <li class="sl-admin-setup">Admin School Setup</li>
+              </ul>
+            </div>
+            <div class="first-course">
+              <div class="step-footer al-footer-only firs-cou-btn">
+                <div class="row-row">
+                  <div class="col-md-12-12">
+                    <button data-direction="prev" class="btn btn-space btn-primary  step-btn th-prev-btn">Previous</button>
+                    <button data-direction="next" class="btn btn-space btn-primary  step-btn th-next-btn">Next</button>
+                  </div>
+                </div>
+              </div>
+              <div id="first-course">
+                <%= render partial: "first_course", locals: {course: @course, teachers: @teachers} %>
+              </div>
+              
+            </div>
+          </div>
+          <div class="step-tab-panel" id="tab3">
+            <div class="th-sc-su-header">
+              <ul class="list-inline">
+                <li class="sl-name-left"><%= "SCHOOL OF " + current_account.orgination_name  %></li>
+                <li class="sl-information-center lesson-create-title">ADD LESSON AGAINST YOUR</li>
+                <li class="sl-information-center course-overview-title hide">YOUR FIRST COURSE OVERVIEW</li>
+                <li class="sl-information-center lesson-update-title hide">UPDATE LESSON</li>
+                <li class="sl-admin-setup">Admin School Setup</li>
+              </ul>
+            </div>
+            <div class="desktop-hidden">
+              <div class="row-row">
+                <div class="step-footer text-right-align <%= 'top-20' unless action_name == "show"%>">
+                  <% if SchoolSetupTooltip.last.try(:launch) %>
+                    <%= link_to "Back to Courses", schools_courses_path, class: "btn btn-space btn-secondary" %>
+                  <%end%>
+                  <button data-direction="prev" class="btn btn-space btn-primary step-btn th-prev-btn">Previous</button> 
+                  <% unless SchoolSetupTooltip.last.try(:launch) %>
+                    <button data-direction="next" class="btn btn-space btn-primary step-btn th-next-btn">Next</button> 
+                  <%end%>
+                </div>
+              </div>
+            </div>
+            <%= render "schools/lesson_next_and_prev" %>
+            <div id="first-lesson">
+              <%= render partial: "lesson", locals: {lesson: @lesson, teachers: @teachers, lessons: @lessons, course: @course} %>
+            </div>
+          </div>
+          <div class="step-tab-panel" id="tab4">
+            <div class="th-sc-su-header">
+              <ul class="list-inline">
+                <li class="sl-name-left"><%= "SCHOOL OF " + current_account.orgination_name  %></li>
+                <li class="sl-information-center ">ADD ACTIVITY AGAINST LESSON</li>
+                <li class="sl-admin-setup">Admin School Setup</li>
+              </ul>
+            </div>
+            <div class="desktop-hidden">
+              <div class="step-footer text-right-align  <%= 'top-20' unless action_name == "show"%>">
+                <% if SchoolSetupTooltip.last.try(:launch) %>
+                  <%= link_to "Back to Courses", schools_courses_path, class: "btn btn-space btn-secondary" %> 
+                <%end%>
+                <button data-direction="prev" class="btn btn-space btn-primary step-btn th-prev-btn">Previous</button> 
+                <% unless SchoolSetupTooltip.last.try(:launch) %>
+                  <button data-direction="next" class="btn btn-space btn-primary step-btn th-next-btn">Next</button>
+                <%end%>
+              </div>
+            </div>
+            <%= render "schools/activities_next_and_prev" %>
+            <div class="lesson-activities">
+              <%= render partial: "activities", locals: {course: @course,lesson: @lesson, teachers: @teachers} %>
+            </div>
+          </div>
+          <div class="step-tab-panel" id="tab5">
+            <div class="th-sc-su-header">
+              <ul class="list-inline">
+                <li class="sl-name-left"><%= "SCHOOL OF " + current_account.orgination_name  %></li>
+                <li class="sl-information-center">SELECT TEMPLATE FOR YOUR SCHOOL</li>
+                <li class="sl-admin-setup">Admin School Setup</li>
+              </ul>
+            </div>
+            <div class="th-temp-selection">
+              <div class="row">
+                <div class="col-md-8 col-xs-7 col-sm-8">
+                  <ul class="nav nav-pills list-inline-tabs">
+                    <li class="active"><a data-toggle="pill" href="#all">ALL</a></li>
+                    <li><a data-toggle="pill" href="#free">FREE</a></li>
+                    <li><a data-toggle="pill" href="#paid">PAID</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-4 col-xs-5 col-sm-4">
+                  <div class="step-footer al-footer-only firs-cou-btn">
+                    <button data-direction="prev" class="btn btn-space btn-primary step-btn th-prev-btn">Previous</button>
+                    <button data-direction="next" class="btn btn-space btn-primary step-btn th-next-btn">Next</button>
+                  </div>
+                </div>
+              </div>
+              <%= render partial: "client_templates", locals: {current_account: @current_account} %>
+            </div>
+          </div>
+          <div class="step-tab-panel" id="tab6">
+            <div class="th-sc-su-header">
+               <ul class="list-inline">
+                <li class="sl-name-left"><%= "SCHOOL OF " + current_account.orgination_name  %></li>
+                <li class="sl-information-center">CHOOSE A PLAN</li>
+                <li class="sl-admin-setup">Admin School Setup</li>
+              </ul>
+            </div>
+            <div class="th-temp-selection">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="step-footer al-footer-only firs-cou-btn">
+                    <button data-direction="prev" class="btn btn-space btn-primary step-btn th-prev-btn">Previous</button>
+                    <button data-direction="next" class="btn btn-space btn-primary step-btn th-next-btn">Next</button>
+                  </div>
+                </div>
+                <%= render partial: "plans", locals: {plans: @plans} %>
+              </div>
+              <p class="th-skip-plan">CONTENT HERE TO SKIP THIS STEP AND GO FOR 14 DAYS TRAIL VERSION</p>
+            </div>
+          </div>
+          <div class="step-tab-panel" id="tab7">
+            <div class="th-sc-su-header">
+              <span><%= "SCHOOL OF " + current_account.orgination_name  %></span>
+              <span class="th-tab-title">CHOOSE A PLAN</span>
+              <span class="th-tex-right">Admin School Setup</span>
+            </div>
+            <div class="step-footer al-footer-only firs-cou-btn">
+              <button data-direction="prev" class="btn btn-space btn-primary  step-btn ">Previous</button>
+              <%= link_to "Finish", schools_lessons_launch_path, method: :post, class: "btn btn-space btn-primary "%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="cus-boo-modal">
+  <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content"> 
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Template</h4>
+        </div>             
+        <div class="modal-body text-center">
+          <img src="" class="imagepreview">
+          <div class="modal-footer">
+            <button type="button" class="btn btn-space btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#demo1').steps({
+    onFinish: function () {
+    }
+  });
+  $('#demo2').steps({
+    showFooterButtons: false
+  });
+
+  $(function() {
+    $('.pop').on('click', function() {
+      var template_name = $('this').parent('.template-footer').find('.template-name').text()
+      console.log('template_name')
+      $('.imagepreview').attr('src', $('.popimage').find('img').attr('src'));
+      
+      $('#imagemodal').modal('show');   
+    });   
+  });
+  $(document).ready(function(){
+    $('.char-textarea').trigger("change");
+    <% if !OrganizationInformation.progress_bar_setup %>
+      $(".tab1").click();
+    <% elsif !Course.progress_bar_setup %>
+      $(".tab2").click();
+    <% elsif !Lesson.progress_bar_setup %>
+      $(".tab3").click();
+    <% elsif !Lesson.activity_progress_bar_setup %>
+      $(".tab4").click();
+    <% elsif !current_account.client_template_id.present? %>
+      $(".tab5").click();
+    <% elsif !current_user.current_active_plan.present? %>
+      $(".tab6").click();
+    <% elsif current_user.current_active_plan.present? %>
+      $(".tab7").click();
+    <% end %>
+  });
+
+
+  </script>
+

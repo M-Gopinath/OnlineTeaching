@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  note: MyText
+  notificable_type: MyString
+  notificable_id: 1
+  type: 
+
+two:
+  title: MyString
+  note: MyText
+  notificable_type: MyString
+  notificable_id: 1
+  type: 

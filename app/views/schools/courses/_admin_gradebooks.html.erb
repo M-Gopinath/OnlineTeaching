@@ -1,0 +1,58 @@
+<div class="box">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= @course.name %></h3>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body admin-grad-book">
+    <div id="table-scroll" class="table-scroll">
+      <div class="table-wrap">
+        <table class="main-table">
+          <tr>
+            <th class="fixed-side" scope="col">Student</th>
+            <% @course.lessons.each do |lesson| %>
+              <td scope="col"><div class="td-data"><%= lesson.name %> - <%= lesson.id %></div></td>
+            <% end %>
+          </tr>
+          <% @course.users.student.each.with_index(1) do |student, i| %>
+              <tr>
+                <th class="fixed-side" scope="col"><div class="td-data"><%= student.first_name %></div></th>
+                <% @course.lessons.each do |a| %>
+                  <td scope="col">
+                    <div class="td-data">
+                      <span>Completed:
+                        <%= get_lesson_completed_activity(student, a)%> of <%= get_lesson_activities_count(a) %>
+                      </span>
+                      <span class="pull-right badge"><%= get_all_activity_progress(get_lesson_completed_activity(student, a), get_lesson_activities_count(a)) %>%</span>
+                      <div class="progress progress-xs">
+                        <div class="progress-bar" style="width: <%= get_all_activity_progress(get_lesson_completed_activity(student, a), get_lesson_activities_count(a)) %>%"></div>
+                      </div>
+                      <div class="grade_info">
+                        Grade:<span class="pull-right badge"><%= get_all_activity_progress(get_all_graded_points_count(a, student), get_lesson_points_count(a))%>%</span>
+                        <%= get_all_graded_points_count(a, student) %>
+                        /<%= get_lesson_points_count(a) %>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar" style="width: <%= get_all_activity_progress(get_all_graded_points_count(a, student), get_lesson_points_count(a)) %>%"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- /.box-body -->
+  <div class="row">
+    <div class="flickr_pagination">
+      <%#= will_paginate @users, renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
+  });
+</script>

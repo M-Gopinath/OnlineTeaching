@@ -1,0 +1,34 @@
+
+<div class="chatboxhead"> 
+  <% if  @reciever.avatar.present? %> 
+    <%= image_tag  @reciever.avatar.url %>
+  <%else%>
+    <%= image_tag "person.png"%>
+  <%end%>
+  <p><%= @reciever.full_name %> </p>
+  <div class="chatboxoptions">
+    <%= link_to "<i class='fa  fa-minus'></i> ".html_safe, "#", class: "toggleChatBox", "data-cid" => @conversation.id %>
+    &nbsp;&nbsp;
+    <%= link_to "<i class='fa  fa-times'></i> ".html_safe, "#", class: "closeChat", "data-cid" => @conversation.id %>
+  </div>
+  <br clear="all"/>
+</div>
+<div class="chatboxcontent">
+  <% if @messages.any? %>
+      <%= render @messages %>
+  <% end %>
+</div>
+<div class="chatboxinput">
+  <%= form_for([@conversation, @message], html: {id: "conversation_form_#{@conversation.id}", remote: true}) do |f| %>
+    <%= f.text_area :body, class: "chatboxtextarea", "data-cid" => @conversation.id, placeholder: 'Type a message...' %>
+  <% end %>
+</div>
+
+
+<!-- <script type="text/javascript">
+  $('.chatboxtextarea').on('keyup input', function() { 
+$(this).css('height', 'auto').css('height', this.scrollHeight + (this.offsetHeight - this.clientHeight));
+});
+</script> -->
+
+

@@ -1,0 +1,26 @@
+<div class="container">
+  <p>
+    <strong>
+      Title:
+    </strong>
+    <%= @event.try(:title) %>
+  </p>
+  <p>
+    <strong>
+      Start Date:
+    </strong>
+    <%= @event.from_date.strftime("%d/%m/%Y") if @event.from_date.present? %>
+  </p>
+  <p>
+    <strong>
+      End Date:
+    </strong>
+    <%= @event.to_date.strftime("%d/%m/%Y") if @event.to_date.present? %>
+  </p>
+  <p>
+    <strong>
+      Description:
+    </strong>
+    <%= @event.try(:description) %>
+  </p>
+</div>

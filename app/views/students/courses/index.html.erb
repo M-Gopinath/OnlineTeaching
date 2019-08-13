@@ -1,0 +1,88 @@
+<div class="container" style="width: 100%">
+  <div class="row top-60">
+    <div class="col-sm-12 course-col-sm-12">
+      <div class="col-sm-12">
+        <div class="col-sm-5">
+         <div class="course_search_box">
+            <input type="text" id="user_name_email" value="" class="form-control search_user" placeholder="Search with Name or Email">
+          </div>
+        </div>
+
+        <div class="col-sm-7">
+          <div class="th-cus-pagination float-right">
+            <%= will_paginate @courses ,param_name: 'course', renderer: BootstrapPagination::Rails %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row-row-right">
+    <% @courses.each do |course| %>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="tile">
+          <div class="wrapper">
+            <div class="header">
+              <span class="course-title-left fon-weight-600">
+                  <%if course.name.present? %>
+                    <%= course.name.truncate(25) %>
+                  <%else%>
+                    -
+                  <%end%>
+                </span>
+              <span class="course-date-left">Date: <span class="fon-weight-600"><%= course.try(:start_date) %></span></span>
+              <p class="course-instructor">Instructor: <span class="fon-weight-600">Davit Fritch</span></p>
+            </div>
+            <div class="course-img">
+              <div class="course-inner-img enroll-course-link-<%= course.id %>">
+                <% if policy(course).own_course? %>                 
+                  <%= link_to students_course_path(course) do %>
+                    <%= image_tag course.course_images.last.present? && course.course_images.last.image.present? && course.course_images.last.image.url.present? ? course.course_images.last.image.url : "https://png.icons8.com/material-rounded/100/666666/picture.png" %>
+                  <%end%>
+                <%else%>
+                  <%= image_tag course.course_images.last.present? && course.course_images.last.image.present? && course.course_images.last.image.url.present? ? course.course_images.last.image.url : "https://png.icons8.com/material-rounded/100/666666/picture.png" %>
+                <%end%>
+              </div>
+            </div>
+            <div class="course-rating">
+             <div class="progress">
+                <div data-percentage="0%" style="width: 60%;" class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="footer">
+              <ul class="list-inline">
+                <li>
+                  <span><img src="https://img.icons8.com/ios-glyphs/20/FFB74D/star.png"></span> 
+                  <span>Grades : 10</span>
+                </li>
+                <li>
+                  <span><img src="https://img.icons8.com/ios-glyphs/22/346cb0/stopwatch.png"></span>
+                  <span>Due : 15</span>
+                </li>
+                <li>
+                  <span><img src="https://img.icons8.com/ios/20/1EC09F/high-priority-filled.png"></span>
+                  <span>Late : 20</span>
+                </li>
+                <li>
+                  <span><img src="https://img.icons8.com/ios-glyphs/20/607D8B/filled-chat.png"></span>
+                  <span>Discussion: 10</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="enroll-cour-btn enroll-course-<%= course.id %>" >
+            <% if course.user_enrolled(current_user) %>
+              <button class="btn btn-primary">Enrolled</button>
+            <% else %>
+              <%= link_to "Enroll", schools_courses_enroll_course_path(id: course.id), remote: true, class: "btn btn-success" %>
+            <% end %>
+          </div>
+        </div> 
+      </div>
+    <%end%>
+  </div>
+</div>
+
+

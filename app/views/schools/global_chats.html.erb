@@ -1,0 +1,55 @@
+<div class="row-row">
+  <div class="col-md-12">
+    <div class="col-md-9">
+      <div class="th-post">
+        <div class="th-textarea-wrapper">
+          <%= form_for @post, url: schools_posts_path, remote: true, multipart: true do |f| %>
+            <div class="form-group" style="margin-bottom: 8px;">
+              <%= f.hidden_field :parent_id, value: nil %>
+              <%= f.text_area :description, class: "form-control top-post-box", placeholder: "Write something here....", rows: 2, cols: 2 %>
+            </div>
+            <%= f.submit "Post", class: "btn btn-space btn-primary th-btn-share"%>
+            <%= f.fields_for :post_images, multiple: true do |p| %>
+              <%= p.file_field :image, class: "image-upload hide" %>
+              <%= p.file_field :video, class: "video-upload hide" %>
+              <%= p.file_field :audio, class: "audio-upload hide" %>
+              <span class="att-lef-text image-upload-btn">
+                <img src="https://img.icons8.com/ios-glyphs/18/aaaaaa/image.png"><span>Image</span>
+              </span>
+             <span class="att-lef-text video-upload-btn">
+              <img src="https://img.icons8.com/ios/18/aaaaaa/video-call-filled.png"><span>Video</span> 
+            </span>
+             <span class="att-lef-text audio-upload-btn">
+              <img src="https://img.icons8.com/ios-glyphs/18/aaaaaa/speaker.png"><span>Audio</span>
+            </span>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="col-md-12" style="padding-left: 0px;background: #f5f6f7">
+          <div class="image-preview">
+          </div>
+          <div class="video-preview">
+          </div>
+          <div class="audio-preview">
+          </div>
+        </div>
+         <div class="user-overflow-scroll">
+          <div id="user-posts">
+            <%= render partial:  @posts %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 course-direct-chat post-course-directchat">
+      <div class="direct-chat">
+        <div class="th-not-items">
+          <div class=" th-cus-panel">
+            <div id="user-widget" class="course-widget">
+              <%= render partial: "schools/users_widget", locals: {admins: User.admin, teachers: User.teacher, students: User.student} %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

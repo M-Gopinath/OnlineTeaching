@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="row">
+		<div class="th-ann-div">
+			<h4 class="ann-h4"><span>Notifications</span></h4>
+			<div class="an-details">
+				<% if @notifications.count > 0 %>
+					<% @notifications.sort_by{|t| t[:created_at]}.each do |announcement| %>
+						<% if announcement.class.name == "Announcement" %>
+						  <%= link_to schools_announcements_path, class: 'dropdown-item' do %>
+						    <%= image_tag announcement.user.avatar.present? ? announcement.user.avatar_url : "/assets/person.png", width: "15px;" %>
+						    <p><%= "#{announcement.message}" %></p>
+						    <% unless current_user.notification_activities.find_by(notification_id: announcement.id).present? %><span class="unread_announcement"></span><%end%>
+						    <p><%= "#{distance_of_time_in_words(Time.now, announcement.updated_at)}" %></p>
+						  <%end%>
+						<% elsif announcement.class.name == "Mailboxer::Conversation" %>
+							<%= link_to schools_conversation_path(announcement), class: 'dropdown-item' do %>
+						    <%= image_tag announcement.messages.last.sender.avatar.present? ? announcement.messages.last.sender.avatar_url : "/assets/person.png", width: "15px;" %>
+						    <p><%= "#{announcement.messages.last.body}" %></p>
+						    <span class="unread_announcement"></span>
+						    <p><%= "#{distance_of_time_in_words(Time.now, announcement.updated_at)}" %></p>
+						  <%end%>
+					  <%end%>
+					<%end%>
+				<%else%>
+					<%= link_to "No notifications!", "javascript:void(0);", class: "dropdown-item"  %>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>/

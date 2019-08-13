@@ -1,0 +1,33 @@
+<div class="modal fade" id="new_self_event">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Create New Event</h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for @event do |f| %>
+          <div class="form-inputs">
+            <%= f.input :title, required: true %>
+            <%= f.input_field :created_by, as: :hidden, value: current_user.id %>
+            <%= f.input :date_range, input_html: { class: "form-control input-sm date-range-picker" } %>
+            <%= f.input_field :from_date, as: :hidden, value: Date.today, class: 'form-control input-sm start_hidden' %>
+            <%= f.input_field :to_date, as: :hidden, value: Date.today, class: 'form-control input-sm end_hidden' %>
+            <%#= f.input :color, as: :select, collection: [['Black','black'], ['Green','green'], ['Red','red']], prompt: "Select Color" %>
+            <%= f.input :description, as: :text %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit %>
+            <%= link_to 'Delete', 
+                        @event, 
+                        method: :delete, 
+                        class: 'btn btn-danger', 
+                        data: { confirm: 'Are you sure?' }, 
+                        remote: true unless @event.new_record? %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

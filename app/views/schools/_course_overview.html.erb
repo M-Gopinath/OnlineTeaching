@@ -1,0 +1,107 @@
+<div class="course-h-4 curse-details">
+  <h4><span class="title-inst space-le-ri">Course Name</span><%= course.try(:name).present? ?  course.try(:name) : '-' %></h4>
+  <h4><span class="title-inst space-le-ri">Course Subtitle</span><%= course.try(:subtitle).present? ? course.try(:subtitle) : '-' %></h4>
+  <h4> <span class="title-inst space-le-ri">Instructor</span><%=User.admin.first.full_name.to_s.titleize%></h4>
+
+  <h4> <span class="title-inst">Course Description</span> <br> <span class="font-1-3"><%= course.try(:description).present? ? course.try(:description) : '-' %></span></h4> 
+  <% if course.try(:objectives).present? %>
+    <h4> <span class="title-inst">Course Object</span> <br> <span class="font-1-3"><%= course.try(:objectives).present? ? course.try(:objectives) : '-' %></span></h4>
+  <%end%>
+</div>
+
+<div class="course-document">
+  <p class="title-inst" style="margin-top: 5px;">Documents</p> 
+  <div class="row" style="margin-left: -9px;">
+  <% course.lessons.each do |lesson| %>
+    <% if lesson.video_activities.present? %>
+      <% lesson.video_activities.each do |va| %>
+        <% if va.video.path.present? %>
+          <div class="col-sm-12">
+            <h4 class="preview-title">Video Preview</h4>
+            <div class="upload-videos">
+              <video width="100%" height="375" controls  class="controls border-radius-3">
+               <source src="<%= va.video.url %>" type="video/mp4" >
+               Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        <%end%>
+
+        <% if va.embedded_video.present? %>
+         <div class="col-sm-12">
+            <div class="close-prewiew-r"> 
+              <h4 class="preview-title">Embedded Video Preview</h4>
+              <div class="upload-videos">
+                <iframe width="100%" frameborder="0" height="325px;"  class="border-radius-3" style="border:0" src="<%= va.embedded_video %>" allowfullscreen style="float: left"></iframe>
+              </div>
+            </div>
+          </div>
+          <%end%>
+      <% end %>
+    <% end %>
+
+    <% if lesson.audio_activities.present? %>
+      <% lesson.audio_activities.each do |aa| %>
+        <% if aa.audio_file.path.present? %>
+          <div class="col-sm-12">
+            <%= link_to aa.audio_file.url , target: "_blank" do %>
+              <h4 class="preview-title">Activity Audio</h4>
+              <div class="audio-image-r">
+                <img src="https://img.icons8.com/ios/100/878787/room-sound-filled.png">
+              </div>
+              <audio width="100%" height="140" controls>
+                <source src="<%= aa.audio_file.url %>" type="audio/ogg">Your browser does not support the audio tag.
+              </audio>
+            <%end%>
+          </div>
+        <% end %>
+
+        <% if aa.embedded_audio.present? %>
+          <div class="col-sm-12">
+            <%= link_to aa.embedded_audio , target: "_blank" do %>
+              <h4 class="preview-title">Activity Embedded Audio</h4>
+              <div class="close-prewiew-r"> 
+                <div class="audio-image-r">
+                  <img src="https://img.icons8.com/ios/100/878787/room-sound-filled.png">
+                </div>
+                <audio width="100%" height="140" controls><source src="<%= aa.embedded_audio%>" type="audio/ogg">Your browser does not support the audio tag.</audio>
+              </div>
+            <%end%>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if lesson.presentation_activities.present? %>
+      <% lesson.presentation_activities.each do |pa| %>
+        <% if pa.file_attachment.path.present? %>
+          <div class="col-sm-12">
+            <%= link_to pa.file_attachment.url, target: "_blank" do %>
+              <h4 class="preview-title">File Attachment Preview</h4>
+              <div class="upload-videos">
+                <iframe src="http://docs.google.com/gview?url=<%= pa.file_attachment.url %>&embedded=true" width="100%" height="600px;"></iframe>
+              </div>
+            <%end%>
+          </div>
+        <%end%>
+
+        <% if pa.slide_file.present? %>
+          <div class="col-sm-12">
+             <%= link_to pa.slide_file, target: "_blank" do %>
+              <div class="close-prewiew-r"> 
+                <h4 class="preview-title">Slide File Preview</h4>
+                <div class="upload-videos">
+                  <iframe src="http://docs.google.com/gview?url=<%= pa.slide_file %>&embedded=true" width="100%" height="600px"></iframe>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        <%end%>
+      <% end %>
+    <% end %>
+  <% end %>
+  </div>
+</div>
+
+
+

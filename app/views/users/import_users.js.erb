@@ -1,0 +1,8 @@
+$(".import-error-message").html("");
+<% if @import[0] != "Import successfully updated" %>
+  <% @import.flatten.each do |error|%>
+    $(".import-error-message").append("* <%= error %><br>");
+  <% end %>
+<% else %>
+  location.reload();
+<% end %>

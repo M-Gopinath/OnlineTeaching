@@ -1,0 +1,136 @@
+.th-ma-banner{
+    height: 220px;
+    border-radius: 3px;
+    position: relative;
+    padding: 1rem 1rem 1rem;
+    display: -ms-flexbox;
+    display: flex;
+    min-height: 16rem;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background-color: #e6e8ed;
+    background-size: cover;
+    background-position: 50%;
+    box-shadow: 0 1px 0 rgba(34,34,48,.1);
+  }
+
+  .th-ma-banner img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  
+  .th-update-banner{
+        width: 200px;
+    height: 165px;
+    overflow: hidden;
+    border-radius: 3px;
+    border: 1px solid #fafafa;
+    margin-top: -85px;
+    margin-left: 18px;
+    background: #fafafa;
+  }
+  
+  .th-update-banner img {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: top;
+    object-position: top;
+  }
+
+  .th-ma-update, .th-ma-update:hover, .th-ma-update:active, .th-ma-update:focus {
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  .th-ad-ma-f{
+    margin-top: 5px;
+    margin-bottom: 25px;
+    width: 85%;
+  }
+  .th-sel-cours{
+    height:32px;
+  }
+
+  .top-60{
+    margin-top: 35px !important;
+  }
+
+  .marketing-temp h3 {
+    padding: 3px 0px 0px 6px;
+    margin-bottom: 0px;
+    font-weight: 400;
+    font-size: 1.200rem;
+  }
+
+  .profile-update-btn{
+    margin-top: 25px;
+    text-align: center;
+    margin-left: 38%;
+  }
+  .profile-update-btn .btn {
+    padding: 3px 55px;
+  }
+
+
+.profile-cover{
+  height: 220px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+}
+
+.background-cover .avatar-upload {
+  max-width: initial;
+  margin: 0;
+
+}
+
+.background-cover #CoverimagePreview{
+  border-radius: 0px;
+}
+
+ .background-cover .avatar-preview{
+  height: 210px !important;
+  border-radius: 0px !important;
+  border: 1px solid #F8F8F8 !important;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1) !important;
+}
+
+
+.label-edit-ali{
+  right: 21px !important;
+  top: 8px !important;
+}
+
+
+.th-update-banner{
+  margin-left: 42%;
+}
+
+.mar-auto-90 {
+  width: 96.5%;
+  margin: auto;
+}

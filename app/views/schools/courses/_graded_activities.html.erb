@@ -1,0 +1,88 @@
+<div class="panel-group" id="accordion">
+  <% activities.uniq.each.with_index do |activity,index| %>
+    <div class="course-act-name">
+      <div class="course-name">
+        <span class="font-weight-text">Course Name </span> - <span><%= activity.lesson.course.name %></span>
+      </div>
+      <div class="lesson-name">
+        <span class="font-weight-text">Lesson Name </span> - <span><%= activity.lesson.name %></span>
+      </div>
+    </div>
+
+    <% if activity.activity_questions.includes(:student_answers).present? %>
+      <div class="panel panel-default each-grade-details" style="margin-bottom: 10px;">
+        <div class="panel-heading accordion-heading">
+          <h4 class="panel-title panel-inside-table">
+            <a data-toggle="collapse" data-parent="#accordion" href="#<%= type %>-<%= activity.id %>-<%= index %>" class="accordion-toggle">
+              <table class="table">
+                <tbody>
+                  <tr>
+                     <td><%= "#{activity.class.name.titleize} -  #{activity.name} - (#{answer_counts(activity)})" %></td>
+                     <td><%= "Total Points -  #{activity.activity_points}" %></td>
+                     <td><span class="fa fa-angle-down"></span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </a>
+          </h4>
+        </div>
+        <div id="<%= type %>-<%= activity.id %>-<%= index %>" class="panel-collapse collapse">
+          <% activity.activity_questions.each do |question| %>
+
+            <% if question.student_answers.present? %>
+              <% ind = 0 %>
+              <% index = 0 %>
+              <% question.student_answers.each_with_index do |answer| %>
+                <% grade_activity = answer.check_grade_activity(activity, type) %>
+                  <% if grade_activity.present? %>
+                    <% if index == 0 %>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th width="82%">Question</th>
+                            <th>Actual Points</th>
+                          </tr>
+                        </thead>
+                        <% point = activity.activity_points.to_f/activity.activity_questions.count.to_f %>
+                        <tbody>
+                          <tr>
+                             <td><%= question.name %></td>
+                             <td><%= point %></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    <% end %>
+                    <div class="grade-header grade-show">
+                      <div class="th-ad-user">
+                        <ul class="list-inline user-list-inline">
+                          <li class="answer-text"><%= answer.name %></li>
+                          <li class="pull-right"><span class="dark-light-text">Student Name </span>- <%= answer.user.full_name %></span></li>
+                        </ul>
+                        <div class="grade-header grade-show">
+                          <div class="grade_activity text-center" style="padding-top: 15px;">
+                            <div class="center-top-bottom"><span class="font-weight">Grade Activity - </span><span class="font-normal"><%= grade_activity.grade %></span></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% index =+ 1 %>
+                    <% ind =+ 1 %>
+                  <% end %>
+                <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('.collapse').on('shown.bs.collapse', function(){
+    $(this).parent().find(".fa-angle-up").removeClass("fa-angle-up").addClass("fa-angle-down");
+    }).on('hidden.bs.collapse', function(){
+    $(this).parent().find(".fa-angle-down").removeClass("fa-angle-down").addClass("fa-angle-up");
+  });
+});
+</script>

@@ -1,0 +1,2 @@
+module Schools::LessonsHelper
+end
